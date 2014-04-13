@@ -1,7 +1,7 @@
 search-app
 ==========
 
-A very simple keyword search application built on top of apache lucene.
+A very simple search application built on top of apache lucene.
 
 <p>Example using curl if your service is deployed under tomcat using 8080 port:</p>
 
