@@ -8,8 +8,7 @@ public class SearchServiceImpl implements SearchService{
 
 	@Override
 	public SearchResponse search(SearchRequest searchRequest) {
-		// TODO Auto-generated method stub
-		return null;
+		return new SearchResponse();
 	}
 
 }
