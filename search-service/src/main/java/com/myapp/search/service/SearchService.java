@@ -13,14 +13,14 @@ import com.myapp.search.domain.SearchResponse;
  * Simple interface for search
  * 
  * @author Jay Paulynice
- *
+ * 
  */
 @Path("v1")
-@Consumes({MediaType.APPLICATION_JSON })
-@Produces({MediaType.APPLICATION_JSON })
+@Consumes({ MediaType.APPLICATION_JSON })
+@Produces({ MediaType.APPLICATION_JSON })
 public interface SearchService {
-	
-    @POST
-    @Path("search")
+
+	@POST
+	@Path("search")
 	public SearchResponse search(SearchRequest searchRequest);
 }

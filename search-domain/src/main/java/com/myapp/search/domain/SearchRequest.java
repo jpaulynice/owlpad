@@ -6,7 +6,6 @@ package com.myapp.search.domain;
  *
  */
 public class SearchRequest {
-	//private SearchCriteria searchCriteria;
 	private String keyWord;
 	
 	public SearchRequest(){
