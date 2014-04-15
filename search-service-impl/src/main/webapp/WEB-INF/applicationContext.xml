@@ -36,5 +36,5 @@
 			<ref bean="jsonProvider"/>
 		</jaxrs:providers>
     </jaxrs:server>
-    <bean id="searchService" class="com.myapp.search.service.impl.SearchServiceImpl"/>
+    <bean id="searchService" class="com.searchapp.search.service.impl.SearchServiceImpl"/>
 </beans>
