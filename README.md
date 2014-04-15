@@ -1,13 +1,30 @@
 search-app
 ==========
 
-A very simple search application built on top of apache lucene.
+A very simple search application built on top of apache lucene.  This is a work in progress.  I expect to complete all code in a couple weeks.  I will try to document this as much as possible as well.
 
-<p>Example using curl if your service is deployed under 'searchApp' in tomcat using 8080 port:</p>
+Projects in this repository: 
+
+<ul>
+<li><b>search-app</b>: the web application</li>
+<li><b>search-service</b>: the api (set of interfaces)</li>
+<li><b>search-domain</b>: domain objects shared by the api, service and the client (web-app)</li>
+<li><b>search-service-impl</b>: search service implementation.  Application can be deployed under any server container.</li>
+</ul>
+
+
+Steps to work:
+
+1. clone repo
+2. import projects in eclipse
+3. run "mvn clean install" in this order: search-domain, search-service, search-service-impl, and search-app.
+4. locate target folders and deploy war file for search-app and search-service-impl in tomcat
+
+<p>To test the service as an app deployed under tomcat in 'searchService' using port 8080:</p>
 
 <pre>curl -X POST -H 'Content-Type: application/json' -d 
 '{
   "keyWord": "java"
 }' 
-'http://localhost:8080/searchApp/api/v1/search'
+'http://localhost:8080/searchService/api/v1/search'
 </pre>
