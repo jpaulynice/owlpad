@@ -1,9 +1,8 @@
-package com.searchapp.web;
+package com.searchapp.ui.web;
 
 import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,14 +12,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.searchapp.search.domain.SearchRequest;
 import com.searchapp.search.domain.SearchResponse;
+import com.searchapp.ui.repository.SearchRepository;
 
 /**
- * Handles requests for the application home page.
+ * Handles request for home page and application ajax calls to fetch and load data.
+ * 
+ * @author Jay Paulynice
+ *
  */
 @Controller
 public class HomeController {
+	private SearchRepository searchRepository;
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	@Autowired
+	public HomeController(SearchRepository searchRepository){
+		this.searchRepository = searchRepository;
+	}
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -38,7 +45,6 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/search", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public @ResponseBody SearchResponse search(@RequestBody SearchRequest searchRequest){
-		return new SearchResponse();
+		return searchRepository.search(searchRequest);
 	}
-	
 }

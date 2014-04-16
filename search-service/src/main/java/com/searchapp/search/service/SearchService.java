@@ -20,6 +20,12 @@ import com.searchapp.search.domain.SearchResponse;
 @Produces({ MediaType.APPLICATION_JSON })
 public interface SearchService {
 
+	/**
+	 * Method to search for documents.
+	 * 
+	 * @param searchRequest
+	 * @return
+	 */
 	@POST
 	@Path("search")
 	public SearchResponse search(SearchRequest searchRequest);

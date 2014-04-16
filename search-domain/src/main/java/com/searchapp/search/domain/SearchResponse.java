@@ -3,7 +3,11 @@ package com.searchapp.search.domain;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
+/**
+ * 
+ * @author Jay Paulynice
+ *
+ */
 @XmlRootElement(name = "searchResponse")
 public class SearchResponse {
 	private StatusType status;

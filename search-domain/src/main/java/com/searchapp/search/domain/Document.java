@@ -1,5 +1,11 @@
 package com.searchapp.search.domain;
 
+/**
+ * A document is simply a file that can be in different formats.
+ * 
+ * @author Jay Paulynice
+ *
+ */
 public class Document {
 	private int docId;
 	private String docTitle;

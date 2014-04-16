@@ -4,6 +4,11 @@ import com.searchapp.search.domain.SearchRequest;
 import com.searchapp.search.domain.SearchResponse;
 import com.searchapp.search.service.SearchService;
 
+/**
+ * 
+ * @author Jay Paulynice
+ *
+ */
 public class SearchServiceImpl implements SearchService {
 
 	@Override
