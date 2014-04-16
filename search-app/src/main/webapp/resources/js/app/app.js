@@ -11,4 +11,4 @@ SearchApp.addRegions({
 	mainRegion : ".page-wrapper"
 });
 
-JodiSoftApp.start();
+SearchApp.start();
