@@ -24,7 +24,8 @@ Steps to work:
 
 <pre>curl -X POST -H 'Content-Type: application/json' -d 
 '{
-  "keyWord": "java"
+  "keyWord": "java",
+  "maxHits": 10
 }' 
 'http://localhost:8080/searchService/api/v1/search'
 </pre>
