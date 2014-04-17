@@ -41,8 +41,7 @@ public class SearchServiceImpl implements SearchService {
 	public SearchResponse search(SearchRequest searchRequest) throws Exception {
 
 		// will need to specify index directory for searching...this is just an
-		// example
-		// since i have it already.
+		// example since i have it already.
 		File indexDir = new File("/Users/julespaulynice/Documents/search/index");
 		Directory directory = FSDirectory.open(indexDir);
 
