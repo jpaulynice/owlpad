@@ -7,6 +7,7 @@ package com.searchapp.search.domain;
  */
 public class SearchRequest {
 	private String keyWord;
+	private int maxHits;
 	
 	public SearchRequest(){
 		
@@ -18,6 +19,20 @@ public class SearchRequest {
 
 	public void setKeyWord(String keyWord) {
 		this.keyWord = keyWord;
+	}
+
+	/**
+	 * @return the maxHits
+	 */
+	public int getMaxHits() {
+		return maxHits;
+	}
+
+	/**
+	 * @param maxHits the maxHits to set
+	 */
+	public void setMaxHits(int maxHits) {
+		this.maxHits = maxHits;
 	}
 
 }

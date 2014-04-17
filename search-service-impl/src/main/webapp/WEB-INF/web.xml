@@ -24,6 +24,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>cxf</servlet-name>
-    <url-pattern>searchService/api/*</url-pattern>
+    <url-pattern>api/*</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -27,6 +27,13 @@ public class SearchRepository {
 	 * @return
 	 */
 	public SearchResponse search(SearchRequest searchRequest){
-		return searchService.search(searchRequest);
+		SearchResponse response = new SearchResponse();
+		try {
+			searchService.search(searchRequest);
+		} catch (Exception e) {
+			//log error
+		}
+		
+		return response;
 	}
 }
