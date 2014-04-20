@@ -1,3 +1,7 @@
+### Status
+[![Build Status](https://travis-ci.org/julesbond007/search-app.svg)](https://travis-ci.org/julesbond007/search-app)
+
+
 search-app
 ==========
 
