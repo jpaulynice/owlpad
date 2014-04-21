@@ -8,7 +8,7 @@
         <artifactId>search-app-parent</artifactId>
         <version>1.0</version>
    </parent>
-	<artifactId>search-app-parent</artifactId>
+	<artifactId>search-app</artifactId>
 	<name>search-app</name>
 	<packaging>war</packaging>
 	<properties>
