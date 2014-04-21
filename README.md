@@ -1,7 +1,7 @@
 search-app
 ==========
 
-### Status
+###Travis CI Status
 [![Build Status](https://travis-ci.org/julesbond007/search-app.svg)](https://travis-ci.org/julesbond007/search-app)
 
 A very simple search application built on top of apache lucene.  This is a work in progress.  I expect to complete all code in a couple weeks.  I will try to document this as much as possible as well.
@@ -18,9 +18,9 @@ Projects in this repository:
 
 Steps to work:
 
-1. clone repo
+1. clone repo (git clone https://github.com/julesbond007/search-app.git)
 2. import projects in eclipse
-3. run "mvn clean install" in this order: search-domain, search-service, search-service-impl, and search-app.
+3. run "mvn clean install"
 4. locate target folders and deploy war file for search-app and search-service-impl in tomcat
 
 <p>To test the service as an app deployed under tomcat in 'searchService' using port 8080:</p>
