@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+    xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+        http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd">
+    <annotation-driven />
+   	<resources mapping="/resources/**" location="/resources/" />
+	<context:component-scan base-package="com.searchapp.ui.web" />
+    
+    <beans:import resource="classpath:META-INF/cxf/cxf.xml" />
+    <beans:import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+    
+	<context:property-placeholder location="classpath:/META-INF/properties/service.properties"/>
+	 
+	<beans:bean id="searchRepository" class="com.searchapp.ui.repository.SearchRepository">
+		<beans:constructor-arg><beans:ref bean="searchService"/></beans:constructor-arg>
+	</beans:bean>
+	
+	<jaxrs:client id="searchService"
+       address="${serviceUrl}"
+       serviceClass="com.searchapp.search.service.SearchService"
+       inheritHeaders="true">
+       <jaxrs:headers>
+           <entry key="Accept" value="application/json"/>
+       </jaxrs:headers>
+	</jaxrs:client>	
+	
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+		
+</beans:beans>
