@@ -1,7 +1,10 @@
 package com.searchapp.ui.web;
 
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +28,17 @@ public class SearchController {
 	@Autowired
 	public SearchController(SearchRepository searchRepository){
 		this.searchRepository = searchRepository;
+	}
+	
+	/**
+	 * 
+	 * @param locale
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String search(Locale locale, Model model) {
+		return "search";
 	}
 	
 	/**
