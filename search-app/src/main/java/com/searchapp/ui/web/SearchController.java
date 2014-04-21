@@ -1,10 +1,7 @@
 package com.searchapp.ui.web;
 
-import java.util.Locale;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,23 +12,29 @@ import com.searchapp.search.domain.SearchResponse;
 import com.searchapp.ui.repository.SearchRepository;
 
 /**
- * Handles request for home page and application.
+ * Handles request for search
  * 
  * @author Jay Paulynice
  *
  */
 @Controller
-public class HomeController {	
+@RequestMapping(value="search")
+public class SearchController {
+	private SearchRepository searchRepository;
+	
 	@Autowired
-	public HomeController(){
-		
+	public SearchController(SearchRepository searchRepository){
+		this.searchRepository = searchRepository;
 	}
 	
 	/**
-	 * Simply selects the home view to render by returning its name.
+	 * Search end point
+	 * 
+	 * @param searchRequest
+	 * @return
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		return "home";
+	@RequestMapping(value = "/", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public @ResponseBody SearchResponse search(@RequestBody SearchRequest searchRequest){
+		return searchRepository.search(searchRequest);
 	}
 }
