@@ -5,7 +5,9 @@ define([
         'marionette'
     ], function($,_,Backbone,Marionette) {
 
-	EventManager = _.extend({}, Backbone.Events);
+	var searchModel = Backbone.Model.extend({
+		
+	});
     
-    return EventManager;
+    return searchModel;
 });

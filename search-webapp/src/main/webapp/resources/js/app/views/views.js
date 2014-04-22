@@ -5,7 +5,9 @@ define([
         'marionette'
     ], function($,_,Backbone,Marionette) {
 
-	EventManager = _.extend({}, Backbone.Events);
+	var view = Backbone.Marionette.ItemView.extend({
+		
+	});
     
-    return EventManager;
+    return view;
 });
