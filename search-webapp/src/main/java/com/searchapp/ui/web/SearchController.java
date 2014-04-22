@@ -21,7 +21,7 @@ import com.searchapp.ui.repository.SearchRepository;
  *
  */
 @Controller
-@RequestMapping(value="search")
+@RequestMapping(value = "/search")
 public class SearchController {
 	private SearchRepository searchRepository;
 	
@@ -36,7 +36,7 @@ public class SearchController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public String search(Locale locale, Model model) {
 		return "search";
 	}
@@ -47,7 +47,7 @@ public class SearchController {
 	 * @param searchRequest
 	 * @return
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@RequestMapping(method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public @ResponseBody SearchResponse search(@RequestBody SearchRequest searchRequest){
 		return searchRepository.search(searchRequest);
 	}

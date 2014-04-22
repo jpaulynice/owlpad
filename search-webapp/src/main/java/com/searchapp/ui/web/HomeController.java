@@ -22,7 +22,6 @@ import com.searchapp.ui.repository.SearchRepository;
  */
 @Controller
 public class HomeController {	
-	@Autowired
 	public HomeController(){
 		
 	}
