@@ -8,8 +8,8 @@
         <artifactId>search-app-parent</artifactId>
         <version>1.0</version>
    </parent>
-	<artifactId>search-app</artifactId>
-	<name>search-app</name>
+	<artifactId>search-webapp</artifactId>
+	<name>search-webapp</name>
 	<packaging>war</packaging>
 	<properties>
 		<java-version>1.7</java-version>
