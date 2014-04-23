@@ -1,7 +1,10 @@
 package com.searchapp.search.domain;
 
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  * 
@@ -9,6 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement(name = "searchResponse")
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class SearchResponse {
 	private StatusType status;
 	private List<Document> documents;

@@ -8,18 +8,21 @@ require.config({
     underscore: 'vendor/underscore',
     handlebars: 'vendor/handlebars',
     backbone: 'vendor/backbone',
-    marionette: 'vendor/backbone.marionette.min',
+    marionette: 'vendor/backbone.marionette.min'
   },
   
   shim : {
 	    jquery : {
 	      exports : '$'
 	    },
+	    json2 : {
+		      exports : 'JSON'
+		},
 	    underscore : {
 	      exports : '_'
 	    },
 	    backbone : {
-	      deps : ['jquery', 'underscore'],
+	      deps : ['jquery', 'json2', 'underscore'],
 	      exports : 'Backbone'
 	    },
 	    marionette : {

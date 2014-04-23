@@ -21,6 +21,7 @@ import com.searchapp.search.service.SearchService;
 
 import org.apache.lucene.util.QueryBuilder;
 import org.apache.lucene.util.Version;
+import org.springframework.stereotype.Service;
 
 /**
  * {@link SearchService} implementation.
@@ -28,6 +29,7 @@ import org.apache.lucene.util.Version;
  * @author Jay Paulynice
  * 
  */
+@Service("searchService")
 public class SearchServiceImpl implements SearchService {
 
 	/*

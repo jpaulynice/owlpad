@@ -5,8 +5,9 @@ define([
         'jquery',
         'underscore',
         'backbone',
-        'marionette'
-    ], function($,_,Backbone,Marionette) {
+        'marionette',
+        'app/controllers/controller'
+    ], function($,_,Backbone,Marionette, SearchController) {
 
 	SearchApp = new Backbone.Marionette.Application();
 
@@ -15,6 +16,9 @@ define([
     	sideBar: ".sidebarNav",
     	mainRegion : ".page-wrapper"
     });
+    
+    var searchController = new SearchController();
+    searchController.search({keyWord:'java',maxHits:20});
     
     return SearchApp;
 });

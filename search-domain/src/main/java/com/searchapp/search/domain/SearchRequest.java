@@ -1,10 +1,16 @@
 package com.searchapp.search.domain;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * 
  * @author Jay Paulynice
  *
  */
+@XmlRootElement(name = "searchRequest")
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class SearchRequest {
 	private String keyWord;
 	private int maxHits;

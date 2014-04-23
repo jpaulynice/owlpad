@@ -26,7 +26,9 @@
         </cxf:features>
     </cxf:bus>
     	
-    <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
+    <bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.JSONProvider">
+    	<property name="dropRootElement" value="true" />
+    </bean>
 		
     <jaxrs:server id="restContainer" address="/">
         <jaxrs:serviceBeans>

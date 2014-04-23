@@ -32,12 +32,13 @@
        inheritHeaders="true">
        <jaxrs:headers>
            <entry key="Accept" value="application/json"/>
+           <entry key="ContentType" value="application/json"/>
        </jaxrs:headers>
+       
 	</jaxrs:client>	
 	
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-		
 </beans:beans>
