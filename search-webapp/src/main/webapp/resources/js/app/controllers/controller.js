@@ -2,9 +2,19 @@
  * Simple controller to manage our views and models
  * 
  */
-SearchAppController = Backbone.Marionette.Controller.extend({
-	initialize: function(options){
+define([
+        'jquery',
+        'underscore',
+        'backbone',
+        'marionette'
+    ], function($,_,Backbone,Marionette) {
+
+	SearchAppController = Backbone.Marionette.Controller.extend({
+		initialize: function(options){
+			
+		}
 		
-	}
-	
+	});
+    
+    return SearchAppController;
 });

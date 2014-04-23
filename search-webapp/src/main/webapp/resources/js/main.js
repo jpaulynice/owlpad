@@ -1,7 +1,6 @@
 /**
  * Application configuration with shortcut alias
  */
-
 require.config({
   paths: {
     jquery: 'vendor/jquery',

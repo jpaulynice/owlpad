@@ -31,6 +31,7 @@ public class SearchController {
 	}
 	
 	/**
+	 * Returns search page
 	 * 
 	 * @param locale
 	 * @param model

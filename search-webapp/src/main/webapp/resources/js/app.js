@@ -8,7 +8,7 @@ define([
         'marionette'
     ], function($,_,Backbone,Marionette) {
 
-	SearchApp = new Marionette.Application();
+	SearchApp = new Backbone.Marionette.Application();
 
     SearchApp.addRegions({
     	header: ".navbar-fixed-top",

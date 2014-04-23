@@ -1,3 +1,7 @@
+
+/**
+ * Modularized event bus for our application.
+ */
 define([
         'jquery',
         'underscore',
