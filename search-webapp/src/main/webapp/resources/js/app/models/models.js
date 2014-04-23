@@ -1,9 +1,8 @@
 define([
         'jquery',
         'underscore',
-        'backbone',
-        'marionette'
-    ], function($,_,Backbone,Marionette) {
+        'backbone'
+    ], function($,_,Backbone) {
 
 	var searchModel = Backbone.Model.extend({
 		
