@@ -11,24 +11,5 @@
 			<div class="content">
 			</div>
 		</div>
-		<script type="text/x-handlebars-template" id="gridView">
-	<thead>        
-    	<tr>
-			{{#each headers}}
-      			<th>{{this}}</th>
-			{{/each}}
-      	</tr>
-   	 </thead>
-    <tbody></tbody>
-	<tfooter></tfooter>
-	</script>
-	
-	<script type="text/x-handlebars-template" id="rowView">
-	{{#each tableRow}}
-		<td>
-			{{this}}
-        </td>
-	{{/each}}
-</script>
 </body>
 </html>

@@ -4,26 +4,23 @@
  * @param data
  * @returns ajax calls
  */
-define([
-        'jquery',
-        'json2',
-    ], function($,JSON) {
+define([ 'jquery', 'json2', ], function($, JSON) {
 
-	ajaxEntities = function(data){
-		
+	ajaxEntities = function(data) {
+
 		/**
 		 * Call the search endpoint
 		 */
-		this.search = function(data){		
+		this.search = function(data) {
 			return $.ajax({
-				method: "POST",
-			    data: JSON.stringify(data),
-			    dataType: "json",
-			    contentType: "application/json",
-			    url: "/searchApp/search"
+				method : "POST",
+				data : JSON.stringify(data),
+				dataType : "json",
+				contentType : "application/json",
+				url : "/searchApp/search"
 			});
 		};
 	};
-    
-    return ajaxEntities;
+
+	return ajaxEntities;
 });
