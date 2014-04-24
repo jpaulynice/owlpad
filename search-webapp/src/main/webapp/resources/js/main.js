@@ -42,7 +42,7 @@ require.config({
 });
 
 require([
-  'app',
+  'app/app',
 ], function(App){
   App.start();
 });
