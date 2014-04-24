@@ -16,11 +16,15 @@ require.config({
 	      exports : '$'
 	    },
 	    json2 : {
-		      exports : 'JSON'
+		  exports : 'JSON'
 		},
 	    underscore : {
 	      exports : '_'
 	    },
+	    handlebars : {
+	      deps : ['jquery', 'json2', 'underscore'],
+	      exports : 'Handlebars'
+		},
 	    backbone : {
 	      deps : ['jquery', 'json2', 'underscore'],
 	      exports : 'Backbone'

@@ -78,7 +78,6 @@ public class SearchServiceImpl implements SearchService {
 		QueryBuilder queryBuilder = new QueryBuilder(new StandardAnalyzer(
 				Version.LUCENE_47));
 		Query query = queryBuilder.createPhraseQuery("contents", queryStr);
-
 		TopDocs topDocs = searcher.search(query, maxHits);
 
 		ScoreDoc[] hits = topDocs.scoreDocs;
@@ -90,6 +89,7 @@ public class SearchServiceImpl implements SearchService {
 			Document d = new Document();
 			d.setDocId(docId);
 			d.setDocTitle(doc.get("filename"));
+			d.setDocURI(doc.get("filepath"));
 			results.add(d);
 		}
 		response.setDocuments(results);

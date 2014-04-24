@@ -12,12 +12,10 @@ define([
 	SearchApp = new Backbone.Marionette.Application();
 
     SearchApp.addRegions({
-    	header: ".navbar-fixed-top",
-    	sideBar: ".sidebarNav",
-    	mainRegion : ".page-wrapper"
+    	content:'.content'
     });
-    
-    var searchController = new SearchController();
+        
+    var searchController = new SearchController(SearchApp.content);
     searchController.search({keyWord:'java',maxHits:20});
     
     return SearchApp;
