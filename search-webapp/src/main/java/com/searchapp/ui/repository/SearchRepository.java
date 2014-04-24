@@ -29,7 +29,7 @@ public class SearchRepository {
 	public SearchResponse search(SearchRequest searchRequest) {
 		SearchResponse response = new SearchResponse();
 		try {
-			searchService.search(searchRequest);
+			response = searchService.search(searchRequest);
 		} catch (Exception e) {
 			// log error here. We need to return the
 			// service response status as well...just map
