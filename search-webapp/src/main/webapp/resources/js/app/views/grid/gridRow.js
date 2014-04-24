@@ -7,7 +7,7 @@ define([
         'backbone',
         'marionette',
         'handlebars',
-        'hbs!templates/grid/gridRowTemplate'
+        'hbs!app/templates/grid/gridRowTemplate'
     ], function($,_,Backbone,Marionette,Handlebars, gridRow) {
 
 	GridRow = Backbone.Marionette.ItemView.extend({
