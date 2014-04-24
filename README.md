@@ -1,7 +1,7 @@
 search-app
 ==========
 
-###Travis CI Status
+###Travis CI Build Status
 [![Build Status](https://travis-ci.org/julesbond007/search-app.svg)](https://travis-ci.org/julesbond007/search-app)
 
 ###Description
