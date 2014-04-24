@@ -17,8 +17,10 @@ Projects in this repository:
 </ul>
 
 ###Technology stack
-<b>Front-end:</b> Backbone, Marionette, Requirejs, Handlebars, Underscore, JQuery, Bootstrap
-<b>Middle and Service tiers:</b> Java, Spring Framework, Apache CXF, Apache lucene for search.
+<ul>
+<li><b>Front-end:</b> Backbone, Marionette, Requirejs, Handlebars, Underscore, JQuery, Bootstrap</li>
+<li><b>Middle and Service tiers:</b> Java, Spring Framework, Apache CXF, Apache lucene for search.</li>
+</ul>
 
 Steps to work:
 
