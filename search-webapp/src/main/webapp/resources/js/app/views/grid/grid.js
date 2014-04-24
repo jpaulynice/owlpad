@@ -8,11 +8,12 @@ define([
         'backbone',
         'marionette',
         'handlebars',
-        'app/views/grid/gridRow'
-    ], function($,_,Backbone,Marionette,Handlebars,GridRow) {
+        'app/views/grid/gridRow',
+        'hbs!templates/grid/gridTemplate'
+    ], function($,_,Backbone,Marionette,Handlebars,GridRow,gridTemplate) {
 
 	var Grid = Backbone.Marionette.CompositeView.extend({
-		template: Handlebars.compile($("#gridView").html()),
+		template: gridTemplate,
 		tagName: "table",
 	    itemView: GridRow,
 	    

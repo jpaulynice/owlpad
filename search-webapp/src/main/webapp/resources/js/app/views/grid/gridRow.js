@@ -6,11 +6,12 @@ define([
         'underscore',
         'backbone',
         'marionette',
-        'handlebars'
-    ], function($,_,Backbone,Marionette,Handlebars) {
+        'handlebars',
+        'hbs!templates/grid/gridRowTemplate'
+    ], function($,_,Backbone,Marionette,Handlebars, gridRow) {
 
 	GridRow = Backbone.Marionette.ItemView.extend({
-		template: Handlebars.compile($("#rowView").html()),
+		template: gridRow,
 	    tagName: "tr"
 	});
     

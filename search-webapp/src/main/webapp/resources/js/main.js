@@ -3,12 +3,14 @@
  */
 require.config({
   paths: {
+	hbs: 'vendor/hbs',
     jquery: 'vendor/jquery',
     json2: 'vendor/json2',
     underscore: 'vendor/underscore',
     handlebars: 'vendor/handlebars',
     backbone: 'vendor/backbone',
-    marionette: 'vendor/backbone.marionette.min'
+    marionette: 'vendor/backbone.marionette.min',
+    i18nprecompile:'vendor/i18nprecompile'
   },
   
   shim : {
@@ -22,7 +24,6 @@ require.config({
 	      exports : '_'
 	    },
 	    handlebars : {
-	      deps : ['jquery', 'json2', 'underscore'],
 	      exports : 'Handlebars'
 		},
 	    backbone : {
@@ -32,6 +33,9 @@ require.config({
 	    marionette : {
 	      deps : ['jquery', 'underscore', 'backbone'],
 	      exports : 'Marionette'
+	    },
+	    hbs:{
+	    	exports: 'hbs'
 	    }
 	  }
 
