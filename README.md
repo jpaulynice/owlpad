@@ -1,10 +1,8 @@
 search-app
 ==========
-
 Travis CI Build Status
 ==========
 [![Build Status](https://travis-ci.org/julesbond007/search-app.svg)](https://travis-ci.org/julesbond007/search-app)
-
 Description
 ==============
 A very simple search application built on top of apache lucene.  This is a work in progress.  I expect to complete all code in a couple weeks.  I will try to document this as much as possible as well.
