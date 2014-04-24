@@ -8,7 +8,7 @@ define([
         'backbone'
     ], function($,_,Backbone) {
 
-	EventManager = _.extend({}, Backbone.Events);
+	var EventBus = _.extend({}, Backbone.Events);
     
-    return EventManager;
+    return EventBus;
 });
