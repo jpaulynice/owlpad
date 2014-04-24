@@ -20,7 +20,7 @@ Projects in this repository:
 
 ###Technology stack
 <ul>
-<li><b>Front-end:</b> Backbone, Marionette, Requirejs, Handlebars, Handlebars-Requirejs plugin, r.js and Node to minify and combine js files,  Underscore, JQuery, Bootstrap</li>
+<li><b>Front-end:</b> Backbone, Marionette, Requirejs, Handlebars, require-handlebars-plugin (hbs), r.js and Node to minify and combine js files, Underscore, JQuery, and Bootstrap</li>
 <li><b>Middle and Service tiers:</b> Java, Spring Framework, Apache CXF, Apache lucene for search.</li>
 </ul>
 
