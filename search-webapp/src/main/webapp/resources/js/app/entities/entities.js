@@ -6,7 +6,7 @@
  */
 define([ 'jquery', 'json2', ], function($, JSON) {
 
-	ajaxEntities = function(data) {
+	var ajaxEntities = function(data) {
 
 		/**
 		 * Call the search endpoint

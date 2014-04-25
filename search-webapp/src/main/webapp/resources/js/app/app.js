@@ -5,7 +5,7 @@ define([ 'jquery', 'underscore', 'backbone', 'marionette',
 		'app/controllers/controller' ], function($, _, Backbone, Marionette,
 		SearchController) {
 
-	SearchApp = new Backbone.Marionette.Application();
+	var SearchApp = new Backbone.Marionette.Application();
 
 	SearchApp.addRegions({
 		content : '.content'

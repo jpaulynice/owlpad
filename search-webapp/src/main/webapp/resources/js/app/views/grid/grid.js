@@ -2,9 +2,9 @@
  * Represents a requirejs module for a dynamic Grid or Table
  */
 
-define([ 'jquery', 'underscore', 'backbone', 'marionette', 'handlebars',
+define([ 'jquery', 'underscore', 'backbone', 'marionette',
 				'app/views/grid/gridRow', 'hbs!app/templates/grid/gridTemplate' ],
-		function($, _, Backbone, Marionette, Handlebars, GridRow, gridTemplate) {
+		function($, _, Backbone, Marionette, GridRow, gridTemplate) {
 
 			var Grid = Backbone.Marionette.CompositeView.extend({
 				template : gridTemplate,

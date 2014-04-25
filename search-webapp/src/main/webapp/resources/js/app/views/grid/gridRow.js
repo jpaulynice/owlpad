@@ -1,11 +1,11 @@
 /**
  * Defines a modularized row in our grid.
  */
-define([ 'jquery', 'underscore', 'backbone', 'marionette','handlebars',
+define([ 'jquery', 'underscore', 'backbone', 'marionette',
 		'hbs!app/templates/grid/gridRowTemplate' ], function($, _, Backbone,
-		Marionette, Handlebars, gridRowTemplate) {
+		Marionette, gridRowTemplate) {
 
-	GridRow = Backbone.Marionette.ItemView.extend({
+	var GridRow = Backbone.Marionette.ItemView.extend({
 		template : gridRowTemplate,
 		tagName : "tr"
 	});

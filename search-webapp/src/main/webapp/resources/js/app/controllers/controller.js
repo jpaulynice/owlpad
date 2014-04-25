@@ -6,7 +6,7 @@ define([ 'jquery', 'underscore', 'backbone', 'marionette',
 		'app/entities/entities', 'app/views/grid/grid' ], function($, _,
 		Backbone, Marionette, ajaxEntities, Grid) {
 
-	SearchAppController = Backbone.Marionette.Controller.extend({
+	var SearchAppController = Backbone.Marionette.Controller.extend({
 		initialize : function(options) {
 			this.entities = new ajaxEntities();
 			this.content = options;
