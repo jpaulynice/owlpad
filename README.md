@@ -1,16 +1,16 @@
 search-app
 ==========
-
-###Travis CI Build Status
+Travis CI Build Status
+==========
 [![Build Status](https://travis-ci.org/julesbond007/search-app.svg)](https://travis-ci.org/julesbond007/search-app)
-
-###Description
+Description
+==============
 A very simple search application built on top of apache lucene.  This is a work in progress.  I expect to complete all code in a couple weeks.  I will try to document this as much as possible as well.
 
 Projects in this repository: 
 
 <ul>
-<li><b>search-app</b>: the web application</li>
+<li><b>search-webapp</b>: the web application</li>
 <li><b>search-service</b>: the api (set of interfaces)</li>
 <li><b>search-domain</b>: domain objects shared by the api, service and the client (web-app)</li>
 <li><b>search-service-impl</b>: search service implementation.  Application can be deployed under any server container.</li>
@@ -18,7 +18,7 @@ Projects in this repository:
 
 ###Technology stack
 <ul>
-<li><b>Front-end:</b> Backbone, Marionette, Requirejs, Handlebars, Underscore, JQuery, Bootstrap</li>
+<li><b>Front-end:</b> Backbone, Marionette, Requirejs, Handlebars, require-handlebars-plugin (hbs), r.js and Node to minify and combine js files, Underscore, JQuery, and Bootstrap</li>
 <li><b>Middle and Service tiers:</b> Java, Spring Framework, Apache CXF, Apache lucene for search.</li>
 </ul>
 
