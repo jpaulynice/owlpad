@@ -203,9 +203,6 @@
 						</execution>
 					</executions>
 					<configuration>
-						<nodeExecutable>
-				            /usr/local/bin/node
-				        </nodeExecutable>
 						<configFile>
 							${basedir}/src/main/webapp/resources/js/build.js
 						</configFile>
