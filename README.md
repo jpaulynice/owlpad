@@ -16,7 +16,8 @@ Projects in this repository:
 <li><b>search-service-impl</b>: search service implementation.  Application can be deployed under any server container.</li>
 </ul>
 
-###Technology stack
+Technology stack
+================
 <ul>
 <li><b>Front-end:</b> Backbone, Marionette, Requirejs, Handlebars, require-handlebars-plugin (hbs), r.js and Node to minify and combine js files, Underscore, JQuery, and Bootstrap</li>
 <li><b>Middle and Service tiers:</b> Java, Spring Framework, Apache CXF, Apache lucene for search.</li>
