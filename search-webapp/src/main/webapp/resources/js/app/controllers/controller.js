@@ -38,7 +38,7 @@ define([ 'jquery', 'underscore', 'backbone', 'marionette',
 				headers = _.keys(data.documents[0]);
 			}
 
-			var tableData = new Backbone.Collection({});
+			var tableData = new Backbone.Collection();
 			for ( var key in data.documents) {
 				var modelData = data.documents[key];
 				tableData.add(new Backbone.Model({
