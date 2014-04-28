@@ -13,7 +13,7 @@ Projects in this repository:
 <li><b>search-webapp</b>: the web application</li>
 <li><b>search-service</b>: the api (set of interfaces)</li>
 <li><b>search-domain</b>: domain objects shared by the api, service and the client (web-app)</li>
-<li><b>search-service-impl</b>: search service implementation.  Application can be deployed under any server container.</li>
+<li><b>search-service-impl</b>: search service implementation</li>
 </ul>
 
 Technology stack
