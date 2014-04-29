@@ -3,6 +3,11 @@ search-app
 Travis CI Build Status
 ==========
 [![Build Status](https://travis-ci.org/julesbond007/search-app.svg)](https://travis-ci.org/julesbond007/search-app)
+
+Screenshot
+==========
+![Settings Window](https://raw.github.com/julesbond007/search-app/master/search-webapp/src/main/webapp/resources/img/screenshot.png)
+
 Description
 ==============
 A very simple search application built on top of apache lucene.  This is a work in progress.  I expect to complete all code in a few weeks.  I will try to document this as much as possible as well.  The goal is then to use ElasticSearch's REST search engine.
@@ -39,9 +44,3 @@ Steps to work:
 }' 
 'http://localhost:8080/searchService/api/v1/search'
 </pre>
-
-
-![Settings Window](https://raw.github.com/julesbond007/search-app/master/search-webapp/src/main/webapp/resources/img/screenshot.png)
-
-![Settings Window](https://raw.github.com/julesbond007/musiwiz/master/docs/screenshots/home_final2.png)
-
