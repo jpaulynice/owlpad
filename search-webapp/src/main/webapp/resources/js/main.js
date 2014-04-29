@@ -10,7 +10,8 @@ require.config({
 		handlebars : 'vendor/handlebars',
 		backbone : 'vendor/backbone',
 		marionette : 'vendor/backbone.marionette.min',
-		i18nprecompile : 'vendor/i18nprecompile'
+		i18nprecompile : 'vendor/i18nprecompile',
+		bootstrap:'vendor/bootstrap.min'
 	},
 
 	shim : {
@@ -33,6 +34,10 @@ require.config({
 		marionette : {
 			deps : [ 'jquery', 'underscore', 'backbone' ],
 			exports : 'Marionette'
+		},
+		bootstrap:{
+			deps:['jquery'],
+			exports:'Bootstrap'
 		}
 	}
 

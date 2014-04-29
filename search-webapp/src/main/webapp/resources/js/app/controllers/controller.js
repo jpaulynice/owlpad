@@ -3,13 +3,19 @@
  * 
  */
 define([ 'jquery', 'underscore', 'backbone', 'marionette',
-		'app/entities/entities', 'app/views/grid/grid' ], function($, _,
-		Backbone, Marionette, ajaxEntities, Grid) {
+		'app/entities/entities', 'app/views/grid/grid','app/views/header/header' ], function($, _,
+		Backbone, Marionette, ajaxEntities, Grid,HeaderView) {
 
 	var SearchAppController = Backbone.Marionette.Controller.extend({
 		initialize : function(options) {
 			this.entities = new ajaxEntities();
-			this.content = options;
+			this.header = options.header;
+			this.content = options.content;
+			
+			var headerView = new HeaderView();
+			this.listenTo(headerView,'searchapp:search',this.search);
+			
+			this.header.show(headerView);
 		},
 
 		/**
