@@ -39,3 +39,6 @@ Steps to work:
 }' 
 'http://localhost:8080/searchService/api/v1/search'
 </pre>
+
+
+![alt tag](https://github.com/julesbond007/search-app/blob/master/search-webapp/src/main/webapp/resources/img/screenshot.png)
