@@ -10,6 +10,7 @@ define([ 'jquery', 'underscore', 'backbone', 'marionette','bootstrap',
 		},
 		
 		events:{
+			"keypress .searchText": "handleEnter",
 			"click .navbar-form .btn-default": "handleSearch"
 		},
 		
@@ -17,10 +18,18 @@ define([ 'jquery', 'underscore', 'backbone', 'marionette','bootstrap',
 		
 		},
 		
-		handleSearch:function(e){
+		handleEnter: function(e){
+			if ( e.which === 13 ) { 
+		        this.handleSearch();
+			}
+		},
+		
+		handleSearch:function(){
 			var keyWord = this.ui.searchText.val();
-			var data = {keyWord:keyWord,maxHits:20};
-			this.trigger('searchapp:search',data);
+			if(keyWord){
+				var data = {keyWord:keyWord,maxHits:20};
+				this.trigger('searchapp:search',data);
+			}
 		}
 		
 	
