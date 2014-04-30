@@ -51,6 +51,7 @@ thead {
 }
 
 .content{
+	left:100px;
 	 margin:auto;
 	 position:absolute;
 }
@@ -71,7 +72,6 @@ button{
 }
 
 html, body {
-	background-color: #eee;
 	font-family:Verdana,Arial,sans-serif;
 	font-size:12px;
 }
