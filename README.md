@@ -6,7 +6,7 @@ Travis CI Build Status
 
 Description
 ==============
-A very simple search application built on top of apache lucene.  This is a work in progress.  I expect to complete all code in a few weeks.  I will try to document this as much as possible as well.  The goal is then to use ElasticSearch's REST search engine.
+A very simple search application built on top of apache lucene.  This is a work in progress.  I expect to complete all code in a few weeks.  I will try to document this as much as possible as well.  Eventually, I will use ElasticSearch's REST distributed search engine.
 
 Projects in this repository: 
 
