@@ -70,13 +70,13 @@ public class SearchServiceImpl implements SearchService {
 
 		SearchResponse response = new SearchResponse();
 		List<Document> results = new ArrayList<Document>();
-		
+
 		DirectoryReader ireader = DirectoryReader.open(indexDir);
-	    IndexSearcher searcher = new IndexSearcher(ireader);
-	    QueryParser parser = new QueryParser(Version.LUCENE_47, "contents", new StandardAnalyzer(Version.LUCENE_47));
-	    
-	    Query query = parser.parse(queryStr);
-	    ScoreDoc[] hits = searcher.search(query, null, maxHits).scoreDocs;
+		IndexSearcher searcher = new IndexSearcher(ireader);
+		QueryParser parser = new QueryParser(Version.LUCENE_47, "contents", new StandardAnalyzer(Version.LUCENE_47));
+
+		Query query = parser.parse(queryStr);
+		ScoreDoc[] hits = searcher.search(query, null, maxHits).scoreDocs;
 
 		for (int i = 0; i < hits.length; i++) {
 			int docId = hits[i].doc;
@@ -88,7 +88,15 @@ public class SearchServiceImpl implements SearchService {
 
 		return response;
 	}
-	
+
+	/**
+	 * Method to get document from searcher by docId
+	 * 
+	 * @param searcher
+	 * @param docId
+	 * @return
+	 * @throws IOException
+	 */
 	private Document getDocument(IndexSearcher searcher, int docId) throws IOException{
 		List<Field> fields = new ArrayList<Field>();
 		org.apache.lucene.document.Document doc = searcher.doc(docId);
@@ -99,27 +107,27 @@ public class SearchServiceImpl implements SearchService {
 		docIdField.setI18nKey("searchapp.docId");
 		docIdField.setFieldType("string");
 		docIdField.setValue(String.valueOf(docId));
-		
+
 		Field docNameField = new Field();
 		docNameField.setFieldId("doc_title");
 		docNameField.setName("Title");
 		docNameField.setI18nKey("searchapp.docTitle");
 		docNameField.setFieldType("string");
 		docNameField.setValue(doc.get("filename"));
-		
+
 		Field docPathField = new Field();
 		docPathField.setFieldId("doc_path");
 		docPathField.setName("URI");
 		docPathField.setI18nKey("searchapp.docURI");
 		docPathField.setFieldType("string");
 		docPathField.setValue(doc.get("filepath"));
-		
+
 		fields.add(docIdField);
 		fields.add(docNameField);
 		fields.add(docPathField);
-		
+
 		docResult.setFields(fields);
-		
+
 		return docResult;
 	}
 
