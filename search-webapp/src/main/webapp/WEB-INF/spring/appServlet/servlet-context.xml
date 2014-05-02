@@ -26,6 +26,10 @@
 		<beans:constructor-arg><beans:ref bean="searchService"/></beans:constructor-arg>
 	</beans:bean>
 	
+	<beans:bean id="indexRepository" class="com.searchapp.ui.repository.IndexRepository">
+		<beans:constructor-arg><beans:ref bean="indexService"/></beans:constructor-arg>
+	</beans:bean>
+	
 	<jaxrs:client id="searchService"
        address="${serviceUrl}"
        serviceClass="com.searchapp.search.service.SearchService"
@@ -35,7 +39,18 @@
            <entry key="ContentType" value="application/json"/>
        </jaxrs:headers>
        
-	</jaxrs:client>	
+	</jaxrs:client>
+	
+	<jaxrs:client id="indexService"
+       address="${serviceUrl}"
+       serviceClass="com.searchapp.index.service.SearchService"
+       inheritHeaders="true">
+       <jaxrs:headers>
+           <entry key="Accept" value="application/json"/>
+           <entry key="ContentType" value="application/json"/>
+       </jaxrs:headers>
+       
+	</jaxrs:client>		
 	
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
