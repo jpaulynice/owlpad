@@ -15,12 +15,6 @@ define([ 'jquery', 'underscore', 'backbone', 'marionette',
 	var appRegions = {'header':SearchApp.header,'content':SearchApp.content};
 
 	var searchController = new SearchController(appRegions);
-	//search for "java" on startup and return first 20 results.
-	/*searchController.search({
-		keyWord : 'java',
-		maxHits : 20
-	});
-	*/
 
 	return SearchApp;
 });

@@ -43,7 +43,7 @@
 	
 	<jaxrs:client id="indexService"
        address="${serviceUrl}"
-       serviceClass="com.searchapp.index.service.SearchService"
+       serviceClass="com.searchapp.index.service.IndexService"
        inheritHeaders="true">
        <jaxrs:headers>
            <entry key="Accept" value="application/json"/>

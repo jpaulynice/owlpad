@@ -38,22 +38,21 @@ define([ 'jquery', 'underscore', 'backbone', 'marionette',
 		/**
 		 * After results come back, we want to show the table data
 		 */
-		showGridResuls : function(data) {
-			var headers = null;
-			if (data.documents && data.documents[0]) {
-				headers = _.keys(data.documents[0]);
+		showGridResuls : function(data) {			
+			var headers = [];
+			for(var key in data.documents[0].fields){
+				headers.push(data.documents[0].fields[key].name);
 			}
-
-			var tableData = new Backbone.Collection();
-			for ( var key in data.documents) {
-				var modelData = data.documents[key];
-				tableData.add(new Backbone.Model({
-					'tableRow' : modelData
-				}));
+			
+			var coll = new Backbone.Collection();
+			
+			for(var i in data.documents){
+				var fields = data.documents[i].fields;
+				coll.add(new Backbone.Model({fields:fields}));
 			}
 
 			var gridView = new Grid({
-				collection : tableData,
+				collection : coll,
 				headers : headers
 			});
 			this.content.show(gridView);

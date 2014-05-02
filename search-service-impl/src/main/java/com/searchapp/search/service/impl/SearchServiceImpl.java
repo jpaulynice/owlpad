@@ -1,6 +1,7 @@
 package com.searchapp.search.service.impl;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
 import com.searchapp.search.domain.Document;
+import com.searchapp.search.domain.Field;
 import com.searchapp.search.domain.SearchRequest;
 import com.searchapp.search.domain.SearchResponse;
 import com.searchapp.search.service.SearchService;
@@ -78,17 +80,47 @@ public class SearchServiceImpl implements SearchService {
 
 		for (int i = 0; i < hits.length; i++) {
 			int docId = hits[i].doc;
-			org.apache.lucene.document.Document doc = searcher.doc(docId);
+			Document docResult = getDocument(searcher, docId);
 
-			Document d = new Document();
-			d.setDocId(docId);
-			d.setDocTitle(doc.get("filename"));
-			d.setDocURI(doc.get("filepath"));
-			results.add(d);
+			results.add(docResult);
 		}
 		response.setDocuments(results);
 
 		return response;
+	}
+	
+	private Document getDocument(IndexSearcher searcher, int docId) throws IOException{
+		List<Field> fields = new ArrayList<Field>();
+		org.apache.lucene.document.Document doc = searcher.doc(docId);
+		Document docResult = new Document();
+		Field docIdField = new Field();
+		docIdField.setFieldId("doc_id");
+		docIdField.setName("Document Id");
+		docIdField.setI18nKey("searchapp.docId");
+		docIdField.setFieldType("string");
+		docIdField.setValue(String.valueOf(docId));
+		
+		Field docNameField = new Field();
+		docNameField.setFieldId("doc_title");
+		docNameField.setName("Title");
+		docNameField.setI18nKey("searchapp.docTitle");
+		docNameField.setFieldType("string");
+		docNameField.setValue(doc.get("filename"));
+		
+		Field docPathField = new Field();
+		docPathField.setFieldId("doc_path");
+		docPathField.setName("URI");
+		docPathField.setI18nKey("searchapp.docURI");
+		docPathField.setFieldType("string");
+		docPathField.setValue(doc.get("filepath"));
+		
+		fields.add(docIdField);
+		fields.add(docNameField);
+		fields.add(docPathField);
+		
+		docResult.setFields(fields);
+		
+		return docResult;
 	}
 
 }

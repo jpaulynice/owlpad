@@ -1,5 +1,7 @@
 package com.searchapp.search.domain;
 
+import java.util.List;
+
 /**
  * A document is simply a file that can be in different formats.
  * 
@@ -7,36 +9,23 @@ package com.searchapp.search.domain;
  *
  */
 public class Document {
-	private int docId;
-	private String docTitle;
-	private String docURI;
+	/**
+	 * @return the fields
+	 */
+	public List<Field> getFields() {
+		return fields;
+	}
+
+	/**
+	 * @param fields the fields to set
+	 */
+	public void setFields(List<Field> fields) {
+		this.fields = fields;
+	}
+
+	private List<Field> fields;
 	
 	public Document(){
 		
 	}
-
-	public int getDocId() {
-		return docId;
-	}
-
-	public void setDocId(int docId) {
-		this.docId = docId;
-	}
-
-	public String getDocTitle() {
-		return docTitle;
-	}
-
-	public void setDocTitle(String docTitle) {
-		this.docTitle = docTitle;
-	}
-
-	public String getDocURI() {
-		return docURI;
-	}
-
-	public void setDocURI(String docURI) {
-		this.docURI = docURI;
-	}
-
 }

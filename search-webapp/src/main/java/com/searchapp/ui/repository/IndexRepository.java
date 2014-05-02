@@ -11,7 +11,7 @@ public class IndexRepository {
 	
 	@Autowired
 	public IndexRepository(IndexService indexService){
-		this.setIndexService(indexService);
+		this.indexService=indexService;
 	}
 	
 	public IndexResponse index(IndexRequest indexRequest) {
