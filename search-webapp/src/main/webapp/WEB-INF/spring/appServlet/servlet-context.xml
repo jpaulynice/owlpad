@@ -16,6 +16,29 @@
     <annotation-driven />
    	<resources mapping="/resources/**" location="/resources/" />
 	<context:component-scan base-package="com.searchapp.ui.web" />
+	
+	<beans:bean id="messageSource"
+	    class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+	    <beans:property name="basename" value="classpath:messages" />
+	    <beans:property name="defaultEncoding" value="UTF-8"/>
+	</beans:bean>
+	 
+	<beans:bean id="localeChangeInterceptor"
+	    class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+	    <beans:property name="paramName" value="lang" />
+	</beans:bean>
+	 
+	<beans:bean id="localeResolver"
+	    class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+	    <beans:property name="defaultLocale" value="en"/>
+	</beans:bean>
+	 
+	<beans:bean id="handlerMapping"
+	    class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+	    <beans:property name="interceptors">
+	        <beans:ref bean="localeChangeInterceptor" />
+	    </beans:property>
+	</beans:bean>
     
     <beans:import resource="classpath:META-INF/cxf/cxf.xml" />
     <beans:import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
@@ -38,7 +61,6 @@
            <entry key="Accept" value="application/json"/>
            <entry key="ContentType" value="application/json"/>
        </jaxrs:headers>
-       
 	</jaxrs:client>
 	
 	<jaxrs:client id="indexService"
@@ -49,7 +71,6 @@
            <entry key="Accept" value="application/json"/>
            <entry key="ContentType" value="application/json"/>
        </jaxrs:headers>
-       
 	</jaxrs:client>		
 	
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

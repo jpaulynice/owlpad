@@ -9,6 +9,7 @@ define([ 'jquery', 'underscore', 'backbone', 'marionette',
 			var Grid = Backbone.Marionette.CompositeView.extend({
 				template : gridTemplate,
 				tagName : "table",
+				className: "table",
 				itemView : GridRow,
 
 				events : {

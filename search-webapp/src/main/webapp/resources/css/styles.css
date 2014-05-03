@@ -2,76 +2,15 @@ body,html{
 	width:100%;
 }
 
-.navbar .navbar-form{
-    padding: 0 15px;
-}
-
-body{
-	margin:0px;
-}
-
-table, tr, th, thead {
-    padding: 0px;
-    margin: 0px;
-    border: 1px solid #ccc;
-    font-family:Arial,Helvetica, sans-serif;
-    font-size:12px;
-    
-}
-
-td{
-	border-right: 1px dotted rgba(0,0,0..5);
-}
-
-table tr:nth-child(odd) td{
-	background-color:#F6F4F0;
-}
-
 table{
-	border-spacing:1px;
+	font-size:11px;
 }
 
-th{
-    border-radius:3px;
-    padding:5px;
-}
-
-thead {
-    background-color: #555;
-    color: #fff;
-    font-family:Arial,Helvetica, sans-serif;
-    font-size:12px;
-}
-
-.grid{
-	bottom:30px;
-	position:absolute;
-	font-size:10px;
-	overflow-y:scroll;
-}
-
-.content{
-	left:100px;
-	 margin:auto;
-	 position:absolute;
-}
-
-.main{
-	width:500px;
-}
-
-input[type=text], 
-input[type=password]{
-	width:200px;
-	height:30px;
-	margin-top:5px;
-	margin-bottom:5px;
-}
-button{
-	height:30px;
-}
-
-html, body {
-	font-family:Verdana,Arial,sans-serif;
-	font-size:12px;
+.table>thead>tr>th, 
+.table>tbody>tr>th, 
+.table>tfoot>tr>th, 
+.table>thead>tr>td, 
+.table>tbody>tr>td, 
+.table>tfoot>tr>td{
+	padding:4px;	
 }

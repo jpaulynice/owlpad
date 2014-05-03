@@ -80,7 +80,8 @@ public class SearchServiceImpl implements SearchService {
 
 		for (int i = 0; i < hits.length; i++) {
 			int docId = hits[i].doc;
-			Document docResult = getDocument(searcher, docId);
+			int docPosition = i+1;
+			Document docResult = getDocument(searcher, docId, docPosition);
 
 			results.add(docResult);
 		}
@@ -97,16 +98,16 @@ public class SearchServiceImpl implements SearchService {
 	 * @return
 	 * @throws IOException
 	 */
-	private Document getDocument(IndexSearcher searcher, int docId) throws IOException{
+	private Document getDocument(IndexSearcher searcher, int docId, int docPosition) throws IOException{
 		List<Field> fields = new ArrayList<Field>();
 		org.apache.lucene.document.Document doc = searcher.doc(docId);
 		Document docResult = new Document();
 		Field docIdField = new Field();
 		docIdField.setFieldId("doc_id");
-		docIdField.setName("Document Id");
+		docIdField.setName("ID");
 		docIdField.setI18nKey("searchapp.docId");
 		docIdField.setFieldType("string");
-		docIdField.setValue(String.valueOf(docId));
+		docIdField.setValue(String.valueOf(docPosition));
 
 		Field docNameField = new Field();
 		docNameField.setFieldId("doc_title");
