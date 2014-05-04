@@ -7,7 +7,7 @@ define([ 'jquery',
          'backbone', 
          'marionette',
          'app/views/grid/grid'], 
-		function($, _,Backbone, Marionette, Grid) {
+         function($, _,Backbone, Marionette, Grid) {
 
 	var GridController = Backbone.Marionette.Controller.extend({
 		initialize : function(options) {

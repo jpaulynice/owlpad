@@ -9,7 +9,7 @@ define([ 'jquery',
          'app/views/header/header' ,
          'app/controllers/searchController',
          'app/controllers/gridController'], 
-		function($, _,Backbone, Marionette,HeaderView,SearchController,GridController) {
+         function($, _,Backbone, Marionette,HeaderView,SearchController,GridController) {
 
 	var MainController = Backbone.Marionette.Controller.extend({
 		initialize : function(options) {

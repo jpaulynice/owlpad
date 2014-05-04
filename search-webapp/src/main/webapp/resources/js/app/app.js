@@ -6,7 +6,7 @@ define([ 'jquery',
          'backbone', 
          'marionette',
          'app/controllers/mainController' ], 
-		function($, _, Backbone, Marionette,MainController) {
+         function($, _, Backbone, Marionette,MainController) {
 
 	var SearchApp = new Backbone.Marionette.Application();
 
