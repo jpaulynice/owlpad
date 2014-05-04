@@ -1,4 +1,4 @@
-package com.searchapp.index.domain;
+package com.searchapp.domain.index;
 
 /**
  * 

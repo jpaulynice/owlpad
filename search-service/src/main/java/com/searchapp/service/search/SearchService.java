@@ -1,4 +1,4 @@
-package com.searchapp.search.service;
+package com.searchapp.service.search;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -6,8 +6,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.searchapp.search.domain.SearchRequest;
-import com.searchapp.search.domain.SearchResponse;
+import com.searchapp.domain.search.SearchRequest;
+import com.searchapp.domain.search.SearchResponse;
 
 /**
  * Simple interface for search

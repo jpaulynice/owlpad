@@ -1,4 +1,4 @@
-package com.searchapp.search.domain;
+package com.searchapp.domain.search;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

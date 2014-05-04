@@ -1,4 +1,4 @@
-package com.searchapp.search.service.impl;
+package com.searchapp.service.impl.search;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,11 +14,11 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
-import com.searchapp.search.domain.Document;
-import com.searchapp.search.domain.Field;
-import com.searchapp.search.domain.SearchRequest;
-import com.searchapp.search.domain.SearchResponse;
-import com.searchapp.search.service.SearchService;
+import com.searchapp.domain.search.Document;
+import com.searchapp.domain.search.Field;
+import com.searchapp.domain.search.SearchRequest;
+import com.searchapp.domain.search.SearchResponse;
+import com.searchapp.service.search.SearchService;
 
 import org.apache.lucene.util.Version;
 import org.springframework.stereotype.Service;

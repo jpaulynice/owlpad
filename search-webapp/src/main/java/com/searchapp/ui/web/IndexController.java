@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.searchapp.index.domain.IndexRequest;
-import com.searchapp.index.domain.IndexResponse;
+import com.searchapp.domain.index.IndexRequest;
+import com.searchapp.domain.index.IndexResponse;
 import com.searchapp.ui.repository.IndexRepository;
 
 @Controller

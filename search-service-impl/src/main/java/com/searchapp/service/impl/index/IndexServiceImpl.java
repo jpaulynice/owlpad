@@ -1,4 +1,4 @@
-package com.searchapp.index.service.impl;
+package com.searchapp.service.impl.index;
 
 import java.io.File;
 import java.io.FileReader;
@@ -16,9 +16,9 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 import org.springframework.stereotype.Service;
 
-import com.searchapp.index.domain.IndexRequest;
-import com.searchapp.index.domain.IndexResponse;
-import com.searchapp.index.service.IndexService;
+import com.searchapp.domain.index.IndexRequest;
+import com.searchapp.domain.index.IndexResponse;
+import com.searchapp.service.index.IndexService;
 
 /**
  * 

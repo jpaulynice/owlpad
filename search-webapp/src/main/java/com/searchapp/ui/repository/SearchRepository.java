@@ -1,8 +1,8 @@
 package com.searchapp.ui.repository;
 
-import com.searchapp.search.domain.SearchRequest;
-import com.searchapp.search.domain.SearchResponse;
-import com.searchapp.search.service.SearchService;
+import com.searchapp.domain.search.SearchRequest;
+import com.searchapp.domain.search.SearchResponse;
+import com.searchapp.service.search.SearchService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

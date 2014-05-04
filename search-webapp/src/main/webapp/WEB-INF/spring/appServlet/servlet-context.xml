@@ -55,7 +55,7 @@
 	
 	<jaxrs:client id="searchService"
        address="${serviceUrl}"
-       serviceClass="com.searchapp.search.service.SearchService"
+       serviceClass="com.searchapp.service.search.SearchService"
        inheritHeaders="true">
        <jaxrs:headers>
            <entry key="Accept" value="application/json"/>
@@ -65,7 +65,7 @@
 	
 	<jaxrs:client id="indexService"
        address="${serviceUrl}"
-       serviceClass="com.searchapp.index.service.IndexService"
+       serviceClass="com.searchapp.service.index.IndexService"
        inheritHeaders="true">
        <jaxrs:headers>
            <entry key="Accept" value="application/json"/>

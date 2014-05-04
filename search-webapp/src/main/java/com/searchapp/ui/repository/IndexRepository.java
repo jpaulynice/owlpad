@@ -2,9 +2,9 @@ package com.searchapp.ui.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.searchapp.index.domain.IndexRequest;
-import com.searchapp.index.domain.IndexResponse;
-import com.searchapp.index.service.IndexService;
+import com.searchapp.domain.index.IndexRequest;
+import com.searchapp.domain.index.IndexResponse;
+import com.searchapp.service.index.IndexService;
 
 public class IndexRepository {
 	private IndexService indexService;

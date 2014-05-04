@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.searchapp.search.domain.SearchRequest;
-import com.searchapp.search.domain.SearchResponse;
+import com.searchapp.domain.search.SearchRequest;
+import com.searchapp.domain.search.SearchResponse;
 import com.searchapp.ui.repository.SearchRepository;
 
 /**
