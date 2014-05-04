@@ -1,5 +1,10 @@
-define([ 'jquery', 'underscore', 'backbone', 'marionette','bootstrap',
-				'app/views/grid/gridRow', 'hbs!app/templates/header/header' ],
+define([ 'jquery', 
+         'underscore', 
+         'backbone', 
+         'marionette',
+         'bootstrap',
+         'app/views/grid/gridRow', 
+         'hbs!app/templates/header/header' ],
 		function($, _, Backbone, Marionette,Bootstrap, GridRow, headerTemplate) {
 	
 	var HeaderView = Backbone.Marionette.ItemView.extend({

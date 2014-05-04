@@ -1,20 +1,23 @@
 /**
  * Modularized Backbone.Marionette Application
  */
-define([ 'jquery', 'underscore', 'backbone', 'marionette',
-		'app/controllers/controller' ], function($, _, Backbone, Marionette,
-		SearchController) {
+define([ 'jquery', 
+         'underscore', 
+         'backbone', 
+         'marionette',
+		'app/controllers/mainController' ], 
+		function($, _, Backbone, Marionette,MainController) {
 
 	var SearchApp = new Backbone.Marionette.Application();
 
 	SearchApp.addRegions({
 		header:".navbar-default",
-		content : '.content'
+		gridRegion : '.gridRegion'
 	});
 	
-	var appRegions = {'header':SearchApp.header,'content':SearchApp.content};
+	var appRegions = {'header':SearchApp.header,'gridRegion':SearchApp.gridRegion};
 
-	var searchController = new SearchController(appRegions);
+	var mainController = new MainController(appRegions);
 
 	return SearchApp;
 });

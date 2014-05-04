@@ -17,7 +17,7 @@
 			<div class="bs-example">
 				<div class="panel panel-default">
 				  <div class="panel-heading">Documents</div>
-				  	<div class="content">
+				  	<div class="gridRegion">
 					</div>
 				</div>
 			</div>

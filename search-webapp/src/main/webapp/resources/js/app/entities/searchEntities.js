@@ -4,9 +4,11 @@
  * @param data
  * @returns ajax calls
  */
-define([ 'jquery', 'json2', ], function($, JSON) {
+define([ 'jquery', 
+         'json2', ], 
+         function($, JSON) {
 
-	var ajaxEntities = function(data) {
+	var SearchEntities = function(data) {
 
 		/**
 		 * Call the search endpoint
@@ -22,5 +24,5 @@ define([ 'jquery', 'json2', ], function($, JSON) {
 		};
 	};
 
-	return ajaxEntities;
+	return SearchEntities;
 });
