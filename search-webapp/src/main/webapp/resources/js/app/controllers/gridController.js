@@ -18,11 +18,18 @@ define([ 'jquery',
 		/**
 		 * After results come back, we want to show the table data
 		 */
-		showGridResults : function(data) {			
+		showGridResults : function(data) {	
+			var headers = [];
+			var coll = new Backbone.Collection();
+
+			var gridView = new Grid({
+				collection : coll,
+				headers : headers
+			});
 			if(data.documents && data.documents.length>0){
 				var headers = [];
 				for(var key in data.documents[0].fields){
-					headers.push(data.documents[0].fields[key].name);
+					headers.push(data.documents[0].fields[key].i18nKey);
 				}
 				
 				var coll = new Backbone.Collection();
@@ -32,12 +39,11 @@ define([ 'jquery',
 					coll.add(new Backbone.Model({fields:fields}));
 				}
 
-				var gridView = new Grid({
-					collection : coll,
-					headers : headers
-				});
+				gridView.collection = coll;
+				gridView.headers = headers;
 				this.gridRegion.show(gridView);
-			}
+			}				
+			this.gridRegion.show(gridView);
 		}
 
 	});
