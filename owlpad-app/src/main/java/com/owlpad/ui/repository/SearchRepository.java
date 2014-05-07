@@ -5,6 +5,7 @@ import com.owlpad.domain.search.SearchResponse;
 import com.owlpad.service.search.SearchService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  * Intermediate class between the controller and the service
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Jay Paulynice
  * 
  */
+@Repository("searchRepository")
 public class SearchRepository {
 	private SearchService searchService;
 

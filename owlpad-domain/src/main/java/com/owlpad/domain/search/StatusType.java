@@ -7,5 +7,6 @@ package com.owlpad.domain.search;
  */
 public enum StatusType {
 	SUCCESS,
-	FAIL
+	FAIL,
+	NOT_FOUND
 }

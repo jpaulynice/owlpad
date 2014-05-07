@@ -1,11 +1,13 @@
 package com.owlpad.ui.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.owlpad.domain.index.IndexRequest;
 import com.owlpad.domain.index.IndexResponse;
 import com.owlpad.service.index.IndexService;
 
+@Repository("indexRepository")
 public class IndexRepository {
 	private IndexService indexService;
 	
@@ -15,7 +17,13 @@ public class IndexRepository {
 	}
 	
 	public IndexResponse index(IndexRequest indexRequest) {
-		return null;
+		IndexResponse indexResponse = new IndexResponse();
+		try {
+			indexResponse = indexService.index(indexRequest);
+		} catch (Exception e) {
+			//log error
+		}
+		return indexResponse;
 	}
 
 	/**

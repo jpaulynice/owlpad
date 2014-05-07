@@ -11,6 +11,11 @@ import com.owlpad.domain.index.IndexRequest;
 import com.owlpad.domain.index.IndexResponse;
 import com.owlpad.ui.repository.IndexRepository;
 
+/**
+ * 
+ * @author Jay Paulynice
+ *
+ */
 @Controller
 @RequestMapping(value = "/index")
 public class IndexController {
