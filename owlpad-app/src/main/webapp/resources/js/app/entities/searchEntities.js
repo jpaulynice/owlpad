@@ -19,7 +19,7 @@ define([ 'jquery',
 				data : JSON.stringify(data),
 				dataType : "json",
 				contentType : "application/json",
-				url : "/searchApp/search"
+				url : "/owlpad/search"
 			});
 		};
 	};

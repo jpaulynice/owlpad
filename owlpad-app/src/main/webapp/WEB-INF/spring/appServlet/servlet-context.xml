@@ -15,7 +15,7 @@
         http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd">
     <annotation-driven />
    	<resources mapping="/resources/**" location="/resources/" />
-	<context:component-scan base-package="com.searchapp.ui.web" />
+	<context:component-scan base-package="com.owlpad.ui.web" />
 	
 	<beans:bean id="messageSource"
 	    class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
@@ -45,17 +45,17 @@
     
 	<context:property-placeholder location="classpath:/META-INF/properties/service.properties"/>
 	 
-	<beans:bean id="searchRepository" class="com.searchapp.ui.repository.SearchRepository">
+	<beans:bean id="searchRepository" class="com.owlpad.ui.repository.SearchRepository">
 		<beans:constructor-arg><beans:ref bean="searchService"/></beans:constructor-arg>
 	</beans:bean>
 	
-	<beans:bean id="indexRepository" class="com.searchapp.ui.repository.IndexRepository">
+	<beans:bean id="indexRepository" class="com.owlpad.ui.repository.IndexRepository">
 		<beans:constructor-arg><beans:ref bean="indexService"/></beans:constructor-arg>
 	</beans:bean>
 	
 	<jaxrs:client id="searchService"
        address="${serviceUrl}"
-       serviceClass="com.searchapp.service.search.SearchService"
+       serviceClass="com.owlpad.service.search.SearchService"
        inheritHeaders="true">
        <jaxrs:headers>
            <entry key="Accept" value="application/json"/>
@@ -65,7 +65,7 @@
 	
 	<jaxrs:client id="indexService"
        address="${serviceUrl}"
-       serviceClass="com.searchapp.service.index.IndexService"
+       serviceClass="com.owlpad.service.index.IndexService"
        inheritHeaders="true">
        <jaxrs:headers>
            <entry key="Accept" value="application/json"/>

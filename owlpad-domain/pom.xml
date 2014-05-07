@@ -3,7 +3,7 @@
   <groupId>com.owlpad.search.domain</groupId>
   <parent>
         <groupId>com.owlpad.search</groupId>
-        <artifactId>owlpad-parent</artifactId>
+        <artifactId>owlpad</artifactId>
         <version>1.0</version>
    </parent>
   

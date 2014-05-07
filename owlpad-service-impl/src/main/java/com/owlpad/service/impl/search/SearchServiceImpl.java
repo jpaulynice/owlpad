@@ -36,7 +36,7 @@ public class SearchServiceImpl implements SearchService {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.searchapp.search.service.SearchService#search(com.searchapp.search
+	 * com.owlpad.search.service.SearchService#search(com.searchapp.search
 	 * .domain.SearchRequest)
 	 */
 	@Override
