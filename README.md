@@ -26,21 +26,21 @@ Technology stack
 
 Steps to work:
 
-1. clone repo (git clone https://github.com/julesbond007/search-app.git)
+1. clone repo (git clone https://github.com/julesbond007/Owlpad.git)
 2. import projects in eclipse
 3. run "mvn clean install"
-4. locate target folders and deploy war file for search-app and search-service-impl in tomcat
+4. locate target folders and deploy war file for owlpad-app and owlpad-service-impl in tomcat
 
-<p>To test the service as an app deployed under tomcat in 'searchService' using port 8080:</p>
+<p>To test the service as an app deployed under tomcat in 'service' using port 8080:</p>
 
 <pre>curl -X POST -H 'Content-Type: application/json' -d 
 '{
   "keyWord": "java",
   "maxHits": 10
 }' 
-'http://localhost:8080/searchService/api/v1/search'
+'http://localhost:8080/service/api/v1/search'
 </pre>
 
 Screenshot
 ==========
-![Settings Window](https://raw.github.com/julesbond007/owlpad/master/search-webapp/src/main/webapp/resources/img/screenshot.png)
+![Settings Window](https://raw.github.com/julesbond007/owlpad/master/owlpad-app/src/main/webapp/resources/img/screenshot.png)
