@@ -43,4 +43,4 @@ Steps to work:
 
 Screenshot
 ==========
-![Settings Window](https://raw.github.com/julesbond007/search-app/master/search-webapp/src/main/webapp/resources/img/screenshot.png)
+![Settings Window](https://raw.github.com/julesbond007/owlpad/master/search-webapp/src/main/webapp/resources/img/screenshot.png)
