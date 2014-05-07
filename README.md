@@ -1,8 +1,8 @@
-search-app
+OwlPad
 ==========
 Travis CI Build Status
 ==========
-[![Build Status](https://travis-ci.org/julesbond007/search-app.svg)](https://travis-ci.org/julesbond007/search-app)
+[![Build Status](https://travis-ci.org/julesbond007/OwlPad.svg)](https://travis-ci.org/julesbond007/OwlPad)
 
 Description
 ==============
