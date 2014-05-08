@@ -2,7 +2,7 @@ OwlPad
 ==========
 Travis CI Build Status
 ==========
-[![Build Status](https://travis-ci.org/julesbond007/OwlPad.svg)](https://travis-ci.org/julesbond007/OwlPad)
+[![Build Status](https://travis-ci.org/julesbond007/owlpad.svg)](https://travis-ci.org/julesbond007/owlpad)
 
 Description
 ==============
@@ -26,7 +26,7 @@ Technology stack
 
 Steps to work:
 
-1. clone repo (git clone https://github.com/julesbond007/Owlpad.git)
+1. clone repo (git clone https://github.com/julesbond007/owlpad.git)
 2. import projects in eclipse
 3. run "mvn clean install"
 4. locate target folders and deploy war file for owlpad-app and owlpad-service-impl in tomcat
