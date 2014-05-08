@@ -14,10 +14,10 @@
       <name>org.springframework.ide.eclipse.core.springbuilder</name>
     </buildCommand>
     <buildCommand>
-      <name>org.eclipse.m2e.core.maven2Builder</name>
+      <name>org.eclipse.wst.validation.validationbuilder</name>
     </buildCommand>
     <buildCommand>
-      <name>org.eclipse.wst.validation.validationbuilder</name>
+      <name>org.eclipse.m2e.core.maven2Builder</name>
     </buildCommand>
   </buildSpec>
   <natures>

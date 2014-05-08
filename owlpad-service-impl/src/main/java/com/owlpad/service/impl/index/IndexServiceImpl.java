@@ -29,19 +29,23 @@ import com.owlpad.service.index.IndexService;
 public class IndexServiceImpl implements IndexService{
 	
 	public IndexServiceImpl(){
-		
 	}
 	
 	/*
 	 * (non-Javadoc)
 	 * @see com.searchapp.index.service.IndexService#index(com.searchapp.index.domain.IndexRequest)
 	 */
-	@Override
-	public IndexResponse index(IndexRequest indexRequest) throws Exception{
+	//@Override
+	public IndexResponse index(IndexRequest indexRequest){
 		IndexResponse response = new IndexResponse();
 		
 		String indexDirPath= indexRequest.getIndexDirectoryPath();
-		Directory indexDir = FSDirectory.open(new File(indexDirPath));
+		Directory indexDir = null;
+		try {
+			indexDir = FSDirectory.open(new File(indexDirPath));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		String dataDirPath = indexRequest.getDirectoryPath();
 		File dataDir = new File(dataDirPath);
@@ -61,15 +65,24 @@ public class IndexServiceImpl implements IndexService{
      * @return
      * @throws Exception
      */
-    private int indexDir(Directory indexDir, File dataDir, String suffix) throws Exception {
+    private int indexDir(Directory indexDir, File dataDir, String suffix) {
       
     	StandardAnalyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
     	IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_47, analyzer);
-    	IndexWriter indexWriter = new IndexWriter(indexDir, config);       
+    	IndexWriter indexWriter = null;
+		try {
+			indexWriter = new IndexWriter(indexDir, config);
+		} catch (IOException e) {
+			//log error
+		}       
         indexDirectory(indexWriter, dataDir, suffix);
         
         int numIndexed = indexWriter.maxDoc();
-        indexWriter.close();
+        try {
+			indexWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
         
         return numIndexed;
         
@@ -84,7 +97,7 @@ public class IndexServiceImpl implements IndexService{
      * @throws IOException
      */
     private void indexDirectory(IndexWriter indexWriter, File dataDir, 
-           String suffix) throws IOException {
+           String suffix) {
 
         File[] files = dataDir.listFiles();
         for (int i = 0; i < files.length; i++) {
@@ -93,7 +106,11 @@ public class IndexServiceImpl implements IndexService{
                 indexDirectory(indexWriter, f, suffix);
             }
             else {
-                indexFileWithIndexWriter(indexWriter, f, suffix);
+                try {
+					indexFileWithIndexWriter(indexWriter, f, suffix);
+				} catch (IOException e) {
+					//log error
+				}
             }
         }
 

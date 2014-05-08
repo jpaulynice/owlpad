@@ -29,5 +29,5 @@ public interface SearchService {
 	 */
 	@POST
 	@Path("search")
-	public SearchResponse search(SearchRequest searchRequest) throws Exception;
+	public SearchResponse search(SearchRequest searchRequest);
 }
