@@ -14,3 +14,7 @@ table{
 .table>tfoot>tr>td{
 	padding:4px;	
 }
+
+a.navbar-brand{
+	float:right;
+}

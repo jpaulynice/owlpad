@@ -22,14 +22,10 @@ define([ 'jquery',
 			var headers = [];
 			var coll = new Backbone.Collection();
 
-			var gridView = new Grid({
-				collection : coll,
-				headers : headers
-			});
 			if(data.documents && data.documents.length>0){
 				var headers = [];
 				for(var key in data.documents[0].fields){
-					headers.push(data.documents[0].fields[key].i18nKey);
+					headers.push(data.documents[0].fields[key].name);
 				}
 				
 				var coll = new Backbone.Collection();
@@ -39,11 +35,12 @@ define([ 'jquery',
 					coll.add(new Backbone.Model({fields:fields}));
 				}
 
-				gridView.collection = coll;
-				gridView.headers = headers;
+				var gridView = new Grid({
+					collection : coll,
+					headers : headers
+				});
 				this.gridRegion.show(gridView);
 			}				
-			this.gridRegion.show(gridView);
 		}
 
 	});

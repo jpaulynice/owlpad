@@ -39,14 +39,11 @@ public class SearchServiceImpl implements SearchService{
 	 * com.owlpad.search.service.SearchService#search(com.searchapp.search
 	 * .domain.SearchRequest)
 	 */
-	//@Override
+	@Override
 	public SearchResponse search(SearchRequest searchRequest){
 		String query = searchRequest.getKeyWord();
 		int hits = searchRequest.getMaxHits();
-		// will need to specify index directory for searching...this is just an
-		// example since i have it already. For now the index is stored on disk
-		// for small indexes an in-memory index will be ideal. Will fix later.
-		// This index only contains files ending with ".java"
+		
 		File indexDir = new File("/Users/julespaulynice/Documents/search/index");
 		Directory directory = null;
 		try {
