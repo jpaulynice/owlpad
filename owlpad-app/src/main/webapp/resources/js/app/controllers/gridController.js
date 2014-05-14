@@ -19,9 +19,6 @@ define([ 'jquery',
 		 * After results come back, we want to show the table data
 		 */
 		showGridResults : function(data) {	
-			var headers = [];
-			var coll = new Backbone.Collection();
-
 			if(data.documents && data.documents.length>0){
 				var headers = [];
 				for(var key in data.documents[0].fields){

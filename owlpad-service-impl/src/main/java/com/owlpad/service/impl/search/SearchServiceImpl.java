@@ -48,13 +48,10 @@ public class SearchServiceImpl implements SearchService{
 		Directory directory = null;
 		try {
 			directory = FSDirectory.open(indexDir);
-		} catch (IOException e) {
-			//log
-		}
-
-		try {
 			return searchIndex(directory, query, hits);
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
+			//logger
 		}
 		return null;
 

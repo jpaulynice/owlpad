@@ -35,7 +35,7 @@ public class IndexServiceImpl implements IndexService{
 	 * (non-Javadoc)
 	 * @see com.searchapp.index.service.IndexService#index(com.searchapp.index.domain.IndexRequest)
 	 */
-	//@Override
+	@Override
 	public IndexResponse index(IndexRequest indexRequest){
 		IndexResponse response = new IndexResponse();
 		
