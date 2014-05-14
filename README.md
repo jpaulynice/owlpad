@@ -1,11 +1,7 @@
 OwlPad
 ==========
-Travis CI Build Status
-==========
 [![Build Status](https://travis-ci.org/julesbond007/owlpad.svg)](https://travis-ci.org/julesbond007/owlpad)
 
-Description
-==============
 A very simple search application built on top of apache lucene.  This is a work in progress.  I expect to complete all code in a few weeks.  I will try to document this as much as possible as well.  Eventually, I will use ElasticSearch's REST distributed search engine.
 
 Projects in this repository: 
