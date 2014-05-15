@@ -14,6 +14,7 @@ public class Document {
 	public Document(){
 		
 	}
+	
 	/**
 	 * @return the fields
 	 */
