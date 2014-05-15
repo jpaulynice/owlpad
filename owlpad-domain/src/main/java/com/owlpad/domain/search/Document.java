@@ -9,6 +9,11 @@ import java.util.List;
  *
  */
 public class Document {
+	private List<Field> fields;
+	
+	public Document(){
+		
+	}
 	/**
 	 * @return the fields
 	 */
@@ -21,11 +26,5 @@ public class Document {
 	 */
 	public void setFields(List<Field> fields) {
 		this.fields = fields;
-	}
-
-	private List<Field> fields;
-	
-	public Document(){
-		
 	}
 }
