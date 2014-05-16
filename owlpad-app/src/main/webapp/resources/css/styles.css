@@ -23,7 +23,7 @@ a.navbar-brand{
 	float:right;
 }
 
-empty-view{
+.empty-view{
 	padding:20px;
 	font-weight:bold;
 }
