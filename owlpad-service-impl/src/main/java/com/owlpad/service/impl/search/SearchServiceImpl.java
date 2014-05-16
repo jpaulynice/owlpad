@@ -78,8 +78,10 @@ public class SearchServiceImpl implements SearchService{
 
 		Query query = parser.parse(queryStr);
 		ScoreDoc[] hits = searcher.search(query, null, Integer.MAX_VALUE).scoreDocs;
+		
+		int numResults = hits.length<maxHits?hits.length:maxHits;
 
-		for (int i = 0; i < maxHits; i++) {
+		for (int i = 0; i < numResults; i++) {
 			int docId = hits[i].doc;
 			int docPosition = i+1;
 			Document docResult = getDocument(searcher, docId, docPosition);
