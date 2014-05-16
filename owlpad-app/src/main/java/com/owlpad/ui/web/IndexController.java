@@ -1,7 +1,10 @@
 package com.owlpad.ui.web;
 
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +28,19 @@ public class IndexController {
 	public IndexController(IndexRepository indexRepository){
 		this.indexRepository = indexRepository;
 	}
+	
+	/**
+	 * Returns indexing page
+	 * 
+	 * @param locale
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET)
+	public String index(Locale locale, Model model) {
+		return "index";
+	}
+	
 	/**
 	 * Index end point
 	 * 
