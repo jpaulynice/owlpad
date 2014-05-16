@@ -77,9 +77,9 @@ public class SearchServiceImpl implements SearchService{
 		QueryParser parser = new QueryParser(Version.LUCENE_47, "contents", new StandardAnalyzer(Version.LUCENE_47));
 
 		Query query = parser.parse(queryStr);
-		ScoreDoc[] hits = searcher.search(query, null, maxHits).scoreDocs;
+		ScoreDoc[] hits = searcher.search(query, null, Integer.MAX_VALUE).scoreDocs;
 
-		for (int i = 0; i < hits.length; i++) {
+		for (int i = 0; i < maxHits; i++) {
 			int docId = hits[i].doc;
 			int docPosition = i+1;
 			Document docResult = getDocument(searcher, docId, docPosition);
@@ -87,6 +87,7 @@ public class SearchServiceImpl implements SearchService{
 			results.add(docResult);
 		}
 		response.setDocuments(results);
+		response.setTotalDocuments(hits.length);
 
 		return response;
 	}
