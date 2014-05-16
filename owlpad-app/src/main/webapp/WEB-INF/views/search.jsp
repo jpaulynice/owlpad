@@ -8,7 +8,7 @@
 		<link href="./resources/css/docs.min.css" rel="stylesheet">
 		<link href="./resources/css/styles.css" rel="stylesheet">
 		
-		<title>Owlpad</title>
+		<title>Owlpad Search</title>
 	</head>
 	<body>
 		<nav class="navbar navbar-default" role="navigation">
