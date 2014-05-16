@@ -6,8 +6,9 @@ define([ 'jquery',
          'underscore', 
          'backbone', 
          'marionette',
-         'app/views/grid/grid'], 
-         function($, _,Backbone, Marionette, Grid) {
+         'app/views/grid/grid',
+         'app/views/grid/empty'], 
+         function($, _,Backbone, Marionette, Grid, EmptyView) {
 
 	var GridController = Backbone.Marionette.Controller.extend({
 		initialize : function(options) {
@@ -37,7 +38,9 @@ define([ 'jquery',
 					headers : headers
 				});
 				this.gridRegion.show(gridView);
-			}				
+			}else{
+				this.gridRegion.show(new EmptyView());
+			}
 		}
 
 	});

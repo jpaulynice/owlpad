@@ -22,3 +22,8 @@ table{
 a.navbar-brand{
 	float:right;
 }
+
+empty-view{
+	padding:20px;
+	font-weight:bold;
+}
