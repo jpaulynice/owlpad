@@ -10,7 +10,7 @@ Projects in this repository:
 <li><b>owlpad-app</b>: the web application</li>
 <li><b>owlpad-service</b>: the api (set of interfaces)</li>
 <li><b>owlpad-domain</b>: domain objects shared by the api, service and the client (web-app)</li>
-<li><b>owlpad-service-impl</b>: search service implementation</li>
+<li><b>owlpad-service-impl</b>: service implementation</li>
 </ul>
 
 Technology stack
