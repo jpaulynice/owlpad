@@ -22,7 +22,7 @@ Technology stack
 
 Steps to work:
 
-1. clone repo: (clone https://github.com/julesbond007/owlpad.git)
+1. clone repo: (git clone https://github.com/julesbond007/owlpad.git)
 2. change directory: (cd owlpad)
 3. run maven eclipse: (mvn eclipse:eclipse)
 4. import projects in eclipse (import-->general-->import existing project)
