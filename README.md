@@ -10,7 +10,7 @@ Projects in this repository:
 <li><b>owlpad-app</b>: the web application</li>
 <li><b>owlpad-service</b>: the api (set of interfaces)</li>
 <li><b>owlpad-domain</b>: domain objects shared by the api, service and the client (web-app)</li>
-<li><b>owlpad-service-impl</b>: search service implementation</li>
+<li><b>owlpad-service-impl</b>: service implementation</li>
 </ul>
 
 Technology stack
@@ -22,10 +22,10 @@ Technology stack
 
 Steps to work:
 
-1. clone repo (git clone https://github.com/julesbond007/owlpad.git)
-2. import projects in eclipse
-3. run "mvn clean install"
-4. locate target folders and deploy war file for owlpad-app and owlpad-service-impl in tomcat
+1. clone repo: (git clone https://github.com/julesbond007/owlpad.git)
+2. change directory: (cd owlpad)
+3. run maven eclipse: (mvn eclipse:eclipse)
+4. import projects in eclipse (import-->general-->import existing project)
 
 <p>To test the service as an app deployed under tomcat in 'service' using port 8080:</p>
 
