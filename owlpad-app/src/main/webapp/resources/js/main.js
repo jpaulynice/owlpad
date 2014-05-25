@@ -11,7 +11,8 @@ require.config({
 		backbone : 'vendor/backbone',
 		marionette : 'vendor/backbone.marionette.min',
 		i18nprecompile : 'vendor/i18nprecompile',
-		bootstrap:'vendor/bootstrap.min'
+		bootstrap:'vendor/bootstrap.min',
+		script: 'script'
 	},
 
 	shim : {
@@ -38,6 +39,10 @@ require.config({
 		bootstrap:{
 			deps:['jquery'],
 			exports:'Bootstrap'
+		},
+		script:{
+			deps:['jquery'],
+			exports:'script'
 		}
 	}
 

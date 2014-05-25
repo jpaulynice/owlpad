@@ -33,7 +33,7 @@ public class IndexServiceImpl implements IndexService{
 	
 	/*
 	 * (non-Javadoc)
-	 * @see com.searchapp.index.service.IndexService#index(com.searchapp.index.domain.IndexRequest)
+	 * @see com.owlpad.service.index.IndexService#index(com.owlpad.domain.index.IndexRequest)
 	 */
 	@Override
 	public IndexResponse index(IndexRequest indexRequest){

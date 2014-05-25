@@ -36,8 +36,7 @@ public class SearchServiceImpl implements SearchService{
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.owlpad.search.service.SearchService#search(com.searchapp.search
-	 * .domain.SearchRequest)
+	 * com.owlpad.search.service.SearchService#search(com.owlpad.search.domain.SearchRequest)
 	 */
 	@Override
 	public SearchResponse search(SearchRequest searchRequest){
@@ -79,9 +78,9 @@ public class SearchServiceImpl implements SearchService{
 		Query query = parser.parse(queryStr);
 		ScoreDoc[] hits = searcher.search(query, null, Integer.MAX_VALUE).scoreDocs;
 		
-		int numResults = hits.length < maxHits ? hits.length : maxHits;
+		int docsPerPage = hits.length < maxHits ? hits.length : maxHits;
 
-		for (int i = 0; i < numResults; i++) {
+		for (int i = 0; i < docsPerPage; i++) {
 			int docId = hits[i].doc;
 			int docPosition = i+1;
 			Document docResult = getDocument(searcher, docId, docPosition);
