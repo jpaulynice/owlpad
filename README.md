@@ -2,7 +2,9 @@ OwlPad
 ==========
 [![Build Status](https://travis-ci.org/julesbond007/owlpad.svg)](https://travis-ci.org/julesbond007/owlpad)
 
-A very simple search application built on top of apache lucene.  This is a work in progress.  I expect to complete all code in a few weeks.  I will try to document this as much as possible as well.  Eventually, I will use ElasticSearch's REST distributed search engine.
+A very simple search application built on top of apache lucene.  This is a work in progress.  I will try to document this as much as possible as well.  Eventually, I will use ElasticSearch's distributed search engine.
+
+The original idea was to build an internal tool to quickly search code repositories such as git, mercurial, svn, cvs, etc...
 
 Projects in this repository: 
 
@@ -22,10 +24,10 @@ Technology stack
 
 Steps to work:
 
-1. clone repo: (git clone https://github.com/julesbond007/owlpad.git)
-2. change directory: (cd owlpad)
-3. run maven eclipse: (mvn eclipse:eclipse)
-4. import projects in eclipse (import-->general-->import existing project)
+1. clone repo: <code>git clone https://github.com/julesbond007/owlpad.git</code>
+2. change directory: <code>cd owlpad</code>
+3. run maven eclipse: <code>mvn eclipse:eclipse</code>
+4. import projects in eclipse <code>import-->general-->import existing project</code>
 
 <p>To test the service as an app deployed under tomcat in 'service' using port 8080:</p>
 
