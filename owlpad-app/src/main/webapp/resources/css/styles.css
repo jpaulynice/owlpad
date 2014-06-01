@@ -148,3 +148,9 @@ i.fa.fa-search{
 	margin-left: 188px;
 	margin-top: 10px;
 }
+
+.panel-default{
+	margin-left:auto;
+	margin-right:auto;
+	width:90%;
+}
