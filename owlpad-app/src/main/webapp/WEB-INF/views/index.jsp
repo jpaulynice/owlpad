@@ -7,6 +7,7 @@
 		<link href="./resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 		<link href="./resources/css/docs.min.css" rel="stylesheet">
 		<link href="./resources/css/styles.css" rel="stylesheet">
+		<link href="./resources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 		
 		<title>Owlpad Indexing</title>
 	</head>

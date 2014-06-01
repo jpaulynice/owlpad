@@ -53,10 +53,7 @@
 		<beans:constructor-arg><beans:ref bean="indexService"/></beans:constructor-arg>
 	</beans:bean>
 	
-	<jaxrs:client id="searchService"
-       address="${serviceUrl}"
-       serviceClass="com.owlpad.service.search.SearchService"
-       inheritHeaders="true">
+	<jaxrs:client id="searchService" address="${serviceUrl}" serviceClass="com.owlpad.service.search.SearchService" inheritHeaders="true">
        <jaxrs:headers>
            <entry key="Accept" value="application/json"/>
            <entry key="ContentType" value="application/json"/>
