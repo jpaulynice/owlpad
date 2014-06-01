@@ -10,12 +10,12 @@ define([ 'jquery',
 		template:headerTemplate,
 		className:"container-fluid",
 		ui:{
-			searchText:".searchText"
+			searchText:".search-input"
 		},
 		
 		events:{
-			"keypress .searchText": "handleEnter",
-			"click .navbar-form .btn-default": "handleSearch"
+			"keypress .search-input": "handleEnter",
+			"click .fa-search": "handleSearch"
 		},
 		
 		initialize: function(options){

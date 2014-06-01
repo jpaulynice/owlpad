@@ -5,7 +5,7 @@
 		<script data-main="resources/js/main" src="resources/js/vendor/require.js"></script>
 		<!--<script src="./resources/js/script.min.js"></script>-->
 		<link href="./resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-		<link href="./resources/css/docs.min.css" rel="stylesheet">
+		<link href="./resources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<link href="./resources/css/styles.css" rel="stylesheet">
 		
 		<title>Owlpad Search</title>

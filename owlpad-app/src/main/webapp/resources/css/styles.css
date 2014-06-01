@@ -80,3 +80,71 @@ a.navbar-brand{
 .indexPage .navbar-form{
 	display:none;
 }
+
+
+	.search-input {
+		position: absolute;
+		top: 0;
+		z-index: 2;
+		color: #fff;
+		background-color: transparent;
+		background-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
+		opacity: .6;
+		-ms-filter: "alpha(opacity=60)";
+	}
+	.search-input {
+		display: block;
+		top: 12px;
+		padding: 5px 27px 6px 12px;
+		font-size: 12px;
+		line-height: 1;
+		color: #fff;
+		background-color: #000;
+		border: 0;
+		border-radius: 21px;
+		transition: all .2s ease-in-out;
+	}
+	input, textarea, div[contenteditable="true"] {
+		transition: .2s linear background;
+	}
+	input, textarea, div[contenteditable="true"], .t1-select {
+		display: inline-block;
+		width: 210px;
+		padding: 4px;
+		margin: 0;
+		outline: 0;
+		background-color: #fff;
+		border: 1px solid #e1e8ed;
+		border-radius: 3px;
+	}
+	.t1-label, input, textarea, div[contenteditable="true"], .t1-select {
+		margin: 0;
+		font-size: 13px;
+		line-height: 20px;
+	}
+	input {
+		line-height: normal;
+	}
+	button, input, optgroup, select, textarea {
+		color: inherit;
+		font: inherit;
+		margin: 0;
+	}
+	
+.search-icon {
+	position: absolute;
+	top: 4px;
+	right: -3px;
+	display: block;
+	width: 26px;
+	height: 26px;
+	cursor: pointer;
+}
+
+i.fa.fa-search{
+	color:#000;
+	height:26px;
+	width:26px;
+	margin-left: 188px;
+	margin-top: 10px;
+}
