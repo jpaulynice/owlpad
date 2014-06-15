@@ -15,7 +15,7 @@ import com.owlpad.domain.search.SearchResponse;
  * @author Jay Paulynice
  * 
  */
-@Path("v1")
+@Path("search")
 @Consumes({ MediaType.APPLICATION_JSON })
 @Produces({ MediaType.APPLICATION_JSON })
 public interface SearchService {
@@ -28,6 +28,6 @@ public interface SearchService {
 	 * @throws Exception 
 	 */
 	@POST
-	@Path("search")
+	@Path("")
 	public SearchResponse search(SearchRequest searchRequest);
 }

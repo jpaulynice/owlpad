@@ -14,12 +14,12 @@ import com.owlpad.domain.index.IndexResponse;
  * @author Jay Paulynice
  *
  */
-@Path("v1")
+@Path("index")
 @Consumes({ MediaType.APPLICATION_JSON })
 @Produces({ MediaType.APPLICATION_JSON })
 public interface IndexService {
 
 	@POST
-	@Path("index")
+	@Path("")
 	public IndexResponse index(IndexRequest indexRequest);
 }
