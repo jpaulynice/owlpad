@@ -4,7 +4,7 @@ OwlPad
 
 A very simple search application built on top of apache lucene.  This is a work in progress.  I will try to document this as much as possible as well.  Eventually, I will use ElasticSearch's distributed search engine.
 
-The original idea was to build an internal tool to quickly search code repositories such as git, mercurial, svn, cvs, etc...
+The original idea was to build an internal tool to quickly search code repositories such as git, mercurial, svn, cvs, etc.
 
 Projects in this repository: 
 
