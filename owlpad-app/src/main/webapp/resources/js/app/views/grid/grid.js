@@ -13,7 +13,7 @@ define([ 'jquery',
 			var Grid = Backbone.Marionette.CompositeView.extend({
 				template : gridTemplate,
 				tagName : "table",
-				className: "table",
+				className: "table table-bordered table-striped",
 				itemView : GridRow,
 
 				events : {

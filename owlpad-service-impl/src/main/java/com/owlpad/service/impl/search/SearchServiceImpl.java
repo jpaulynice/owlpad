@@ -125,10 +125,42 @@ public class SearchServiceImpl implements SearchService{
 		docPathField.setI18nKey("searchapp.docURI");
 		docPathField.setFieldType("string");
 		docPathField.setValue(doc.get("filepath"));
+		
+		Field authorField = new Field();
+		authorField.setFieldId("doc_author");
+		authorField.setName("Author");
+		authorField.setI18nKey("searchapp.docAuthor");
+		authorField.setFieldType("string");
+		authorField.setValue(doc.get("author"));
+		
+		Field dateField = new Field();
+		dateField.setFieldId("doc_date");
+		dateField.setName("Last Modified");
+		dateField.setI18nKey("searchapp.docDate");
+		dateField.setFieldType("string");
+		dateField.setValue(doc.get("lastModified"));
+		
+		Field created = new Field();
+		created.setFieldId("doc_created");
+		created.setName("Created");
+		created.setI18nKey("searchapp.docCreated");
+		created.setFieldType("string");
+		created.setValue(doc.get("created"));
+		
+		Field sizeField = new Field();
+		sizeField.setFieldId("doc_size");
+		sizeField.setName("Size (Bytes)");
+		sizeField.setI18nKey("searchapp.size");
+		sizeField.setFieldType("string");
+		sizeField.setValue(doc.get("size"));
 
 		fields.add(docIdField);
 		fields.add(docNameField);
 		fields.add(docPathField);
+		fields.add(authorField);
+		fields.add(dateField);
+		fields.add(created);
+		fields.add(sizeField);
 
 		docResult.setFields(fields);
 
