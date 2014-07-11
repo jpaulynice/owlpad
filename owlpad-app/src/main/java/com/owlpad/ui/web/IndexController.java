@@ -47,7 +47,7 @@ public class IndexController {
 	 * @param indexRequest
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@RequestMapping(method = RequestMethod.POST)
 	public @ResponseBody IndexResponse search(@RequestBody IndexRequest indexRequest){
 		return indexRepository.index(indexRequest);
 	}

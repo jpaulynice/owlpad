@@ -48,7 +48,7 @@ public class SearchController {
 	 * @param searchRequest
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@RequestMapping(method = RequestMethod.POST)
 	public @ResponseBody SearchResponse search(@RequestBody SearchRequest searchRequest){
 		return searchRepository.search(searchRequest);
 	}
