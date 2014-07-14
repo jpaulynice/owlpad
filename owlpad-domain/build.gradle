@@ -1,5 +1,5 @@
-group = 'com.owlpad.search.domain'
-description = ''
+group = 'com.owlpad.search'
+description = 'owlpad-domain'
 dependencies {
     compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version:'1.9.13'
     compile group: 'org.codehaus.jackson', name: 'jackson-core-asl', version:'1.9.13'

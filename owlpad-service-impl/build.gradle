@@ -3,9 +3,9 @@ apply plugin: 'war'
 
 description = ''
 dependencies {
-    compile group: 'org.springframework', name: 'spring-webmvc', version:'3.2.3.RELEASE'
+    compile group: 'org.springframework', name: 'spring-webmvc', version:'3.2.6.RELEASE'
     compile group: 'javax.servlet', name: 'jstl', version:'1.2'
-    compile group: 'org.springframework', name: 'spring-tx', version:'3.2.3.RELEASE'
+    compile group: 'org.springframework', name: 'spring-tx', version:'3.2.6.RELEASE'
     compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.5'
     compile group: 'org.hibernate', name: 'hibernate-entitymanager', version:'4.2.1.Final'
     compile group: 'org.apache.cxf', name: 'cxf-rt-frontend-jaxrs', version:'2.4.2'
@@ -17,7 +17,7 @@ dependencies {
   compile project(':owlpad-service')
   compile project(':owlpad-domain')
     runtime group: 'ch.qos.logback', name: 'logback-classic', version:'1.0.13'
-    testCompile group: 'org.springframework', name: 'spring-test', version:'3.2.3.RELEASE'
+    testCompile group: 'org.springframework', name: 'spring-test', version:'3.2.6.RELEASE'
     testCompile group: 'junit', name: 'junit', version:'4.11'
     providedCompile group: 'javax.servlet', name: 'servlet-api', version:'2.5'
     providedCompile group: 'javax.servlet.jsp', name: 'jsp-api', version:'2.2'
