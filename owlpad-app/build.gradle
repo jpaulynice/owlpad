@@ -3,10 +3,12 @@ apply plugin: 'war'
 
 description = 'owlpad-app'
 dependencies {
-    compile(group: 'org.springframework', name: 'spring-context', version:'3.1.1.RELEASE') {
+    compile(group: 'org.springframework', name: 'spring-context', version:'3.2.3.RELEASE') {
 exclude(module: 'commons-logging')
     }
-    compile group: 'org.springframework', name: 'spring-webmvc', version:'3.1.1.RELEASE'
+    compile group: 'org.springframework', name: 'spring-webmvc', version:'3.2.3.RELEASE'
+    compile group: 'org.springframework', name: 'spring-core', version:'3.2.3.RELEASE'
+    compile group: 'org.springframework', name: 'spring-web', version:'3.2.1.RELEASE'
     compile group: 'org.aspectj', name: 'aspectjrt', version:'1.6.10'
     compile group: 'org.slf4j', name: 'slf4j-api', version:'1.6.6'
     compile group: 'javax.inject', name: 'javax.inject', version:'1'

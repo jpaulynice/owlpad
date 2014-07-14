@@ -13,14 +13,7 @@ dependencies {
     compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version:'1.9.13'
     compile group: 'org.codehaus.jackson', name: 'jackson-core-asl', version:'1.9.13'
     compile group: 'org.codehaus.jackson', name: 'jackson-jaxrs', version:'1.9.13'
-    compile group: 'org.apache.lucene', name: 'lucene-analyzers-common', version:'4.7.0'
-    compile group: 'org.apache.lucene', name: 'lucene-core', version:'4.7.0'
-    compile group: 'org.apache.lucene', name: 'lucene-highlighter', version:'4.7.0'
-    compile group: 'org.apache.lucene', name: 'lucene-queryparser', version:'4.7.0'
-    compile group: 'org.apache.lucene', name: 'lucene-facet', version:'4.7.0'
-    compile group: 'org.apache.lucene', name: 'lucene-expressions', version:'4.7.0'
-    compile group: 'org.apache.lucene', name: 'lucene-demo', version:'4.7.0'
-    compile group: 'org.apache.lucene', name: 'lucene-replicator', version:'4.7.0'
+    compile group: 'org.elasticsearch', name: 'elasticsearch', version:'1.2.2'
   compile project(':owlpad-service')
   compile project(':owlpad-domain')
     runtime group: 'ch.qos.logback', name: 'logback-classic', version:'1.0.13'

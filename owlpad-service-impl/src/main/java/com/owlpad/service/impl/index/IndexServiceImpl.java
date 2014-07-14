@@ -44,7 +44,7 @@ public class IndexServiceImpl implements IndexService{
 		try {
 			indexDir = FSDirectory.open(new File(indexDirPath));
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
 		String dataDirPath = indexRequest.getDirectoryPath();
@@ -67,8 +67,8 @@ public class IndexServiceImpl implements IndexService{
      */
     private int indexDir(Directory indexDir, File dataDir, String suffix) {
       
-    	StandardAnalyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
-    	IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_47, analyzer);
+    	StandardAnalyzer analyzer = new StandardAnalyzer(Version.LUCENE_48);
+    	IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_48, analyzer);
     	IndexWriter indexWriter = null;
 		try {
 			indexWriter = new IndexWriter(indexDir, config);
@@ -81,7 +81,7 @@ public class IndexServiceImpl implements IndexService{
         try {
 			indexWriter.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			//log error
 		}
         
         return numIndexed;

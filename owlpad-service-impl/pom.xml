@@ -23,7 +23,7 @@
 		<logback.version>1.0.13</logback.version>
 		<slf4j.version>1.7.5</slf4j.version>
 		<junit.version>4.11</junit.version>
-		<lucene.version>4.7.0</lucene.version>
+		<es.version>1.2.2</es.version>
 	</properties>
 	
 	<dependencies>
@@ -109,52 +109,10 @@
 			<artifactId>jackson-jaxrs</artifactId>
 			<version>1.9.13</version>
 		</dependency>
-		
 		<dependency>
-			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-analyzers-common</artifactId>
-			<version>${lucene.version}</version>
-		</dependency>
-            
-		<dependency>
-			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-core</artifactId>
-			<version>${lucene.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-highlighter</artifactId>
-			<version>${lucene.version}</version>
-		</dependency>
-            
-		<dependency>
-			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-queryparser</artifactId>
-			<version>${lucene.version}</version>
-		</dependency>
-            
-		<dependency>
-			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-facet</artifactId>
-			<version>${lucene.version}</version>
-		</dependency>
-            
-		<dependency>
-			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-expressions</artifactId>
-			<version>${lucene.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-demo</artifactId>
-			<version>${lucene.version}</version>
-		</dependency>
-            
-		<dependency>
-			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-replicator</artifactId>
-			<version>${lucene.version}</version>
+		    <groupId>org.elasticsearch</groupId>
+		    <artifactId>elasticsearch</artifactId>
+		    <version>${es.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.owlpad.search.service</groupId>
