@@ -43,7 +43,7 @@ public class SearchServiceImpl implements SearchService{
 		String query = searchRequest.getKeyWord();
 		int hits = searchRequest.getMaxHits();
 		
-		File indexDir = new File("/Users/julespaulynice/Documents/search/index");
+		File indexDir = new File("/Users/julespaulynice/Documents/luna/index");
 		Directory directory = null;
 		try {
 			directory = FSDirectory.open(indexDir);

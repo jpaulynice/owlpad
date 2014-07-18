@@ -5,8 +5,8 @@ define([ 'jquery',
          'underscore', 
          'backbone', 
          'marionette',
-         'app/controllers/mainController' ], 
-         function($, _, Backbone, Marionette,MainController) {
+         'app/mediators/appMediator' ], 
+         function($, _, Backbone, Marionette,AppMediator) {
 
 	var SearchApp = new Backbone.Marionette.Application();
 
@@ -17,7 +17,7 @@ define([ 'jquery',
 	
 	var appRegions = {'header':SearchApp.header,'gridRegion':SearchApp.gridRegion};
 
-	var mainController = new MainController(appRegions);
+	var appMediator = new AppMediator(appRegions);
 
 	return SearchApp;
 });

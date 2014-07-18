@@ -22,16 +22,16 @@ define([ 'jquery',
 		showGridResults : function(data) {	
 			if(data.documents && data.documents.length>0){
 				var headers = [];
-				for(var key in data.documents[0].fields){
-					headers.push(data.documents[0].fields[key].name);
-				}
+				var fields = data.documents[0].fields;
+				_.each(fields, function(field){
+				    headers.push(field.name);
+				});
 				
 				var coll = new Backbone.Collection();
 				
-				for(var i in data.documents){
-					var fields = data.documents[i].fields;
-					coll.add(new Backbone.Model({fields:fields}));
-				}
+				_.each(data.documents,function(doc){
+				    coll.add(new Backbone.Model({fields:doc.fields}));
+				});
 
 				var gridView = new Grid({
 					collection : coll,
