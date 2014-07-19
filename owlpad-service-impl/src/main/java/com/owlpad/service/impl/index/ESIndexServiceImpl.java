@@ -4,20 +4,18 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
-import org.elasticsearch.action.index.IndexRequestBuilder;
+import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.client.Client;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.settings.ImmutableSettings;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.indices.IndexAlreadyExistsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.*;
+import static org.elasticsearch.node.NodeBuilder.nodeBuilder;
 
 import com.owlpad.domain.index.IndexRequest;
 import com.owlpad.domain.index.IndexResponse;
@@ -27,7 +25,7 @@ public class ESIndexServiceImpl implements IndexService {
 	private static final Logger logger = LoggerFactory.getLogger(ESIndexServiceImpl.class);
 
 	 public static void main(String [] args){
-		 ESIndexServiceImpl indService = new ESIndexServiceImpl(); 
+		 IndexService indService = new ESIndexServiceImpl(); 
 		 IndexRequest request = new IndexRequest();
 		 request.setDirectoryPath("/Users/julespaulynice/Documents/workspace");
 		 request.setSuffix("java");
@@ -42,7 +40,12 @@ public class ESIndexServiceImpl implements IndexService {
 		String dataDirPath = indexRequest.getDirectoryPath();
 		File dataDir = new File(dataDirPath);
 
-		response.setDocumentsIndexed(indexDir(dataDir, suffix));
+		try {
+			response.setDocumentsIndexed(indexDir(dataDir, suffix));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return response;
 	}
@@ -55,30 +58,31 @@ public class ESIndexServiceImpl implements IndexService {
 	 * @param dataDir
 	 * @param suffix
 	 * @return
+	 * @throws IOException 
 	 * @throws Exception
 	 */
-	private int indexDir(File dataDir, String suffix) {
-		Settings settings = ImmutableSettings.settingsBuilder()
-				.put("cluster.name", "elasticsearch").build();
-		Client client = new TransportClient(settings)
-				.addTransportAddress(new InetSocketTransportAddress(
-						"localhost", 9300));
+	private int indexDir(File dataDir, String suffix) throws IOException {
+		Client client = nodeBuilder().clusterName("elasticsearch").node().client();
 		try{
-			CreateIndexRequestBuilder createIndexRequestBuilder = client.admin()
-					.indices().prepareCreate("owlpad");
+			CreateIndexRequestBuilder createIndexRequestBuilder = client.admin().indices().prepareCreate("owlpad6");
 			createIndexRequestBuilder.execute().actionGet();
 		}catch(IndexAlreadyExistsException e){
-			logger.info("Excpetion while calling indexDir: "+e);
+			logger.info("Exception while calling indexDir: "+e);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		BulkRequestBuilder bulkRequest = client.prepareBulk();
+
+		List<File> filesToIndex = new ArrayList<>();
+		getFiles(dataDir,filesToIndex);
+		indexFileWithIndexWriter(client,bulkRequest,filesToIndex,suffix);
+		if(filesToIndex.size() >0){
+			bulkRequest.execute().actionGet();
 		}
 
-		IndexRequestBuilder indexRequestBuilder = client.prepareIndex("owlpad",
-				"docs", "1");
-
-		int numIndexed = indexDirectory(indexRequestBuilder, dataDir, suffix, 0);
-
 		client.close();
-		logger.debug("Documents indexed: "+numIndexed);
-		return numIndexed;
+		return filesToIndex.size();
 	}
 
 	/**
@@ -89,25 +93,15 @@ public class ESIndexServiceImpl implements IndexService {
 	 * @param suffix
 	 * @throws IOException
 	 */
-	private int indexDirectory(IndexRequestBuilder indexRequestBuilder,File dataDir, String suffix, int numIndexed) {
-
+	private void getFiles(File dataDir, List<File> filesToIndex) {
 		File[] files = dataDir.listFiles();
-		for (int i = 0; i < files.length; i++) {
-			File f = files[i];
+		for (File f: files) {
 			if (f.isDirectory()) {
-				indexDirectory(indexRequestBuilder, f, suffix, numIndexed);
+				getFiles(f,filesToIndex);
 			} else {
-				try {
-					indexFileWithIndexWriter(indexRequestBuilder, f, suffix);
-					numIndexed++;
-				} catch (IOException e) {
-					logger.info("Excpetion while calling indexDirectory: "+e);
-				}
+				filesToIndex.add(f);
 			}
 		}
-
-		return numIndexed;
-
 	}
 
 	/**
@@ -118,38 +112,41 @@ public class ESIndexServiceImpl implements IndexService {
 	 * @param suffix
 	 * @throws IOException
 	 */
-	private void indexFileWithIndexWriter(IndexRequestBuilder indexRequestBuilder, File f, String suffix) throws IOException {
-
-		if (f.isHidden() || f.isDirectory() || !f.canRead() || !f.exists()) {
-			return;
-		}
-		if (suffix != null && !f.getName().endsWith(suffix)) {
-			return;
-		}
-
-		XContentBuilder builder = null;
-		BufferedReader reader = null;
-
-		try {
-			reader = new BufferedReader(new FileReader(f));
-
-			String content = reader.readLine();
-			while ((content != null)) {
-				content += content;
+	private void indexFileWithIndexWriter(Client client, BulkRequestBuilder bulkRequest, List<File> filesToIndex, String suffix) throws IOException {
+		int num = 1;
+		for(File f: filesToIndex){
+			boolean notReadable = f.isHidden() || f.isDirectory() || !f.canRead() || !f.exists();
+			boolean matchSuffix =  suffix != null && f.getName().endsWith(suffix);
+			if (!notReadable && matchSuffix) {	
+				BufferedReader br;
+	
+				try {
+					br = new BufferedReader(new FileReader(f));
+					StringBuilder sb = new StringBuilder();
+					String line = br.readLine();
+	
+					while (line != null) {
+						sb.append(line);
+						sb.append(" ");
+						line = br.readLine();
+					}
+					br.close();
+	
+					bulkRequest.add(client.prepareIndex("owlpad6", "docs", String.valueOf(num))
+					        .setSource(jsonBuilder()
+					                    .startObject()
+					                    .field("contents", sb.toString())
+					                    .field("filepath", f.getCanonicalPath())
+					                    .field("filename", f.getName()).endObject()
+					                  )
+					        );
+					System.out.println("added file "+ f.getCanonicalPath());
+					num++;
+	
+				} catch (IOException e) {
+					logger.info("Exception while calling indexFileWithIndexWriter: "+e);
+				}
 			}
-			reader.close();
-			
-			builder = jsonBuilder().startObject()
-					.field("contents", content)
-					.field("filepath", f.getCanonicalPath())
-					.field("filename", f.getName()).endObject();
-
-		} catch (IOException e) {
-			logger.info("Excpetion while calling indexFileWithIndexWriter: "+e);
 		}			
-
-		logger.debug("Indexing file: "+f.getCanonicalPath());
-		indexRequestBuilder.setSource(builder);
-		indexRequestBuilder.execute().actionGet();
 	}
 }
