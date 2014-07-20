@@ -18,9 +18,13 @@ import com.owlpad.domain.search.Document;
 import com.owlpad.domain.search.Field;
 import com.owlpad.domain.search.SearchRequest;
 import com.owlpad.domain.search.SearchResponse;
+import com.owlpad.domain.search.StatusType;
+import com.owlpad.service.impl.index.ESIndexServiceImpl;
 import com.owlpad.service.search.SearchService;
 
 import org.apache.lucene.util.Version;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -31,6 +35,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("searchService")
 public class SearchServiceImpl implements SearchService{
+	private static final Logger logger = LoggerFactory.getLogger(ESIndexServiceImpl.class);
 
 	/*
 	 * (non-Javadoc)
@@ -40,6 +45,7 @@ public class SearchServiceImpl implements SearchService{
 	 */
 	@Override
 	public SearchResponse search(SearchRequest searchRequest){
+		SearchResponse response = new SearchResponse();
 		String query = searchRequest.getKeyWord();
 		int hits = searchRequest.getMaxHits();
 		
@@ -47,13 +53,14 @@ public class SearchServiceImpl implements SearchService{
 		Directory directory = null;
 		try {
 			directory = FSDirectory.open(indexDir);
-			return searchIndex(directory, query, hits);
+			response = searchIndex(directory, query, hits);
+			response.setStatus(StatusType.SUCCESS);
 		} 
 		catch (Exception e) {
-			//logger
+			response.setStatus(StatusType.FAIL);
+			logger.info("Exception while calling search.  Exception: "+e);
 		}
-		return null;
-
+		return response;
 	}
 
 	/**

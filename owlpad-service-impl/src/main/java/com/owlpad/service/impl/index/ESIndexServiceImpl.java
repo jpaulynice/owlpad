@@ -54,7 +54,7 @@ public class ESIndexServiceImpl implements IndexService {
 	private int indexDir(File dataDir, String suffix) throws IOException {
 		Client client = nodeBuilder().clusterName("elasticsearch").node().client();
 		try {
-			CreateIndexRequestBuilder createIndexRequestBuilder = client.admin().indices().prepareCreate("owlpad6");
+			CreateIndexRequestBuilder createIndexRequestBuilder = client.admin().indices().prepareCreate("owlpad-index");
 			createIndexRequestBuilder.execute().actionGet();
 		} catch (IndexAlreadyExistsException e) {
 			logger.info("Could not create index because it exists already.");
@@ -120,7 +120,7 @@ public class ESIndexServiceImpl implements IndexService {
 					}
 					br.close();
 
-					bulkRequest.add(client.prepareIndex("owlpad6", "docs",String.valueOf(num))
+					bulkRequest.add(client.prepareIndex("owlpad-index", "docs",String.valueOf(num))
 							.setSource(jsonBuilder()
 									.startObject()
 									.field("contents", sb.toString())

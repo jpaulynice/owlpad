@@ -30,11 +30,12 @@ public class ESSearchServiceImpl implements SearchService{
 		
 		Client client = nodeBuilder().clusterName("elasticsearch").node().client();
 		
-		org.elasticsearch.action.search.SearchResponse response = client.prepareSearch("owlpad6")
+		org.elasticsearch.action.search.SearchResponse response = client.prepareSearch("owlpad-index")
 		        .setTypes("docs")
 		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-		        .setQuery(QueryBuilders.matchQuery("contents","Paulynice"))
-		        .setFrom(0).setSize(60).setExplain(true)
+		        .setQuery(QueryBuilders.matchQuery("contents",searchRequest.getKeyWord()))
+		        .setFrom(0)
+		        .setSize(searchRequest.getMaxHits())
 		        .execute()
 		        .actionGet();
 		SearchHits hits = response.getHits();

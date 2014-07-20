@@ -14,10 +14,14 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.owlpad.domain.index.IndexRequest;
 import com.owlpad.domain.index.IndexResponse;
+import com.owlpad.domain.search.StatusType;
+import com.owlpad.service.impl.search.SearchServiceImpl;
 import com.owlpad.service.index.IndexService;
 
 /**
@@ -25,11 +29,9 @@ import com.owlpad.service.index.IndexService;
  * @author Jay Paulynice
  *
  */
-@Service("indexService")
+@Service("index")
 public class IndexServiceImpl implements IndexService{
-	
-	public IndexServiceImpl(){
-	}
+	private static final Logger logger = LoggerFactory.getLogger(SearchServiceImpl.class);
 	
 	/*
 	 * (non-Javadoc)
@@ -41,16 +43,20 @@ public class IndexServiceImpl implements IndexService{
 		
 		String indexDirPath= indexRequest.getIndexDirectoryPath();
 		Directory indexDir = null;
+		int numIndexed = 0;
 		try {
 			indexDir = FSDirectory.open(new File(indexDirPath));
+			String dataDirPath = indexRequest.getDirectoryPath();
+			File dataDir = new File(dataDirPath);
+			
+			numIndexed = indexDir(indexDir, dataDir, indexRequest.getSuffix());
+			
+			response.setStatus(StatusType.SUCCESS);
 		} catch (IOException e) {
-			//e.printStackTrace();
+			response.setStatus(StatusType.FAIL);
+			logger.info("Exception while calling index.  Exception: "+ e);
 		}
 		
-		String dataDirPath = indexRequest.getDirectoryPath();
-		File dataDir = new File(dataDirPath);
-		
-		int numIndexed = indexDir(indexDir, dataDir, indexRequest.getSuffix());
 		response.setDocumentsIndexed(numIndexed);
 		
 		return response;
@@ -63,26 +69,21 @@ public class IndexServiceImpl implements IndexService{
      * @param dataDir
      * @param suffix
      * @return
+	 * @throws IOException 
      * @throws Exception
      */
-    private int indexDir(Directory indexDir, File dataDir, String suffix) {
+    private int indexDir(Directory indexDir, File dataDir, String suffix) throws IOException {
       
     	StandardAnalyzer analyzer = new StandardAnalyzer(Version.LUCENE_48);
     	IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_48, analyzer);
     	IndexWriter indexWriter = null;
-		try {
-			indexWriter = new IndexWriter(indexDir, config);
-		} catch (IOException e) {
-			//log error
-		}       
+		
+    	indexWriter = new IndexWriter(indexDir, config);      
         indexDirectory(indexWriter, dataDir, suffix);
         
         int numIndexed = indexWriter.maxDoc();
-        try {
-			indexWriter.close();
-		} catch (IOException e) {
-			//log error
-		}
+		indexWriter.close();
+		
         
         return numIndexed;
         
@@ -96,8 +97,7 @@ public class IndexServiceImpl implements IndexService{
      * @param suffix
      * @throws IOException
      */
-    private void indexDirectory(IndexWriter indexWriter, File dataDir, 
-           String suffix) {
+    private void indexDirectory(IndexWriter indexWriter, File dataDir, String suffix) throws IOException {
 
         File[] files = dataDir.listFiles();
         for (int i = 0; i < files.length; i++) {
@@ -106,12 +106,8 @@ public class IndexServiceImpl implements IndexService{
                 indexDirectory(indexWriter, f, suffix);
             }
             else {
-                try {
-					indexFileWithIndexWriter(indexWriter, f, suffix);
-				} catch (IOException e) {
-					//log error
-				}
-            }
+            	indexFileWithIndexWriter(indexWriter, f, suffix);
+			}
         }
 
     }
