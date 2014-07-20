@@ -19,7 +19,6 @@ import com.owlpad.domain.search.Field;
 import com.owlpad.domain.search.SearchRequest;
 import com.owlpad.domain.search.SearchResponse;
 import com.owlpad.domain.search.StatusType;
-import com.owlpad.service.impl.index.ESIndexServiceImpl;
 import com.owlpad.service.search.SearchService;
 
 import org.apache.lucene.util.Version;
@@ -35,7 +34,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("searchService")
 public class SearchServiceImpl implements SearchService{
-	private static final Logger logger = LoggerFactory.getLogger(ESIndexServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(SearchServiceImpl.class);
 
 	/*
 	 * (non-Javadoc)
