@@ -1,4 +1,4 @@
-group = 'com.owlpad.search.service.impl'
+group = 'com.owlpad.search'
 apply plugin: 'war'
 
 description = ''
@@ -14,8 +14,8 @@ dependencies {
     compile group: 'org.codehaus.jackson', name: 'jackson-core-asl', version:'1.9.13'
     compile group: 'org.codehaus.jackson', name: 'jackson-jaxrs', version:'1.9.13'
     compile group: 'org.elasticsearch', name: 'elasticsearch', version:'1.2.2'
-  compile project(':owlpad-service')
-  compile project(':owlpad-domain')
+    compile project(':owlpad-service')
+    compile project(':owlpad-domain')
     runtime group: 'ch.qos.logback', name: 'logback-classic', version:'1.0.13'
     testCompile group: 'org.springframework', name: 'spring-test', version:'3.2.6.RELEASE'
     testCompile group: 'junit', name: 'junit', version:'4.11'
