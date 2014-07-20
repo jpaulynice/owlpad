@@ -57,7 +57,7 @@ public class ESIndexServiceImpl implements IndexService {
 			CreateIndexRequestBuilder createIndexRequestBuilder = client.admin().indices().prepareCreate("owlpad6");
 			createIndexRequestBuilder.execute().actionGet();
 		} catch (IndexAlreadyExistsException e) {
-			logger.info("Could not created this index because it exists already.");
+			logger.info("Could not create index because it exists already.");
 		}
 
 		BulkRequestBuilder bulkRequest = client.prepareBulk();
