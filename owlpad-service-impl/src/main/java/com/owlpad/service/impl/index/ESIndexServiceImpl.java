@@ -14,6 +14,7 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.indices.IndexAlreadyExistsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.*;
 
@@ -28,6 +29,7 @@ import com.owlpad.service.index.IndexService;
  * @author Jay Paulynice
  *
  */
+@Service("esIndexService")
 public class ESIndexServiceImpl implements IndexService {
 	private static final Logger logger = LoggerFactory.getLogger(ESIndexServiceImpl.class);
 

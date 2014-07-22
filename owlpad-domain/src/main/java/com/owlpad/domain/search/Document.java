@@ -19,17 +19,83 @@ public class Document {
 	}
 	
 	public Document(SearchHit hit,int pos){
-		this.setFields(getDocFieldsFromSearchHits(hit,pos));
+		this.setFields(getDocFieldsFromSearchHit(hit,pos));
 	}
 	
-	public List<Field> getDocFieldsFromSearchHits(SearchHit searchHit,int pos){
+	public Document(org.apache.lucene.document.Document doc, int id){
+		this.setFields(getDocumentFromLuceneDoc(doc,id));
+	}
+	
+	public List<Field> getDocumentFromLuceneDoc(org.apache.lucene.document.Document doc, int id){
 		List<Field> fields = new ArrayList<Field>();
 		Field docIdField = new Field();
 		docIdField.setFieldId("doc_id");
 		docIdField.setName("ID");
 		docIdField.setI18nKey("searchapp.docId");
 		docIdField.setFieldType("string");
-		docIdField.setValue(String.valueOf(pos));
+		docIdField.setValue(String.valueOf(id));
+
+		Field docNameField = new Field();
+		docNameField.setFieldId("doc_title");
+		docNameField.setName("Title");
+		docNameField.setI18nKey("searchapp.docTitle");
+		docNameField.setFieldType("string");
+		docNameField.setValue(doc.get("filename"));
+
+		Field docPathField = new Field();
+		docPathField.setFieldId("doc_path");
+		docPathField.setName("URI");
+		docPathField.setI18nKey("searchapp.docURI");
+		docPathField.setFieldType("string");
+		docPathField.setValue(doc.get("filepath"));
+		
+		Field authorField = new Field();
+		authorField.setFieldId("doc_author");
+		authorField.setName("Author");
+		authorField.setI18nKey("searchapp.docAuthor");
+		authorField.setFieldType("string");
+		authorField.setValue(doc.get("author"));
+		
+		Field dateField = new Field();
+		dateField.setFieldId("doc_date");
+		dateField.setName("Last Modified");
+		dateField.setI18nKey("searchapp.docDate");
+		dateField.setFieldType("string");
+		dateField.setValue(doc.get("lastModified"));
+		
+		Field created = new Field();
+		created.setFieldId("doc_created");
+		created.setName("Created");
+		created.setI18nKey("searchapp.docCreated");
+		created.setFieldType("string");
+		created.setValue(doc.get("created"));
+		
+		Field sizeField = new Field();
+		sizeField.setFieldId("doc_size");
+		sizeField.setName("Size (Bytes)");
+		sizeField.setI18nKey("searchapp.size");
+		sizeField.setFieldType("string");
+		sizeField.setValue(doc.get("size"));
+
+		fields.add(docIdField);
+		fields.add(docNameField);
+		fields.add(docPathField);
+		fields.add(authorField);
+		fields.add(dateField);
+		fields.add(created);
+		fields.add(sizeField);
+
+		return fields;
+	}
+	
+	private List<Field> getDocFieldsFromSearchHit(SearchHit searchHit,int id){
+		List<Field> fields = new ArrayList<Field>();
+		Field docIdField = new Field();
+		docIdField.setFieldId("doc_id");
+		docIdField.setName("ID");
+		docIdField.setI18nKey("searchapp.docId");
+		docIdField.setFieldType("string");
+		docIdField.setValue(String.valueOf(id));
 
 		Field docNameField = new Field();
 		docNameField.setFieldId("doc_title");

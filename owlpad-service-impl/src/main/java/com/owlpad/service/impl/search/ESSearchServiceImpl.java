@@ -8,6 +8,7 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.springframework.stereotype.Service;
 
 import com.owlpad.domain.search.Document;
 import com.owlpad.domain.search.SearchRequest;
@@ -16,10 +17,12 @@ import com.owlpad.service.esclient.ESSingletonClient;
 import com.owlpad.service.search.SearchService;
 
 /**
+ * Elasticsearch searchService implementation
  * 
  * @author Jay Paulynice
  *
  */
+@Service("esSearchService")
 public class ESSearchServiceImpl implements SearchService{
 
 	@Override
@@ -39,11 +42,11 @@ public class ESSearchServiceImpl implements SearchService{
 		SearchHits hits = response.getHits();
 
 		List<Document> docs = new ArrayList<>();
-		int num = 1;
+		int id = 1;
 		for(SearchHit hit: hits){
-			Document doc = new Document(hit,num);
+			Document doc = new Document(hit,id);
 			docs.add(doc);
-			num++;
+			id++;
 		}
 		internalResponse.setDocuments(docs);
 		client.close();
