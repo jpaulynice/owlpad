@@ -1,5 +1,5 @@
 /**
- * Main controller manages all controllers and main application responsibilities.
+ * AppMediator manages all controllers and main application responsibilities.
  * 
  */
 define([ 'jquery', 
@@ -15,7 +15,7 @@ define([ 'jquery',
         initialize : function(regions) {
             this.gridController = new GridController(regions.gridRegion);
             this.searchController = new SearchController();
-            var headerController = new HeaderController(regions.header)
+            var headerController = new HeaderController(regions.header);
             
             this.listenTo(headerController,'searchapp:header:search',this.search);
         },
