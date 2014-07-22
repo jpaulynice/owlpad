@@ -12,7 +12,7 @@ import org.elasticsearch.search.SearchHits;
 import com.owlpad.domain.search.Document;
 import com.owlpad.domain.search.SearchRequest;
 import com.owlpad.domain.search.SearchResponse;
-import com.owlpad.service.impl.esclient.ESSingletonClient;
+import com.owlpad.service.esclient.ESSingletonClient;
 import com.owlpad.service.search.SearchService;
 
 /**

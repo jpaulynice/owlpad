@@ -18,7 +18,7 @@ import static org.elasticsearch.common.xcontent.XContentFactory.*;
 
 import com.owlpad.domain.index.IndexRequest;
 import com.owlpad.domain.index.IndexResponse;
-import com.owlpad.service.impl.esclient.ESSingletonClient;
+import com.owlpad.service.esclient.ESSingletonClient;
 import com.owlpad.service.index.IndexService;
 
 public class ESIndexServiceImpl implements IndexService {
