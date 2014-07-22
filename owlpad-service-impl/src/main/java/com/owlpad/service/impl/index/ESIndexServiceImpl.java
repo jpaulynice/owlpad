@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
+import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.indices.IndexAlreadyExistsException;
 import org.slf4j.Logger;
@@ -59,7 +60,7 @@ public class ESIndexServiceImpl implements IndexService {
 					.admin().indices().prepareCreate("owlpad-index");
 			createIndexRequestBuilder.execute().actionGet();
 		} catch (IndexAlreadyExistsException e) {
-			logger.info("Could not create index because it exists already.");
+			logger.info("Could not create index because it exists already.  Exception: "+e);
 		}
 
 		BulkRequestBuilder bulkRequest = client.prepareBulk();
@@ -107,10 +108,8 @@ public class ESIndexServiceImpl implements IndexService {
 			String suffix) throws IOException {
 		int num = 1;
 		for (File f : filesToIndex) {
-			boolean unReadable = f.isHidden() || f.isDirectory()
-					|| !f.canRead() || !f.exists();
-			boolean matchSuffix = suffix != null
-					&& f.getName().endsWith(suffix);
+			boolean unReadable = f.isHidden() || f.isDirectory() || !f.canRead() || !f.exists();
+			boolean matchSuffix = suffix != null && f.getName().endsWith(suffix);
 			if (!unReadable && matchSuffix) {
 				BufferedReader br;
 
@@ -126,23 +125,23 @@ public class ESIndexServiceImpl implements IndexService {
 					}
 					br.close();
 
-					bulkRequest.add(client.prepareIndex("owlpad-index", "docs",
-							String.valueOf(num))
-							.setSource(
-									jsonBuilder()
-											.startObject()
-											.field("contents", sb.toString())
-											.field("filepath",
-													f.getCanonicalPath())
-											.field("filename", f.getName())
-											.endObject()));
+					IndexRequestBuilder requestBuilder = getIndexRequestBuilder(client,f,num,sb.toString());
+					bulkRequest.add(requestBuilder);
 					num++;
 
 				} catch (IOException e) {
-					logger.info("Exception while calling indexFileWithIndexWriter: "
-							+ e);
+					logger.info("Exception while calling indexFileWithIndexWriter: "+ e);
 				}
 			}
 		}
+	}
+	
+	private IndexRequestBuilder getIndexRequestBuilder(Client client,File f, int num, String content) throws IOException{
+		return client.prepareIndex("owlpad-index", "docs",String.valueOf(num))
+				.setSource(jsonBuilder().startObject()
+								.field("contents", content)
+								.field("filepath",f.getCanonicalPath())
+								.field("filename", f.getName())
+								.endObject());
 	}
 }
