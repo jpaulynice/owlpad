@@ -7,7 +7,7 @@ define([ 'jquery',
          'backbone', 
          'marionette',
          'app/views/header/header'], 
-         function($, _,Backbone, Marionette,HeaderView,SearchController,GridController) {
+         function($, _,Backbone, Marionette,HeaderView) {
 
     var HeaderController = Backbone.Marionette.Controller.extend({
         initialize : function(headerRegion) {            

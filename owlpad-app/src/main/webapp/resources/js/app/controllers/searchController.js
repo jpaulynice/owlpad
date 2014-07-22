@@ -6,8 +6,7 @@ define([ 'jquery',
          'underscore', 
          'backbone', 
          'marionette',
-         'app/entities/searchEntities', 
-         'app/controllers/gridController'], 
+         'app/entities/searchEntities'], 
          function($, _,Backbone, Marionette, SearchEntities) {
 
 	var SearchAppController = Backbone.Marionette.Controller.extend({
