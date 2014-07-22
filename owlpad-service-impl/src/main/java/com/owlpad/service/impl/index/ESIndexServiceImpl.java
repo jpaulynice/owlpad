@@ -22,10 +22,19 @@ import com.owlpad.domain.index.IndexResponse;
 import com.owlpad.service.esclient.ESSingletonClient;
 import com.owlpad.service.index.IndexService;
 
+/**
+ * Elasticsearch indexService implementation.
+ * 
+ * @author Jay Paulynice
+ *
+ */
 public class ESIndexServiceImpl implements IndexService {
-	private static final Logger logger = LoggerFactory
-			.getLogger(ESIndexServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(ESIndexServiceImpl.class);
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.owlpad.service.index.IndexService#index(com.owlpad.domain.index.IndexRequest)
+	 */
 	@Override
 	public IndexResponse index(IndexRequest indexRequest) {
 		IndexResponse response = new IndexResponse();
@@ -43,15 +52,12 @@ public class ESIndexServiceImpl implements IndexService {
 	}
 
 	/**
-	 * Method to index a directory by passing the directory to index, location
-	 * to store the index, and word endings.
+	 * Entry point for directory indexing 
 	 * 
-	 * @param indexDir
 	 * @param dataDir
 	 * @param suffix
 	 * @return
 	 * @throws IOException
-	 * @throws Exception
 	 */
 	private int indexDir(File dataDir, String suffix) throws IOException {
 		Client client = ESSingletonClient.INSTANCE;
@@ -77,12 +83,10 @@ public class ESIndexServiceImpl implements IndexService {
 	}
 
 	/**
-	 * Method to index a directory recursively.
+	 * Get files from a directory
 	 * 
-	 * @param indexWriter
 	 * @param dataDir
-	 * @param suffix
-	 * @throws IOException
+	 * @param filesToIndex
 	 */
 	private void getFilesFromDirectory(File dataDir, List<File> filesToIndex) {
 		File[] files = dataDir.listFiles();
@@ -96,10 +100,11 @@ public class ESIndexServiceImpl implements IndexService {
 	}
 
 	/**
-	 * Index a file by creating a Document and adding fields
+	 * Build up {@link BulkRequestBuilder} object 
 	 * 
-	 * @param indexWriter
-	 * @param f
+	 * @param client
+	 * @param bulkRequest
+	 * @param filesToIndex
 	 * @param suffix
 	 * @throws IOException
 	 */
@@ -135,13 +140,23 @@ public class ESIndexServiceImpl implements IndexService {
 			}
 		}
 	}
-	
-	private IndexRequestBuilder getIndexRequestBuilder(Client client,File f, int num, String content) throws IOException{
-		return client.prepareIndex("owlpad-index", "docs",String.valueOf(num))
+
+	/**
+	 * Create an indexRequestBuilder object give the client, file, id,and content
+	 * 
+	 * @param client
+	 * @param f
+	 * @param id
+	 * @param content
+	 * @return {@link IndexRequestBuilder} object
+	 * @throws IOException
+	 */
+	private IndexRequestBuilder getIndexRequestBuilder(Client client,File f, int id, String content) throws IOException{
+		return client.prepareIndex("owlpad-index", "docs",String.valueOf(id))
 				.setSource(jsonBuilder().startObject()
-								.field("contents", content)
-								.field("filepath",f.getCanonicalPath())
-								.field("filename", f.getName())
-								.endObject());
+						.field("contents", content)
+						.field("filepath",f.getCanonicalPath())
+						.field("filename", f.getName())
+						.endObject());
 	}
 }
