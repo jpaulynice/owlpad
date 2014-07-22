@@ -9,11 +9,10 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 
-import static org.elasticsearch.node.NodeBuilder.*;
-
 import com.owlpad.domain.search.Document;
 import com.owlpad.domain.search.SearchRequest;
 import com.owlpad.domain.search.SearchResponse;
+import com.owlpad.service.impl.esclient.ESSingletonClient;
 import com.owlpad.service.search.SearchService;
 
 /**
@@ -27,11 +26,11 @@ public class ESSearchServiceImpl implements SearchService{
 	public SearchResponse search(SearchRequest searchRequest) {
 		SearchResponse internalResponse = new SearchResponse();
 
-		Client client = nodeBuilder().clusterName("elasticsearch").node().client();
+		Client client = ESSingletonClient.INSTANCE;
 
 		org.elasticsearch.action.search.SearchResponse response = client.prepareSearch("owlpad-index")
 				.setTypes("docs")
-				.setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+				.setSearchType(SearchType.QUERY_THEN_FETCH)
 				.setQuery(QueryBuilders.matchQuery("contents",searchRequest.getKeyWord()))
 				.setFrom(0)
 				.setSize(searchRequest.getMaxHits())

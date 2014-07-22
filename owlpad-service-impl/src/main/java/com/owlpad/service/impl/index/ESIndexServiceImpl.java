@@ -15,10 +15,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.*;
-import static org.elasticsearch.node.NodeBuilder.nodeBuilder;
 
 import com.owlpad.domain.index.IndexRequest;
 import com.owlpad.domain.index.IndexResponse;
+import com.owlpad.service.impl.esclient.ESSingletonClient;
 import com.owlpad.service.index.IndexService;
 
 public class ESIndexServiceImpl implements IndexService {
@@ -52,7 +52,7 @@ public class ESIndexServiceImpl implements IndexService {
 	 * @throws Exception
 	 */
 	private int indexDir(File dataDir, String suffix) throws IOException {
-		Client client = nodeBuilder().clusterName("elasticsearch").node().client();
+		Client client = ESSingletonClient.INSTANCE;
 		try {
 			CreateIndexRequestBuilder createIndexRequestBuilder = client.admin().indices().prepareCreate("owlpad-index");
 			createIndexRequestBuilder.execute().actionGet();
