@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import com.owlpad.domain.index.IndexRequest;
 import com.owlpad.domain.index.IndexResponse;
 import com.owlpad.domain.search.StatusType;
-import com.owlpad.service.impl.search.SearchServiceImpl;
 import com.owlpad.service.index.IndexService;
 
 /**

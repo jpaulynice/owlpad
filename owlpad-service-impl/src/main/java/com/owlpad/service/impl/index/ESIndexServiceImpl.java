@@ -22,7 +22,8 @@ import com.owlpad.service.impl.esclient.ESSingletonClient;
 import com.owlpad.service.index.IndexService;
 
 public class ESIndexServiceImpl implements IndexService {
-	private static final Logger logger = LoggerFactory.getLogger(ESIndexServiceImpl.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(ESIndexServiceImpl.class);
 
 	@Override
 	public IndexResponse index(IndexRequest indexRequest) {
@@ -34,7 +35,7 @@ public class ESIndexServiceImpl implements IndexService {
 		try {
 			response.setDocumentsIndexed(indexDir(dataDir, suffix));
 		} catch (IOException e) {
-			logger.info("Exception while calling index.  Exception"+ e);
+			logger.info("Exception while calling index.  Exception" + e);
 		}
 
 		return response;
@@ -54,7 +55,8 @@ public class ESIndexServiceImpl implements IndexService {
 	private int indexDir(File dataDir, String suffix) throws IOException {
 		Client client = ESSingletonClient.INSTANCE;
 		try {
-			CreateIndexRequestBuilder createIndexRequestBuilder = client.admin().indices().prepareCreate("owlpad-index");
+			CreateIndexRequestBuilder createIndexRequestBuilder = client
+					.admin().indices().prepareCreate("owlpad-index");
 			createIndexRequestBuilder.execute().actionGet();
 		} catch (IndexAlreadyExistsException e) {
 			logger.info("Could not create index because it exists already.");
@@ -100,11 +102,15 @@ public class ESIndexServiceImpl implements IndexService {
 	 * @param suffix
 	 * @throws IOException
 	 */
-	private void indexFileWithIndexWriter(Client client,BulkRequestBuilder bulkRequest, List<File> filesToIndex,String suffix) throws IOException {
+	private void indexFileWithIndexWriter(Client client,
+			BulkRequestBuilder bulkRequest, List<File> filesToIndex,
+			String suffix) throws IOException {
 		int num = 1;
 		for (File f : filesToIndex) {
-			boolean unReadable = f.isHidden() || f.isDirectory() || !f.canRead() || !f.exists();
-			boolean matchSuffix = suffix != null && f.getName().endsWith(suffix);
+			boolean unReadable = f.isHidden() || f.isDirectory()
+					|| !f.canRead() || !f.exists();
+			boolean matchSuffix = suffix != null
+					&& f.getName().endsWith(suffix);
 			if (!unReadable && matchSuffix) {
 				BufferedReader br;
 
@@ -120,17 +126,21 @@ public class ESIndexServiceImpl implements IndexService {
 					}
 					br.close();
 
-					bulkRequest.add(client.prepareIndex("owlpad-index", "docs",String.valueOf(num))
-							.setSource(jsonBuilder()
-									.startObject()
-									.field("contents", sb.toString())
-									.field("filepath",f.getCanonicalPath())
-									.field("filename", f.getName())
-									.endObject()));
+					bulkRequest.add(client.prepareIndex("owlpad-index", "docs",
+							String.valueOf(num))
+							.setSource(
+									jsonBuilder()
+											.startObject()
+											.field("contents", sb.toString())
+											.field("filepath",
+													f.getCanonicalPath())
+											.field("filename", f.getName())
+											.endObject()));
 					num++;
 
 				} catch (IOException e) {
-					logger.info("Exception while calling indexFileWithIndexWriter: "+ e);
+					logger.info("Exception while calling indexFileWithIndexWriter: "
+							+ e);
 				}
 			}
 		}
