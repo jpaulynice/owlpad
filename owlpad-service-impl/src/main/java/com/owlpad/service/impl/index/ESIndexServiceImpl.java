@@ -65,8 +65,8 @@ public class ESIndexServiceImpl implements IndexService {
 		BulkRequestBuilder bulkRequest = client.prepareBulk();
 
 		List<File> filesToIndex = new ArrayList<>();
-		getFiles(dataDir, filesToIndex);
-		indexFileWithIndexWriter(client, bulkRequest, filesToIndex, suffix);
+		getFilesFromDirectory(dataDir, filesToIndex);
+		addDocumentsToBulkRequest(client, bulkRequest, filesToIndex, suffix);
 		if (filesToIndex.size() > 0) {
 			bulkRequest.execute().actionGet();
 		}
@@ -83,11 +83,11 @@ public class ESIndexServiceImpl implements IndexService {
 	 * @param suffix
 	 * @throws IOException
 	 */
-	private void getFiles(File dataDir, List<File> filesToIndex) {
+	private void getFilesFromDirectory(File dataDir, List<File> filesToIndex) {
 		File[] files = dataDir.listFiles();
 		for (File f : files) {
 			if (f.isDirectory()) {
-				getFiles(f, filesToIndex);
+				getFilesFromDirectory(f, filesToIndex);
 			} else {
 				filesToIndex.add(f);
 			}
@@ -102,7 +102,7 @@ public class ESIndexServiceImpl implements IndexService {
 	 * @param suffix
 	 * @throws IOException
 	 */
-	private void indexFileWithIndexWriter(Client client,
+	private void addDocumentsToBulkRequest(Client client,
 			BulkRequestBuilder bulkRequest, List<File> filesToIndex,
 			String suffix) throws IOException {
 		int num = 1;
