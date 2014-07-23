@@ -80,7 +80,6 @@ public class ESIndexServiceImpl implements IndexService {
 			bulkRequest.execute().actionGet();
 		}
 
-		client.close();
 		return filesToIndex.size();
 	}
 
