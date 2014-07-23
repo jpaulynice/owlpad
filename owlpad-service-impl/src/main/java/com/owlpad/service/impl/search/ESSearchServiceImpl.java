@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import com.owlpad.domain.search.Document;
 import com.owlpad.domain.search.SearchRequest;
 import com.owlpad.domain.search.SearchResponse;
-import com.owlpad.service.esclient.ESSingletonClient;
+import com.owlpad.service.esclient.ESClientProvider;
 import com.owlpad.service.search.SearchService;
 
 /**
@@ -29,7 +29,7 @@ public class ESSearchServiceImpl implements SearchService{
 	public SearchResponse search(SearchRequest searchRequest) {
 		SearchResponse internalResponse = new SearchResponse();
 
-		Client client = ESSingletonClient.INSTANCE;
+		Client client = ESClientProvider.INSTANCE;
 
 		org.elasticsearch.action.search.SearchResponse response = client.prepareSearch("owlpad-index")
 				.setTypes("docs")

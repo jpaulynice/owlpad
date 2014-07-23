@@ -38,4 +38,5 @@
 		</jaxrs:providers>
     </jaxrs:server>
     <bean id="searchService" class="com.owlpad.service.impl.search.SearchServiceImpl"/>
+    <bean id="esClient" class="com.owlpad.service.esclient.ESClientProvider"/>
 </beans>

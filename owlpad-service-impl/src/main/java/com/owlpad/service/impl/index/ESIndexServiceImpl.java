@@ -20,7 +20,7 @@ import static org.elasticsearch.common.xcontent.XContentFactory.*;
 
 import com.owlpad.domain.index.IndexRequest;
 import com.owlpad.domain.index.IndexResponse;
-import com.owlpad.service.esclient.ESSingletonClient;
+import com.owlpad.service.esclient.ESClientProvider;
 import com.owlpad.service.index.IndexService;
 
 /**
@@ -62,7 +62,7 @@ public class ESIndexServiceImpl implements IndexService {
 	 * @throws IOException
 	 */
 	private int indexDir(File dataDir, String suffix) throws IOException {
-		Client client = ESSingletonClient.INSTANCE;
+		Client client = ESClientProvider.INSTANCE;
 		try {
 			CreateIndexRequestBuilder createIndexRequestBuilder = client
 					.admin().indices().prepareCreate("owlpad-index");
