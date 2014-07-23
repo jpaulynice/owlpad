@@ -1,7 +1,7 @@
 group = 'com.owlpad.search'
 apply plugin: 'war'
 
-description = ''
+description = 'owlpad-service-impl'
 dependencies {
     compile group: 'org.springframework', name: 'spring-webmvc', version:'3.2.6.RELEASE'
     compile group: 'javax.servlet', name: 'jstl', version:'1.2'
