@@ -20,6 +20,7 @@ import static org.elasticsearch.common.xcontent.XContentFactory.*;
 
 import com.owlpad.domain.index.IndexRequest;
 import com.owlpad.domain.index.IndexResponse;
+import com.owlpad.domain.search.StatusType;
 import com.owlpad.service.esclient.ESClientProvider;
 import com.owlpad.service.index.IndexService;
 
@@ -46,7 +47,9 @@ public class ESIndexServiceImpl implements IndexService {
 
 		try {
 			response.setDocumentsIndexed(indexDir(dataDir, suffix));
+			response.setStatus(StatusType.SUCCESS);
 		} catch (IOException e) {
+			response.setStatus(StatusType.FAIL);
 			logger.info("Exception while calling index.  Exception" + e);
 		}
 
