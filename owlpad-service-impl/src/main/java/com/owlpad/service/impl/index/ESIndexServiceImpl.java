@@ -1,12 +1,11 @@
 package com.owlpad.service.impl.index;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.cxf.helpers.FileUtils;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.index.IndexRequestBuilder;
@@ -32,7 +31,21 @@ import com.owlpad.service.index.IndexService;
  */
 @Service("esIndexService")
 public class ESIndexServiceImpl implements IndexService {
+	Client client;
 	private static final Logger logger = LoggerFactory.getLogger(ESIndexServiceImpl.class);
+	
+	public static void main(String[] args){
+		IndexService s = new ESIndexServiceImpl();
+		IndexRequest ir = new IndexRequest();
+		ir.setDirectoryPath("/Users/julespaulynice/Desktop");
+		ir.setSuffix(".java");
+		
+		System.out.println(s.index(ir));
+	}
+	
+	public ESIndexServiceImpl(){
+		client = ESClientProvider.getInstance();
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -48,7 +61,8 @@ public class ESIndexServiceImpl implements IndexService {
 		try {
 			response.setDocumentsIndexed(indexDir(dataDir, suffix));
 			response.setStatus(StatusType.SUCCESS);
-		} catch (IOException e) {
+		}
+		catch (Exception e) {
 			response.setStatus(StatusType.FAIL);
 			logger.info("Exception while calling index.  Exception" + e);
 		}
@@ -62,10 +76,9 @@ public class ESIndexServiceImpl implements IndexService {
 	 * @param dataDir
 	 * @param suffix
 	 * @return
-	 * @throws IOException
+	 * @throws Exception 
 	 */
-	private int indexDir(File dataDir, String suffix) throws IOException {
-		Client client = ESClientProvider.INSTANCE;
+	private int indexDir(File dataDir, String suffix) throws Exception {
 		try {
 			CreateIndexRequestBuilder createIndexRequestBuilder = client
 					.admin().indices().prepareCreate("owlpad-index");
@@ -78,7 +91,7 @@ public class ESIndexServiceImpl implements IndexService {
 
 		List<File> filesToIndex = new ArrayList<>();
 		getFilesFromDirectory(dataDir, filesToIndex);
-		addDocumentsToBulkRequest(client, bulkRequest, filesToIndex, suffix);
+		addDocumentsToBulkRequest(bulkRequest, filesToIndex, suffix);
 		if (filesToIndex.size() > 0) {
 			bulkRequest.execute().actionGet();
 		}
@@ -110,37 +123,25 @@ public class ESIndexServiceImpl implements IndexService {
 	 * @param bulkRequest
 	 * @param filesToIndex
 	 * @param suffix
-	 * @throws IOException
+	 * @throws Exception 
 	 */
-	private void addDocumentsToBulkRequest(Client client,
-			BulkRequestBuilder bulkRequest, List<File> filesToIndex,
-			String suffix) throws IOException {
+	private void addDocumentsToBulkRequest(BulkRequestBuilder bulkRequest, List<File> filesToIndex,
+			String suffix) throws Exception {
 		int num = 1;
 		for (File f : filesToIndex) {
 			boolean unReadable = f.isHidden() || f.isDirectory() || !f.canRead() || !f.exists();
 			boolean matchSuffix = suffix != null && f.getName().endsWith(suffix);
 			if (!unReadable && matchSuffix) {
-				BufferedReader br;
-
-				try {
-					br = new BufferedReader(new FileReader(f));
-					StringBuilder sb = new StringBuilder();
-					String line = br.readLine();
-
-					while (line != null) {
-						sb.append(line);
-						sb.append(" ");
-						line = br.readLine();
-					}
-					br.close();
-
-					IndexRequestBuilder requestBuilder = getIndexRequestBuilder(client,f,num,sb.toString());
-					bulkRequest.add(requestBuilder);
-					num++;
-
-				} catch (IOException e) {
-					logger.info("Exception while calling indexFileWithIndexWriter: "+ e);
+				StringBuilder sb = new StringBuilder();
+				List<String> lines = FileUtils.readLines(f);
+				for(String line: lines){
+					sb.append(line);
+					sb.append(" ");
 				}
+
+				IndexRequestBuilder requestBuilder = getIndexRequestBuilder(f,num,sb.toString());
+				bulkRequest.add(requestBuilder);
+				num++;
 			}
 		}
 	}
@@ -155,7 +156,7 @@ public class ESIndexServiceImpl implements IndexService {
 	 * @return {@link IndexRequestBuilder} object
 	 * @throws IOException
 	 */
-	private IndexRequestBuilder getIndexRequestBuilder(Client client,File f, int id, String content) throws IOException{
+	private IndexRequestBuilder getIndexRequestBuilder(File f, int id, String content) throws IOException{
 		return client.prepareIndex("owlpad-index", "docs",String.valueOf(id))
 				.setSource(jsonBuilder().startObject()
 						.field("contents", content)

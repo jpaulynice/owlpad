@@ -5,6 +5,7 @@ import static org.elasticsearch.node.NodeBuilder.nodeBuilder;
 import org.elasticsearch.client.Client;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.stereotype.Component;
 
 /**
  * Singleton Client instance
@@ -12,20 +13,25 @@ import org.springframework.beans.factory.InitializingBean;
  * @author Jay Paulynice
  *
  */
+@Component
 public class ESClientProvider implements InitializingBean, DisposableBean{
-	public static Client INSTANCE;
+	private static Client client;
 	
 	private ESClientProvider(){
+
+	}
 	
+	public static synchronized Client getInstance(){
+		return client;
 	}
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		INSTANCE = nodeBuilder().clusterName("elasticsearch").node().client();
+		client = nodeBuilder().clusterName("elasticsearch").node().client();
 	}
 
 	@Override
 	public void destroy() throws Exception {
-		INSTANCE.close();
+		client.close();
 	}
 }

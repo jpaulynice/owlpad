@@ -8,6 +8,7 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.owlpad.domain.search.Document;
@@ -24,12 +25,15 @@ import com.owlpad.service.search.SearchService;
  */
 @Service("esSearchService")
 public class ESSearchServiceImpl implements SearchService{
-
+	Client client;
+	
+	public ESSearchServiceImpl(){
+		client = ESClientProvider.getInstance();
+	}
+	
 	@Override
 	public SearchResponse search(SearchRequest searchRequest) {
 		SearchResponse internalResponse = new SearchResponse();
-
-		Client client = ESClientProvider.INSTANCE;
 
 		org.elasticsearch.action.search.SearchResponse response = client.prepareSearch("owlpad-index")
 				.setTypes("docs")

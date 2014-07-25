@@ -31,12 +31,14 @@
 		
     <jaxrs:server id="restContainer" address="/">
         <jaxrs:serviceBeans>
-           <ref bean="searchService"/>       
+           <ref bean="esSearchService"/>
+           <ref bean="esIndexService"/>            
         </jaxrs:serviceBeans>
         <jaxrs:providers>
 			<ref bean="jsonProvider"/>
 		</jaxrs:providers>
     </jaxrs:server>
-    <bean id="searchService" class="com.owlpad.service.impl.search.SearchServiceImpl"/>
-    <bean id="esClient" class="com.owlpad.service.esclient.ESClientProvider"/>
+    <bean id="esSearchService" class="com.owlpad.service.impl.search.ESSearchServiceImpl"/>
+    <bean id="esIndexService" class="com.owlpad.service.impl.index.ESIndexServiceImpl"/>
+    <bean id="eSClientProvider" class="com.owlpad.service.esclient.ESClientProvider"/>
 </beans>
