@@ -9,10 +9,11 @@ import org.apache.cxf.helpers.FileUtils;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.index.IndexRequestBuilder;
-import org.elasticsearch.client.Client;
+import org.elasticsearch.client.node.NodeClient;
 import org.elasticsearch.indices.IndexAlreadyExistsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.*;
@@ -20,7 +21,7 @@ import static org.elasticsearch.common.xcontent.XContentFactory.*;
 import com.owlpad.domain.index.IndexRequest;
 import com.owlpad.domain.index.IndexResponse;
 import com.owlpad.domain.search.StatusType;
-import com.owlpad.service.esclient.ESClientProvider;
+import com.owlpad.service.elasticsearch.client.NodeClientFactoryBean;
 import com.owlpad.service.index.IndexService;
 
 /**
@@ -31,20 +32,30 @@ import com.owlpad.service.index.IndexService;
  */
 @Service("esIndexService")
 public class ESIndexServiceImpl implements IndexService {
-	Client client;
+	NodeClientFactoryBean nodeClientFactoryBean;
+	NodeClient client;
 	private static final Logger logger = LoggerFactory.getLogger(ESIndexServiceImpl.class);
 	
-	public static void main(String[] args){
-		IndexService s = new ESIndexServiceImpl();
-		IndexRequest ir = new IndexRequest();
-		ir.setDirectoryPath("/Users/julespaulynice/Desktop");
-		ir.setSuffix(".java");
+	/*public static void main(String[] args){
+		IndexService s = null;
+		IndexRequest ir = null;
+		try {
+			s = new ESIndexServiceImpl();
+			ir = new IndexRequest();
+			ir.setDirectoryPath("/Users/julespaulynice/Desktop");
+			ir.setSuffix(".java");
+		} catch (Exception e) {
+			
+		}
 		
 		System.out.println(s.index(ir));
 	}
+	*/
 	
-	public ESIndexServiceImpl(){
-		client = ESClientProvider.getInstance();
+	@Autowired
+	public ESIndexServiceImpl(NodeClientFactoryBean nodeClientFactoryBean) throws Exception{
+		this.nodeClientFactoryBean = nodeClientFactoryBean;
+		client = this.nodeClientFactoryBean.getObject();
 	}
 
 	/*

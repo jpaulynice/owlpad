@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.elasticsearch.action.search.SearchType;
-import org.elasticsearch.client.Client;
+import org.elasticsearch.client.node.NodeClient;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import com.owlpad.domain.search.Document;
 import com.owlpad.domain.search.SearchRequest;
 import com.owlpad.domain.search.SearchResponse;
-import com.owlpad.service.esclient.ESClientProvider;
+import com.owlpad.service.elasticsearch.client.NodeClientFactoryBean;
 import com.owlpad.service.search.SearchService;
 
 /**
@@ -25,10 +25,13 @@ import com.owlpad.service.search.SearchService;
  */
 @Service("esSearchService")
 public class ESSearchServiceImpl implements SearchService{
-	Client client;
+	NodeClientFactoryBean nodeClientFactoryBean;
+	NodeClient client;
 	
-	public ESSearchServiceImpl(){
-		client = ESClientProvider.getInstance();
+	@Autowired
+	public ESSearchServiceImpl(NodeClientFactoryBean nodeClientFactoryBean) throws Exception{
+		this.nodeClientFactoryBean = nodeClientFactoryBean;
+		client = this.nodeClientFactoryBean.getObject();
 	}
 	
 	@Override

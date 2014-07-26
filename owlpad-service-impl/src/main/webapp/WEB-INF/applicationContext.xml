@@ -19,6 +19,7 @@
 		
     <import resource="classpath:META-INF/cxf/cxf.xml" />
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+    <context:component-scan base-package="com.owlpad.serice"/>
     
     <cxf:bus>
         <cxf:features>
@@ -31,6 +32,8 @@
 		
     <jaxrs:server id="restContainer" address="/">
         <jaxrs:serviceBeans>
+           <ref bean="searchService"/>
+           <ref bean="indexService"/>
            <ref bean="esSearchService"/>
            <ref bean="esIndexService"/>            
         </jaxrs:serviceBeans>
@@ -38,7 +41,15 @@
 			<ref bean="jsonProvider"/>
 		</jaxrs:providers>
     </jaxrs:server>
-    <bean id="esSearchService" class="com.owlpad.service.impl.search.ESSearchServiceImpl"/>
-    <bean id="esIndexService" class="com.owlpad.service.impl.index.ESIndexServiceImpl"/>
-    <bean id="eSClientProvider" class="com.owlpad.service.esclient.ESClientProvider"/>
+   	<bean id="nodeClientFactoryBean" class="com.owlpad.service.elasticsearch.client.NodeClientFactoryBean">
+   		<property name="clusterName" value="elasticsearch" />
+   	</bean>
+    <bean id="esSearchService" class="com.owlpad.service.impl.search.ESSearchServiceImpl">
+    	<constructor-arg><ref bean="nodeClientFactoryBean"/></constructor-arg>
+    </bean>
+    <bean id="esIndexService" class="com.owlpad.service.impl.index.ESIndexServiceImpl">
+    	<constructor-arg><ref bean="nodeClientFactoryBean"/></constructor-arg>
+    </bean>
+    <bean id="searchService" class="com.owlpad.service.impl.search.SearchServiceImpl"/>
+    <bean id="indexService" class="com.owlpad.service.impl.index.IndexServiceImpl"/>
 </beans>
