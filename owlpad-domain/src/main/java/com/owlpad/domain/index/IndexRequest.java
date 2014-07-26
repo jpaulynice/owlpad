@@ -1,10 +1,13 @@
 package com.owlpad.domain.index;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * 
  * @author Jay Paulynice
  *
  */
+@XmlRootElement(name = "indexRequest")
 public class IndexRequest {
 	private String directoryPath;
 	private String indexDirectoryPath;

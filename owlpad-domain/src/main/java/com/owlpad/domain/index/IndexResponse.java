@@ -1,5 +1,7 @@
 package com.owlpad.domain.index;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.owlpad.domain.search.StatusType;
 
 /**
@@ -7,9 +9,11 @@ import com.owlpad.domain.search.StatusType;
  * @author Jay Paulynice
  *
  */
+@XmlRootElement(name = "indexResponse")
 public class IndexResponse {
 	private int documentsIndexed;
 	private StatusType status;
+	private String errorMessage;
 	
 	public IndexResponse(){
 		
@@ -41,5 +45,19 @@ public class IndexResponse {
 	 */
 	public void setStatus(StatusType status) {
 		this.status = status;
+	}
+
+	/**
+	 * @return the errorMessage
+	 */
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	/**
+	 * @param errorMessage the errorMessage to set
+	 */
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 }

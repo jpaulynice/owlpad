@@ -2,6 +2,7 @@ package com.owlpad.domain.search;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.elasticsearch.search.SearchHit;
 
@@ -89,6 +90,7 @@ public class Document {
 	}
 	
 	private List<Field> getDocFieldsFromSearchHit(SearchHit searchHit,int id){
+		Map<String,Object> fieldsMap = searchHit.getSource();
 		List<Field> fields = new ArrayList<Field>();
 		Field docIdField = new Field();
 		docIdField.setFieldId("doc_id");
@@ -102,50 +104,52 @@ public class Document {
 		docNameField.setName("Title");
 		docNameField.setI18nKey("searchapp.docTitle");
 		docNameField.setFieldType("string");
-		docNameField.setValue(searchHit.getFields().get("filename").getValue().toString());
+		docNameField.setValue(fieldsMap.get("filename").toString());
 
 		Field docPathField = new Field();
 		docPathField.setFieldId("doc_path");
 		docPathField.setName("URI");
 		docPathField.setI18nKey("searchapp.docURI");
 		docPathField.setFieldType("string");
-		docPathField.setValue(searchHit.getFields().get("filepath").getValue().toString());
+		docPathField.setValue(fieldsMap.get("filepath").toString());
 		
+		/*
 		Field authorField = new Field();
 		authorField.setFieldId("doc_author");
 		authorField.setName("Author");
 		authorField.setI18nKey("searchapp.docAuthor");
 		authorField.setFieldType("string");
-		authorField.setValue(searchHit.getFields().get("author").getValue().toString());
+		authorField.setValue(fieldsMap.get("author").toString());
 		
 		Field dateField = new Field();
 		dateField.setFieldId("doc_date");
 		dateField.setName("Last Modified");
 		dateField.setI18nKey("searchapp.docDate");
 		dateField.setFieldType("string");
-		dateField.setValue(searchHit.getFields().get("lastModified").getValue().toString());
+		dateField.setValue(fieldsMap.get("lastModified").toString());
 		
 		Field created = new Field();
 		created.setFieldId("doc_created");
 		created.setName("Created");
 		created.setI18nKey("searchapp.docCreated");
 		created.setFieldType("string");
-		created.setValue(searchHit.getFields().get("created").getValue().toString());
+		created.setValue(fieldsMap.get("created").toString());
 		
 		Field sizeField = new Field();
 		sizeField.setFieldId("doc_size");
 		sizeField.setName("Size (Bytes)");
 		sizeField.setI18nKey("searchapp.size");
 		sizeField.setFieldType("string");
-		sizeField.setValue(searchHit.getFields().get("size").getValue().toString());
+		sizeField.setValue(fieldsMap.get("size").toString());
+		*/
 
 		fields.add(docIdField);
 		fields.add(docNameField);
 		fields.add(docPathField);
-		fields.add(authorField);
+		/*fields.add(authorField);
 		fields.add(dateField);
 		fields.add(created);
-		fields.add(sizeField);
+		fields.add(sizeField);*/
 
 		return fields;
 	}

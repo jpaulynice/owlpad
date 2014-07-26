@@ -23,7 +23,7 @@ import com.owlpad.service.search.SearchService;
  * @author Jay Paulynice
  *
  */
-@Service("esSearchService")
+@Service("searchService")
 public class ESSearchServiceImpl implements SearchService{
 	NodeClientFactoryBean nodeClientFactoryBean;
 	NodeClient client;
@@ -48,7 +48,7 @@ public class ESSearchServiceImpl implements SearchService{
 				.actionGet();
 		SearchHits hits = response.getHits();
 
-		List<Document> docs = new ArrayList<>();
+		List<Document> docs = new ArrayList<Document>();
 		int id = 1;
 		for(SearchHit hit: hits){
 			Document doc = new Document(hit,id);

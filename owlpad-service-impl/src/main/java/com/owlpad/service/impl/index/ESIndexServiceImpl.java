@@ -30,27 +30,11 @@ import com.owlpad.service.index.IndexService;
  * @author Jay Paulynice
  *
  */
-@Service("esIndexService")
+@Service("indexService")
 public class ESIndexServiceImpl implements IndexService {
 	NodeClientFactoryBean nodeClientFactoryBean;
 	NodeClient client;
 	private static final Logger logger = LoggerFactory.getLogger(ESIndexServiceImpl.class);
-	
-	/*public static void main(String[] args){
-		IndexService s = null;
-		IndexRequest ir = null;
-		try {
-			s = new ESIndexServiceImpl();
-			ir = new IndexRequest();
-			ir.setDirectoryPath("/Users/julespaulynice/Desktop");
-			ir.setSuffix(".java");
-		} catch (Exception e) {
-			
-		}
-		
-		System.out.println(s.index(ir));
-	}
-	*/
 	
 	@Autowired
 	public ESIndexServiceImpl(NodeClientFactoryBean nodeClientFactoryBean) throws Exception{
@@ -75,6 +59,7 @@ public class ESIndexServiceImpl implements IndexService {
 		}
 		catch (Exception e) {
 			response.setStatus(StatusType.FAIL);
+			response.setErrorMessage(e.toString());
 			logger.info("Exception while calling index.  Exception" + e);
 		}
 
@@ -100,9 +85,9 @@ public class ESIndexServiceImpl implements IndexService {
 
 		BulkRequestBuilder bulkRequest = client.prepareBulk();
 
-		List<File> filesToIndex = new ArrayList<>();
-		getFilesFromDirectory(dataDir, filesToIndex);
-		addDocumentsToBulkRequest(bulkRequest, filesToIndex, suffix);
+		List<File> filesToIndex = new ArrayList<File>();
+		getFilesFromDirectory(dataDir, filesToIndex,suffix);
+		addDocumentsToBulkRequest(bulkRequest, filesToIndex);
 		if (filesToIndex.size() > 0) {
 			bulkRequest.execute().actionGet();
 		}
@@ -115,14 +100,17 @@ public class ESIndexServiceImpl implements IndexService {
 	 * 
 	 * @param dataDir
 	 * @param filesToIndex
+	 * @throws IOException 
 	 */
-	private void getFilesFromDirectory(File dataDir, List<File> filesToIndex) {
+	private void getFilesFromDirectory(File dataDir, List<File> filesToIndex,String suffix) throws IOException {
 		File[] files = dataDir.listFiles();
 		for (File f : files) {
 			if (f.isDirectory()) {
-				getFilesFromDirectory(f, filesToIndex);
+				getFilesFromDirectory(f, filesToIndex,suffix);
 			} else {
-				filesToIndex.add(f);
+				if(f.getCanonicalPath().endsWith(suffix) || suffix == null){
+					filesToIndex.add(f);
+				}
 			}
 		}
 	}
@@ -136,13 +124,11 @@ public class ESIndexServiceImpl implements IndexService {
 	 * @param suffix
 	 * @throws Exception 
 	 */
-	private void addDocumentsToBulkRequest(BulkRequestBuilder bulkRequest, List<File> filesToIndex,
-			String suffix) throws Exception {
+	private void addDocumentsToBulkRequest(BulkRequestBuilder bulkRequest, List<File> filesToIndex) throws Exception {
 		int num = 1;
 		for (File f : filesToIndex) {
 			boolean unReadable = f.isHidden() || f.isDirectory() || !f.canRead() || !f.exists();
-			boolean matchSuffix = suffix != null && f.getName().endsWith(suffix);
-			if (!unReadable && matchSuffix) {
+			if (!unReadable) {
 				StringBuilder sb = new StringBuilder();
 				List<String> lines = FileUtils.readLines(f);
 				for(String line: lines){
