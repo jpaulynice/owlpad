@@ -56,6 +56,7 @@ public class ESSearchServiceImpl implements SearchService{
 			id++;
 		}
 		internalResponse.setDocuments(docs);
+		internalResponse.setTotalDocuments(hits.getTotalHits());
 
 		return internalResponse;
 	}

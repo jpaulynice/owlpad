@@ -18,7 +18,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 public class SearchResponse {
 	private StatusType status;
 	private List<Document> documents;
-	private int totalDocuments;
+	private long totalDocuments;
 	
 	public SearchResponse(){
 		
@@ -55,14 +55,14 @@ public class SearchResponse {
 	/**
 	 * @return the totalDocuments
 	 */
-	public int getTotalDocuments() {
+	public long getTotalDocuments() {
 		return totalDocuments;
 	}
 
 	/**
 	 * @param totalDocuments the totalDocuments to set
 	 */
-	public void setTotalDocuments(int totalDocuments) {
+	public void setTotalDocuments(long totalDocuments) {
 		this.totalDocuments = totalDocuments;
 	}
 }
