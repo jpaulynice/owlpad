@@ -2,10 +2,18 @@ package com.owlpad.service.impl.index;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.UserPrincipal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.cxf.helpers.FileUtils;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.document.StringField;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.index.IndexRequestBuilder;
@@ -154,11 +162,22 @@ public class ESIndexServiceImpl implements IndexService {
 	 * @throws IOException
 	 */
 	private IndexRequestBuilder getIndexRequestBuilder(File f, int id, String content) throws IOException{
+		
+		Path path = Paths.get(f.getCanonicalPath());
+		UserPrincipal owner = Files.getOwner(path);
+		String author = owner.getName();
+		BasicFileAttributes attr = Files.readAttributes(path, BasicFileAttributes.class);
+		
+		
 		return client.prepareIndex("owlpad-index", "docs",String.valueOf(id))
 				.setSource(jsonBuilder().startObject()
 						.field("contents", content)
 						.field("filepath",f.getCanonicalPath())
 						.field("filename", f.getName())
+						.field("author", author)
+						.field("created", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format((attr.creationTime().toMillis())))
+						.field("lastModified", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format((attr.lastModifiedTime().toMillis())))
+						.field("size", String.valueOf(attr.size()), Field.Store.YES)
 						.endObject());
 	}
 }

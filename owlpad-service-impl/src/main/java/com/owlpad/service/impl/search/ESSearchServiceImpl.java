@@ -25,8 +25,8 @@ import com.owlpad.service.search.SearchService;
  */
 @Service("searchService")
 public class ESSearchServiceImpl implements SearchService{
-	NodeClientFactoryBean nodeClientFactoryBean;
-	NodeClient client;
+	private NodeClientFactoryBean nodeClientFactoryBean;
+	private NodeClient client;
 	
 	@Autowired
 	public ESSearchServiceImpl(NodeClientFactoryBean nodeClientFactoryBean) throws Exception{

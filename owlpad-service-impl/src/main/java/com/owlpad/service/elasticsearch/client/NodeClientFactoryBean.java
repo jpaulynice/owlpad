@@ -13,7 +13,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
 /**
- * Singleton Client instance
+ * Elastic search NodeClient factory bean 
  * 
  * @author Jay Paulynice
  *
