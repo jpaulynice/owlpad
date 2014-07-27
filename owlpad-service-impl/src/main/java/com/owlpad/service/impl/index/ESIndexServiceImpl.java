@@ -13,7 +13,6 @@ import java.util.List;
 
 import org.apache.cxf.helpers.FileUtils;
 import org.apache.lucene.document.Field;
-import org.apache.lucene.document.StringField;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.index.IndexRequestBuilder;
@@ -177,7 +176,7 @@ public class ESIndexServiceImpl implements IndexService {
 						.field("author", author)
 						.field("created", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format((attr.creationTime().toMillis())))
 						.field("lastModified", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format((attr.lastModifiedTime().toMillis())))
-						.field("size", String.valueOf(attr.size()), Field.Store.YES)
+						.field("size", String.valueOf(attr.size()))
 						.endObject());
 	}
 }

@@ -113,7 +113,6 @@ public class Document {
 		docPathField.setFieldType("string");
 		docPathField.setValue(fieldsMap.get("filepath").toString());
 		
-		/*
 		Field authorField = new Field();
 		authorField.setFieldId("doc_author");
 		authorField.setName("Author");
@@ -141,15 +140,15 @@ public class Document {
 		sizeField.setI18nKey("searchapp.size");
 		sizeField.setFieldType("string");
 		sizeField.setValue(fieldsMap.get("size").toString());
-		*/
+		
 
 		fields.add(docIdField);
 		fields.add(docNameField);
 		fields.add(docPathField);
-		/*fields.add(authorField);
+		fields.add(authorField);
 		fields.add(dateField);
 		fields.add(created);
-		fields.add(sizeField);*/
+		fields.add(sizeField);
 
 		return fields;
 	}
