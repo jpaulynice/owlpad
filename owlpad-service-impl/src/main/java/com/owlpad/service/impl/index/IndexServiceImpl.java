@@ -40,12 +40,11 @@ public class IndexServiceImpl implements IndexService{
 	public IndexResponse index(IndexRequest indexRequest){
 		IndexResponse response = new IndexResponse();
 		
-		String indexDirPath= indexRequest.getIndexDirectoryPath();
 		Directory indexDir = null;
 		int numIndexed = 0;
 		try {
-			indexDir = FSDirectory.open(new File(indexDirPath));
-			String dataDirPath = indexRequest.getDirectoryPath();
+			indexDir = FSDirectory.open(new File("/temp/owpad-index"));
+			String dataDirPath = indexRequest.getDirectoryToIndex();
 			File dataDir = new File(dataDirPath);
 			
 			numIndexed = indexDir(indexDir, dataDir, indexRequest.getSuffix());

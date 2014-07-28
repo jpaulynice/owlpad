@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.*;
 
@@ -54,9 +55,11 @@ public class ESIndexServiceImpl implements IndexService {
 	 */
 	@Override
 	public IndexResponse index(IndexRequest indexRequest) {
+		Assert.notNull(indexRequest.getDirectoryToIndex());
+		
 		IndexResponse response = new IndexResponse();
 		String suffix = indexRequest.getSuffix();
-		String dataDirPath = indexRequest.getDirectoryPath();
+		String dataDirPath = indexRequest.getDirectoryToIndex();
 		File dataDir = new File(dataDirPath);
 
 		try {

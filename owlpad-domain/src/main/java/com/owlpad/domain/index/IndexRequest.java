@@ -9,40 +9,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "indexRequest")
 public class IndexRequest {
-	private String directoryPath;
-	private String indexDirectoryPath;
+	private String directoryToIndex;
 	private String suffix;
 	
 	public IndexRequest(){
 		
-	}
-
-	/**
-	 * @return the directoryPath
-	 */
-	public String getDirectoryPath() {
-		return directoryPath;
-	}
-
-	/**
-	 * @param directoryPath the directoryPath to set
-	 */
-	public void setDirectoryPath(String directoryPath) {
-		this.directoryPath = directoryPath;
-	}
-
-	/**
-	 * @return the indexDirectoryPath
-	 */
-	public String getIndexDirectoryPath() {
-		return indexDirectoryPath;
-	}
-
-	/**
-	 * @param indexDirectoryPath the indexDirectoryPath to set
-	 */
-	public void setIndexDirectoryPath(String indexDirectoryPath) {
-		this.indexDirectoryPath = indexDirectoryPath;
 	}
 
 	/**
@@ -57,6 +28,20 @@ public class IndexRequest {
 	 */
 	public void setSuffix(String suffix) {
 		this.suffix = suffix;
+	}
+
+	/**
+	 * @return the directoryToIndex
+	 */
+	public String getDirectoryToIndex() {
+		return directoryToIndex;
+	}
+
+	/**
+	 * @param directoryToIndex the directoryToIndex to set
+	 */
+	public void setDirectoryToIndex(String directoryToIndex) {
+		this.directoryToIndex = directoryToIndex;
 	}
 
 }
