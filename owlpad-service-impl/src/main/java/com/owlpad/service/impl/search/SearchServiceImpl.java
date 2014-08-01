@@ -30,7 +30,7 @@ import org.springframework.stereotype.Service;
  * @author Jay Paulynice
  * 
  */
-@Service("searchService")
+@Service("search")
 public class SearchServiceImpl implements SearchService{
 	private static final Logger logger = LoggerFactory.getLogger(SearchServiceImpl.class);
 

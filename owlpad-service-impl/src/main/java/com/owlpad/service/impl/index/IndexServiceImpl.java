@@ -28,7 +28,7 @@ import com.owlpad.service.index.IndexService;
  * @author Jay Paulynice
  *
  */
-@Service("indexService")
+@Service("index")
 public class IndexServiceImpl implements IndexService{
 	private static final Logger logger = LoggerFactory.getLogger(IndexServiceImpl.class);
 	

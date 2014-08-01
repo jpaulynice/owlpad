@@ -9,6 +9,29 @@
 		<link href="./resources/css/styles.css" rel="stylesheet">
 		
 		<title>Owlpad Search</title>
+		<style>
+			.spinner {
+			    display:    none;
+			    position:   fixed;
+			    z-index:    1000;
+			    top:        0;
+			    left:       0;
+			    height:     100%;
+			    width:      100%;
+			    background: rgba( 255, 255, 255, .8 ) 
+			                url('http://sampsonresume.com/labs/pIkfp.gif') 
+			                50% 50% 
+			                no-repeat;
+			}
+			
+			body.loading {
+			    overflow: hidden;   
+			}
+			
+			body.loading .spinner {
+			    display: block;
+			}
+		</style>
 	</head>
 	<body>
 		<nav class="navbar navbar-default" role="navigation">
@@ -22,5 +45,6 @@
 				</div>
 			</div>
 		</div>
+		<div class="spinner"></div>
 	</body>
 </html>

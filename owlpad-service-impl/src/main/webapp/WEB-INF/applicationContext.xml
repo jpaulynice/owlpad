@@ -32,8 +32,8 @@
 		
     <jaxrs:server id="restContainer" address="/">
         <jaxrs:serviceBeans>
-           <ref bean="indexService"/>            
-           <ref bean="searchService"/>
+           <ref bean="index"/>            
+           <ref bean="search"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
 			<ref bean="jsonProvider"/>
@@ -41,11 +41,12 @@
     </jaxrs:server>
    	<bean id="nodeClientFactoryBean" class="com.owlpad.service.elasticsearch.client.NodeClientFactoryBean">
    		<property name="clusterName" value="elasticsearch" />
+   		<property name="local" value="true" />
    	</bean>
-    <bean id="searchService" class="com.owlpad.service.impl.search.ESSearchServiceImpl">
+    <bean id="search" class="com.owlpad.service.impl.search.ESSearchServiceImpl">
     	<constructor-arg><ref bean="nodeClientFactoryBean"/></constructor-arg>
     </bean>
-    <bean id="indexService" class="com.owlpad.service.impl.index.ESIndexServiceImpl">
+    <bean id="index" class="com.owlpad.service.impl.index.ESIndexServiceImpl">
     	<constructor-arg><ref bean="nodeClientFactoryBean"/></constructor-arg>
     </bean>
 </beans>

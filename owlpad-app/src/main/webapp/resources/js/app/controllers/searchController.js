@@ -12,6 +12,7 @@ define([ 'jquery',
 	var SearchAppController = Backbone.Marionette.Controller.extend({
 		initialize : function(options) {
 			this.searchEntities = new SearchEntities();
+			this.searchEntities.setup();
 		},
 
 		/**
