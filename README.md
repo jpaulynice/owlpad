@@ -34,16 +34,13 @@ Steps to work:
 <b>index service:</b>
 <pre>curl -X POST -H 'Content-Type: application/json' -d 
 '{
-  "indexRequest":
-  {
-    "directoryToIndex":"/Users/julespaulynice/Documents/ws",
-    "suffix":".java"
-  }
+  "directoryToIndex":"/Users/julespaulynice/Documents/ws",
+  "suffix":".java"
 }' 
 'http://localhost:8080/service/api/v1/index'
 </pre>
 
-<b>search:</b>
+<b>search service:</b>
 <pre>curl -X POST -H 'Content-Type: application/json' -d 
 '{
   "keyWord": "java",
