@@ -31,7 +31,7 @@ Steps to work:
 
 <p>To test the service as an app deployed under tomcat in 'service' using port 8080:</p>
 
-index:
+<b>index service:</b>
 <pre>curl -X POST -H 'Content-Type: application/json' -d 
 '{
   "indexRequest":
@@ -40,11 +40,10 @@ index:
     "suffix":".java"
   }
 }' 
-'http://localhost:9000/api/v1/index'
+'http://localhost:8080/service/api/v1/index'
 </pre>
 
-search:
-
+<b>search:</b>
 <pre>curl -X POST -H 'Content-Type: application/json' -d 
 '{
   "keyWord": "java",
