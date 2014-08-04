@@ -15,6 +15,11 @@ Projects in this repository:
 <li><b>owlpad-service-impl</b>: service implementation</li>
 </ul>
 
+Dependencies
+============
+1. Install Gradle
+2. Install ElasticSearch
+
 Technology stack
 ================
 <ul>
@@ -24,10 +29,10 @@ Technology stack
 
 Steps to work:
 
-1. clone repo: <code>git clone https://github.com/julesbond007/owlpad.git</code>
-2. change directory: <code>cd owlpad</code>
-3. run maven eclipse: <code>mvn eclipse:eclipse</code>
-4. import projects in eclipse <code>import-->general-->import existing project</code>
+1. clone repo: 
+  <code>git clone https://github.com/julesbond007/owlpad.git</code>
+2. import projects in eclipse:
+  <code>file-->import-->gradle project-->specify directory-->build model-->finish</code>
 
 <p>To test the service as an app deployed under tomcat in 'service' using port 8080:</p>
 
