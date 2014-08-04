@@ -8,7 +8,6 @@
 		<link href="./resources/css/docs.min.css" rel="stylesheet">
 		<link href="./resources/css/styles.css" rel="stylesheet">
 		<link href="./resources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-		
 		<title>Owlpad Indexing</title>
 	</head>
 	<body>
@@ -16,17 +15,7 @@
 		</nav>
 		<div class="row">
 			<div class="col-lg-6 col-sm-6 col-12">
-				<h4>Select files for indexing...</h4>
-				<div class="input-group">
-					<span class="input-group-btn">
-						<span class="btn btn-primary btn-file">
-							Browse<input type="file" multiple="">
-						</span>
-					</span>
-					<input type="text" class="form-control" readonly="">
-				</div>
 			</div>
 		</div>
-		<script src="./resources/js/script.js"></script>
 	</body>
 </html>

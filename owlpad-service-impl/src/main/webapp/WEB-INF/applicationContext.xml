@@ -42,6 +42,7 @@
    	<bean id="nodeClientFactoryBean" class="com.owlpad.service.elasticsearch.client.NodeClientFactoryBean">
    		<property name="clusterName" value="elasticsearch" />
    		<property name="local" value="true" />
+   		<property name="enableHttp" value="true" />
    	</bean>
     <bean id="search" class="com.owlpad.service.impl.search.ESSearchServiceImpl">
     	<constructor-arg><ref bean="nodeClientFactoryBean"/></constructor-arg>

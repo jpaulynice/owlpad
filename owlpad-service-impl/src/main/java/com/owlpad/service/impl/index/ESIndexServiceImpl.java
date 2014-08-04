@@ -16,12 +16,16 @@ import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.client.node.NodeClient;
+import org.elasticsearch.common.Preconditions;
+//import org.elasticsearch.common.base.Preconditions;
 import org.elasticsearch.indices.IndexAlreadyExistsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
+//import org.springframework.util.Assert;
+
+
 
 import static org.elasticsearch.common.xcontent.XContentFactory.*;
 
@@ -46,7 +50,7 @@ public class ESIndexServiceImpl implements IndexService {
 	@Autowired
 	public ESIndexServiceImpl(NodeClientFactoryBean nodeClientFactoryBean) throws Exception{
 		this.nodeClientFactoryBean = nodeClientFactoryBean;
-		client = this.nodeClientFactoryBean.getObject();
+		this.client = this.nodeClientFactoryBean.getObject();
 	}
 
 	/*
@@ -55,7 +59,7 @@ public class ESIndexServiceImpl implements IndexService {
 	 */
 	@Override
 	public IndexResponse index(IndexRequest indexRequest) {
-		Assert.notNull(indexRequest.getDirectoryToIndex());
+		Preconditions.checkNotNull(indexRequest.getDirectoryToIndex(),"No directory specified for indexing...");
 		
 		IndexResponse response = new IndexResponse();
 		String suffix = indexRequest.getSuffix();
@@ -85,11 +89,10 @@ public class ESIndexServiceImpl implements IndexService {
 	 */
 	private int indexDir(File dataDir, String suffix) throws Exception {
 		try {
-			CreateIndexRequestBuilder createIndexRequestBuilder = client
-					.admin().indices().prepareCreate("owlpad-index");
+			CreateIndexRequestBuilder createIndexRequestBuilder = client.admin().indices().prepareCreate("owlpad-index");
 			createIndexRequestBuilder.execute().actionGet();
 		} catch (IndexAlreadyExistsException e) {
-			logger.info("Could not create index because it exists already.  Exception: "+e);
+			logger.info("Could not create index because it exists already.",e);
 		}
 
 		BulkRequestBuilder bulkRequest = client.prepareBulk();
@@ -134,7 +137,6 @@ public class ESIndexServiceImpl implements IndexService {
 	 * @throws Exception 
 	 */
 	private void addDocumentsToBulkRequest(BulkRequestBuilder bulkRequest, List<File> filesToIndex) throws Exception {
-		int num = 1;
 		for (File f : filesToIndex) {
 			boolean unReadable = f.isHidden() || f.isDirectory() || !f.canRead() || !f.exists();
 			if (!unReadable) {
@@ -145,9 +147,8 @@ public class ESIndexServiceImpl implements IndexService {
 					sb.append(" ");
 				}
 
-				IndexRequestBuilder requestBuilder = getIndexRequestBuilder(f,num,sb.toString());
+				IndexRequestBuilder requestBuilder = getIndexRequestBuilder(f,sb.toString());
 				bulkRequest.add(requestBuilder);
-				num++;
 			}
 		}
 	}
@@ -162,7 +163,7 @@ public class ESIndexServiceImpl implements IndexService {
 	 * @return {@link IndexRequestBuilder} object
 	 * @throws IOException
 	 */
-	private IndexRequestBuilder getIndexRequestBuilder(File f, int id, String content) throws IOException{
+	private IndexRequestBuilder getIndexRequestBuilder(File f, String content) throws IOException{
 		
 		Path path = Paths.get(f.getCanonicalPath());
 		UserPrincipal owner = Files.getOwner(path);
@@ -170,7 +171,7 @@ public class ESIndexServiceImpl implements IndexService {
 		BasicFileAttributes attr = Files.readAttributes(path, BasicFileAttributes.class);
 		
 		
-		return client.prepareIndex("owlpad-index", "docs",String.valueOf(id))
+		return client.prepareIndex("owlpad-index", "docs")
 				.setSource(jsonBuilder().startObject()
 						.field("contents", content)
 						.field("filepath",f.getCanonicalPath())

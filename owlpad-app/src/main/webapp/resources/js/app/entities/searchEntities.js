@@ -39,7 +39,7 @@ define([ 'jquery',
 		};
 		
 		/**
-         * Call the search endpoint
+         * Call the index endpoint
          */
         this.index = function(data) {
             return $.ajax({
