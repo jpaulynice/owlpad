@@ -31,6 +31,20 @@ Steps to work:
 
 <p>To test the service as an app deployed under tomcat in 'service' using port 8080:</p>
 
+index:
+<pre>curl -X POST -H 'Content-Type: application/json' -d 
+'{
+  "indexRequest":
+  {
+    "directoryToIndex":"/Users/julespaulynice/Documents/ws",
+    "suffix":".java"
+  }
+}' 
+'http://localhost:9000/api/v1/index'
+</pre>
+
+search:
+
 <pre>curl -X POST -H 'Content-Type: application/json' -d 
 '{
   "keyWord": "java",
