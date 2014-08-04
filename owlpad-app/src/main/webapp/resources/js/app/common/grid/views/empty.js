@@ -1,12 +1,12 @@
 /**
- * Represents a requirejs module for a dynamic Grid or Table
+ * Represents a requirejs module for an empty view
  */
 
 define( [ 'jquery', 
           'underscore', 
           'backbone', 
           'marionette',
-          'hbs!app/templates/grid/empty' ], 
+          'hbs!app/common/grid/templates/empty' ], 
           function($, _, Backbone, Marionette, emptyTemplate) {
 
 	var EmptyView = Backbone.Marionette.ItemView.extend({

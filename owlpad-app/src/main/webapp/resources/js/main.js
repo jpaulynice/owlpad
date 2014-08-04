@@ -40,7 +40,6 @@ require.config({
 			exports:'Bootstrap'
 		}
 	}
-
 });
 
 require([ 'app/app' ], function(App) {

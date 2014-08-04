@@ -6,7 +6,7 @@ define([ 'jquery',
          'underscore', 
          'backbone', 
          'marionette',
-         'app/views/header/header'], 
+         'app/search/views/header/header'], 
          function($, _,Backbone, Marionette,HeaderView) {
 
     var HeaderController = Backbone.Marionette.Controller.extend({

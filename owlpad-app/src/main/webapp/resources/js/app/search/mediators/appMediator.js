@@ -6,9 +6,9 @@ define([ 'jquery',
          'underscore', 
          'backbone', 
          'marionette',
-         'app/controllers/headerController' ,
-         'app/controllers/searchController',
-         'app/controllers/gridController'], 
+         'app/search/controllers/headerController' ,
+         'app/search/controllers/searchController',
+         'app/search/controllers/gridController'], 
          function($, _,Backbone, Marionette,HeaderController,SearchController,GridController) {
 
     var AppMediator = Backbone.Marionette.Controller.extend({

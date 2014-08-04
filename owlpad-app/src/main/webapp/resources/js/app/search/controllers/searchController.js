@@ -6,13 +6,12 @@ define([ 'jquery',
          'underscore', 
          'backbone', 
          'marionette',
-         'app/entities/searchEntities'], 
+         'app/search/entities/searchEntities'], 
          function($, _,Backbone, Marionette, SearchEntities) {
 
 	var SearchAppController = Backbone.Marionette.Controller.extend({
 		initialize : function(options) {
 			this.searchEntities = new SearchEntities();
-			this.searchEntities.setup();
 		},
 
 		/**

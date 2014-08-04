@@ -3,7 +3,7 @@ define([ 'jquery',
          'backbone', 
          'marionette',
          'bootstrap',
-         'hbs!app/templates/header/header' ],
+         'hbs!app/search/templates/header/header' ],
          function($, _, Backbone, Marionette,Bootstrap, headerTemplate) {
 	
 	var HeaderView = Backbone.Marionette.ItemView.extend({

@@ -5,19 +5,23 @@ define([ 'jquery',
          'underscore', 
          'backbone', 
          'marionette',
-         'app/mediators/appMediator' ], 
-         function($, _, Backbone, Marionette,AppMediator) {
+         'app/common/utils',
+         'app/search/mediators/appMediator'], 
+         function($, _, Backbone, Marionette,AppUtils,AppMediator) {
 
-	var SearchApp = new Backbone.Marionette.Application();
+	var App = new Backbone.Marionette.Application();
 
-	SearchApp.addRegions({
+	App.addRegions({
 		header:".navbar-default",
 		gridRegion : '.gridRegion'
 	});
 	
-	var appRegions = {'header':SearchApp.header,'gridRegion':SearchApp.gridRegion};
+	var utils = new AppUtils();
+	utils.setup();
+	
+	var appRegions = {'header':App.header,'gridRegion':App.gridRegion};
 
 	var appMediator = new AppMediator(appRegions);
 
-	return SearchApp;
+	return App;
 });

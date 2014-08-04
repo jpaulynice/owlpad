@@ -6,8 +6,8 @@ define([ 'jquery',
          'underscore', 
          'backbone', 
          'marionette',
-         'app/views/grid/gridRow', 
-         'hbs!app/templates/grid/gridTemplate' ],
+         'app/common/grid/views/gridRow', 
+         'hbs!app/common/grid/templates/gridTemplate' ],
          function($, _, Backbone, Marionette, GridRow, gridTemplate) {
 
 			var Grid = Backbone.Marionette.CompositeView.extend({
@@ -15,10 +15,6 @@ define([ 'jquery',
 				tagName : "table",
 				className: "table table-bordered table-striped",
 				itemView : GridRow,
-
-				events : {
-					'mouseover tr' : 'highlightRow'
-				},
 
 				initialize : function(options) {
 					this.model = new Backbone.Model();
@@ -29,10 +25,6 @@ define([ 'jquery',
 
 				appendHtml : function(collectionView, itemView) {
 					collectionView.$("tbody").append(itemView.el);
-				},
-
-				highlightRow : function(e) {
-
 				}
 			});
 
