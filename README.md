@@ -15,11 +15,6 @@ Projects in this repository:
 <li><b>owlpad-service-impl</b>: service implementation</li>
 </ul>
 
-Dependencies
-============
-1. Install Gradle
-2. Install ElasticSearch
-
 Technology stack
 ================
 <ul>
