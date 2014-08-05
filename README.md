@@ -33,11 +33,13 @@ Steps to work:
 
 <b>index service:</b>
 <pre>curl -X POST -H 'Content-Type: application/json' -d 
+curl -X POST -H 'Content-Type: application/json' -d 
 '{
-  "directoryToIndex":"/Users/julespaulynice/Documents/ws",
-  "suffix":".java"
-}' 
-'http://localhost:8080/service/api/v1/index'
+  "indexRequest":{
+    "directoryToIndex":"/Users/julespaulynice/Documents/ws",
+    "suffix":".java"
+  }}' 
+'http://localhost:9000/api/v1/index'
 </pre>
 
 <b>search service:</b>
