@@ -32,13 +32,15 @@ Steps to work:
 <p>To test the service as an app deployed under tomcat in 'service' using port 8080:</p>
 
 <b>index service:</b>
-<pre>curl -X POST -H 'Content-Type: application/json' -d 
+<pre>
 curl -X POST -H 'Content-Type: application/json' -d 
 '{
-  "indexRequest":{
+  "indexRequest":
+  {
     "directoryToIndex":"/Users/julespaulynice/Documents/ws",
     "suffix":".java"
-  }}' 
+  }
+}' 
 'http://localhost:9000/api/v1/index'
 </pre>
 
