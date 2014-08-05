@@ -19,18 +19,32 @@ Technology stack
 ================
 <ul>
 <li><b>Front-end:</b> Backbone, Marionette, Requirejs, Handlebars, require-handlebars-plugin (hbs), r.js and Node to minify and combine js files, Underscore, JQuery, and Bootstrap</li>
-<li><b>Middle and Service tiers:</b> Java, Spring Framework, Apache CXF, Gradle, Apache lucene for search.</li>
+<li><b>Middle and Service tiers:</b> Java, Spring Framework, Apache CXF, Gradle, Apache lucene and Elasticsearch</li>
 </ul>
 
 Steps to work:
 
-1. clone repo: <code>git clone https://github.com/julesbond007/owlpad.git</code>
-2. change directory: <code>cd owlpad</code>
-3. run maven eclipse: <code>mvn eclipse:eclipse</code>
-4. import projects in eclipse <code>import-->general-->import existing project</code>
+1. clone repo: 
+  <code>git clone https://github.com/julesbond007/owlpad.git</code>
+2. import projects in eclipse:
+  <code>file-->import-->gradle project-->specify directory-->build model-->finish</code>
 
 <p>To test the service as an app deployed under tomcat in 'service' using port 8080:</p>
 
+<b>index service:</b>
+<pre>
+curl -X POST -H 'Content-Type: application/json' -d 
+'{
+  "indexRequest":
+  {
+    "directoryToIndex":"/Users/julespaulynice/Documents/ws",
+    "suffix":".java"
+  }
+}' 
+'http://localhost:8080/api/v1/index'
+</pre>
+
+<b>search service:</b>
 <pre>curl -X POST -H 'Content-Type: application/json' -d 
 '{
   "keyWord": "java",
