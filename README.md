@@ -41,7 +41,7 @@ curl -X POST -H 'Content-Type: application/json' -d
     "suffix":".java"
   }
 }' 
-'http://localhost:9000/api/v1/index'
+'http://localhost:8080/api/v1/index'
 </pre>
 
 <b>search service:</b>
