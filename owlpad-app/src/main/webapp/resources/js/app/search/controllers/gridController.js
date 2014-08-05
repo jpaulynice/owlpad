@@ -14,7 +14,6 @@ define([ 'jquery',
 		initialize : function(options) {
 			this.gridRegion = options;
 		},
-
 		
 		/**
 		 * After results come back, we want to show the table data

@@ -9,38 +9,25 @@
 		<link href="./resources/css/styles.css" rel="stylesheet">
 		
 		<title>Owlpad Search</title>
-		<style>
-			.spinner {
-			    display:    none;
-			    position:   fixed;
-			    z-index:    1000;
-			    top:        0;
-			    left:       0;
-			    height:     100%;
-			    width:      100%;
-			    background: rgba( 255, 255, 255, .8 ) 
-			                url('http://sampsonresume.com/labs/pIkfp.gif') 
-			                50% 50% 
-			                no-repeat;
-			}
-			
-			body.loading {
-			    overflow: hidden;   
-			}
-			
-			body.loading .spinner {
-			    display: block;
-			}
-		</style>
 	</head>
 	<body>
 		<nav class="navbar navbar-default" role="navigation">
 		</nav>
-		<div class="bs-docs-section">
+		<div class="bs-docs-section" style="float:left;width:60%;padding:10px;">
 			<div class="bs-example">
 				<div class="panel panel-default">
 				  <div class="panel-heading">Documents</div>
 				  	<div class="gridRegion">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bs-docs-section" style="float:right;width:40%;padding:10px;">
+			<div class="bs-example">
+				<div class="panel panel-default">
+				  <div class="panel-heading">Preview</div>
+				  	<div class="preview">
+				  		<div class="empty-view" style="margin-right:auto;margin-left:auto;width:50%;">Click a row to see more details</div>
 					</div>
 				</div>
 			</div>

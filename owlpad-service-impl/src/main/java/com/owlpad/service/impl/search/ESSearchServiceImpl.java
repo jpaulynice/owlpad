@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.owlpad.domain.search.Document;
 import com.owlpad.domain.search.SearchRequest;
 import com.owlpad.domain.search.SearchResponse;
+import com.owlpad.domain.search.StatusType;
 import com.owlpad.service.elasticsearch.client.NodeClientFactoryBean;
 import com.owlpad.service.search.SearchService;
 
@@ -37,19 +38,22 @@ public class ESSearchServiceImpl implements SearchService{
 	@Override
 	public SearchResponse search(SearchRequest searchRequest) {
 		SearchResponse internalResponse = new SearchResponse();
+		int from = searchRequest.getResultStart();
+		int size = searchRequest.getMaxHits();
+		size = size == 0 ? Integer.MAX_VALUE:size;
 
 		org.elasticsearch.action.search.SearchResponse response = client.prepareSearch("owlpad-index")
 				.setTypes("docs")
 				.setSearchType(SearchType.QUERY_THEN_FETCH)
 				.setQuery(QueryBuilders.matchQuery("contents",searchRequest.getKeyWord()))
-				.setFrom(0)
-				.setSize(searchRequest.getMaxHits())
+				.setFrom(from)
+				.setSize(size)
 				.execute()
 				.actionGet();
 		SearchHits hits = response.getHits();
 
 		List<Document> docs = new ArrayList<Document>();
-		int id = 1;
+		int id = from + 1;
 		for(SearchHit hit: hits){
 			Document doc = new Document(hit,id);
 			docs.add(doc);
@@ -57,6 +61,7 @@ public class ESSearchServiceImpl implements SearchService{
 		}
 		internalResponse.setDocuments(docs);
 		internalResponse.setTotalDocuments(hits.getTotalHits());
+		internalResponse.setStatus(StatusType.SUCCESS);
 
 		return internalResponse;
 	}

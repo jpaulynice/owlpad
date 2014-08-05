@@ -1,12 +1,11 @@
 /**
- * Jquery/AJax calls to search
+ * Utilities for various jquery functions.
  * 
  * @param data
  * @returns ajax calls
  */
-define([ 'jquery', 
-         'json2', ], 
-         function($, JSON) {
+define([ 'jquery'], 
+         function($) {
 
     var Utils = function(data) {
         

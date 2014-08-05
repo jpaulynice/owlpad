@@ -43,12 +43,14 @@ public class Document {
 		docNameField.setFieldType("string");
 		docNameField.setValue(doc.get("filename"));
 
+		/*
 		Field docPathField = new Field();
 		docPathField.setFieldId("doc_path");
 		docPathField.setName("URI");
 		docPathField.setI18nKey("searchapp.docURI");
 		docPathField.setFieldType("string");
 		docPathField.setValue(doc.get("filepath"));
+		*/
 		
 		Field authorField = new Field();
 		authorField.setFieldId("doc_author");
@@ -80,7 +82,7 @@ public class Document {
 
 		fields.add(docIdField);
 		fields.add(docNameField);
-		fields.add(docPathField);
+		//sfields.add(docPathField);
 		fields.add(authorField);
 		fields.add(dateField);
 		fields.add(created);
@@ -106,12 +108,14 @@ public class Document {
 		docNameField.setFieldType("string");
 		docNameField.setValue(fieldsMap.get("filename").toString());
 
+		/*
 		Field docPathField = new Field();
 		docPathField.setFieldId("doc_path");
 		docPathField.setName("URI");
 		docPathField.setI18nKey("searchapp.docURI");
 		docPathField.setFieldType("string");
 		docPathField.setValue(fieldsMap.get("filepath").toString());
+		*/
 		
 		Field authorField = new Field();
 		authorField.setFieldId("doc_author");
@@ -144,7 +148,7 @@ public class Document {
 
 		fields.add(docIdField);
 		fields.add(docNameField);
-		fields.add(docPathField);
+		//fields.add(docPathField);
 		fields.add(authorField);
 		fields.add(dateField);
 		fields.add(created);

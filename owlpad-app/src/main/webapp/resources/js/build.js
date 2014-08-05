@@ -5,6 +5,6 @@
   "include": ["vendor/require"], 
   "exclude": [], 
   "optimize": "uglify2", 
-  "out": "${basedir}/src/main/webapp/resources/js/script.min.js", 
+  "out": "${basedir}/src/main/webapp/resources/js/script.optimized.js", 
   "insertRequire": ["main"]
 })

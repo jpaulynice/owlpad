@@ -8,9 +8,9 @@
   <packaging>war</packaging>
   <dependencies>
     <dependency>
-      <groupId>com.owlpad.search</groupId>
-      <artifactId>owlpad-domain</artifactId>
-      <version>1.0</version>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>17.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -54,6 +54,12 @@
       <artifactId>jcl-over-slf4j</artifactId>
       <version>1.6.6</version>
       <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.owlpad.search</groupId>
+      <artifactId>owlpad-domain</artifactId>
+      <version>1.0</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>

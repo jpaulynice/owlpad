@@ -14,6 +14,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 public class SearchRequest {
 	private String keyWord;
 	private int maxHits;
+	private int resultStart;
 	
 	public SearchRequest(){
 		
@@ -39,6 +40,20 @@ public class SearchRequest {
 	 */
 	public void setMaxHits(int maxHits) {
 		this.maxHits = maxHits;
+	}
+
+	/**
+	 * @return the resultStart
+	 */
+	public int getResultStart() {
+		return resultStart;
+	}
+
+	/**
+	 * @param resultStart the resultStart to set
+	 */
+	public void setResultStart(int resultStart) {
+		this.resultStart = resultStart;
 	}
 
 }

@@ -16,19 +16,18 @@ import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.client.node.NodeClient;
-import org.elasticsearch.common.Preconditions;
-//import org.elasticsearch.common.base.Preconditions;
 import org.elasticsearch.indices.IndexAlreadyExistsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-//import org.springframework.util.Assert;
+
 
 
 
 import static org.elasticsearch.common.xcontent.XContentFactory.*;
 
+import com.google.common.base.Preconditions;
 import com.owlpad.domain.index.IndexRequest;
 import com.owlpad.domain.index.IndexResponse;
 import com.owlpad.domain.search.StatusType;
