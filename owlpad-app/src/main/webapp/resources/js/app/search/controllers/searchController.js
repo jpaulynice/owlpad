@@ -26,6 +26,7 @@ define([ 'jquery',
 			}).fail(function() {
 				defer.reject();
 			});
+			
 			return defer.promise();
 		}
 	});
