@@ -9,11 +9,11 @@ import org.testng.annotations.Test;
 import com.owlpad.service.index.IndexService;
 
 @ContextConfiguration(locations={"classpath:applicationContext.xml"})
-public class IndexServiceImplTest extends AbstractTestNGSpringContextTests{
+public class ESIndexServiceImplTest extends AbstractTestNGSpringContextTests{
 	@Autowired
 	private IndexService indexService;
 	
-	public IndexServiceImplTest(){
+	public ESIndexServiceImplTest(){
 		
 	}
 	
