@@ -210,12 +210,12 @@
 							<parameter>optimize=uglify2</parameter>
 							<parameter>baseUrl=${basedir}/src/main/webapp/resources/js</parameter>
 						</optimizerParameters>
-						<outFile>${basedir}/src/main/webapp/resources/js/script.min.js</outFile>
+						<outFile>${basedir}/src/main/webapp/resources/js/script.optimized.js</outFile>
 						<filterConfig>
 							true
 						</filterConfig>
 						<skip>
-							true
+							false
 						</skip>
 					</configuration>
 				</plugin>
