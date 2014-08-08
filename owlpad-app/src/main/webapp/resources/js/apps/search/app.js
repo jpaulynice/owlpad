@@ -5,8 +5,8 @@ define([ 'jquery',
          'underscore', 
          'backbone', 
          'marionette',
-         'app/common/utils',
-         'app/search/mediators/searchMediator'], 
+         'apps/common/utils',
+         'apps/search/mediators/searchMediator'], 
          function($, _, Backbone, Marionette,AppUtils,SearchMediator) {
 
 	var App = new Backbone.Marionette.Application();

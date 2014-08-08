@@ -6,8 +6,8 @@ define([ 'jquery',
          'underscore', 
          'backbone', 
          'marionette',
-         'app/common/grid/views/gridRow', 
-         'hbs!app/common/grid/templates/gridTemplate' ],
+         'apps/common/grid/views/gridRow', 
+         'hbs!apps/common/grid/templates/gridTemplate' ],
          function($, _, Backbone, Marionette, GridRow, gridTemplate) {
 
 			var Grid = Backbone.Marionette.CompositeView.extend({

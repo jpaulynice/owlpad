@@ -221,8 +221,9 @@
 						<optimizerParameters>
 							<parameter>optimize=uglify2</parameter>
 							<parameter>baseUrl=${basedir}/src/main/webapp/resources/js</parameter>
+							<parameter>dir=dist</parameter>
 						</optimizerParameters>
-						<outFile>${basedir}/src/main/webapp/resources/js/script.optimized.js</outFile>
+						<!--<outFile>${basedir}/src/main/webapp/resources/js/script.optimized.js</outFile>-->
 						<filterConfig>
 							true
 						</filterConfig>
