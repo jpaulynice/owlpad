@@ -11,6 +11,7 @@ public class Field {
 	private String name;
 	private String fieldType;
 	private String value;
+	private boolean visible;
 	
 	public Field(){
 		
@@ -84,5 +85,19 @@ public class Field {
 	 */
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	/**
+	 * @return the visible
+	 */
+	public boolean isVisible() {
+		return visible;
+	}
+
+	/**
+	 * @param visible the visible to set
+	 */
+	public void setVisible(boolean visible) {
+		this.visible = visible;
 	}
 }

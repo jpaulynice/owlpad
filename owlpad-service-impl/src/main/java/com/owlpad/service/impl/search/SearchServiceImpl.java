@@ -69,8 +69,7 @@ public class SearchServiceImpl implements SearchService{
 	 * @return
 	 * @throws Exception
 	 */
-	private SearchResponse searchIndex(Directory indexDir, String queryStr,
-			int maxHits) throws Exception {
+	private SearchResponse searchIndex(Directory indexDir, String queryStr,int maxHits) throws Exception {
 
 		SearchResponse response = new SearchResponse();
 		List<Document> results = new ArrayList<Document>();

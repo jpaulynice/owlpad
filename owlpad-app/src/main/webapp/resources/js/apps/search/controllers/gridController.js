@@ -23,13 +23,22 @@ define([ 'jquery',
 				var headers = [];
 				var fields = data.documents[0].fields;
 				_.each(fields, function(field){
-				    headers.push(field.name);
+				    if(field.visible){
+				        headers.push(field.name);
+				    }
 				});
+				
 				
 				var coll = new Backbone.Collection();
 				
 				_.each(data.documents,function(doc){
-				    coll.add(new Backbone.Model({fields:doc.fields}));
+				    var visibleFields = [];
+				    _.each(doc.fields, function(field){
+				        if(field.visible){
+				            visibleFields.push(field);
+				        }
+				    });
+				    coll.add(new Backbone.Model({fields:visibleFields}));
 				});
 
 				var gridView = new Grid({

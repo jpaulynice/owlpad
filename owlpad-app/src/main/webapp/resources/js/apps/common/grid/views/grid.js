@@ -15,9 +15,22 @@ define([ 'jquery',
 				tagName : "table",
 				className: "table table-bordered table-striped",
 				itemView : GridRow,
+				
+				events:{
+                    "click tr":"handleClick"
+                },
+                
+                handleClick: function(e){
+                    if(this.model.collection){
+                        _.each(this.model.collection.models,function(model){
+                            console.log(model.get('fields'));
+                        });
+                    }
+                },
 
 				initialize : function(options) {
 					this.model = new Backbone.Model();
+					this.model.collection = options.collection;
 					if (options.headers) {
 						this.model.set('headers', options.headers);
 					}
