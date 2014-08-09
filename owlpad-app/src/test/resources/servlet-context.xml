@@ -43,7 +43,7 @@
     <beans:import resource="classpath:META-INF/cxf/cxf.xml" />
     <beans:import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
     
-	<context:property-placeholder location="classpath:/META-INF/properties/service.properties"/>
+	<context:property-placeholder location="classpath:service.properties"/>
 	 
 	<beans:bean id="searchRepository" class="com.owlpad.ui.repository.SearchRepository">
 		<beans:constructor-arg><beans:ref bean="searchService"/></beans:constructor-arg>
