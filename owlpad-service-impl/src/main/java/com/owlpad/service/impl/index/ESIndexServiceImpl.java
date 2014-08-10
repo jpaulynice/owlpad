@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 
 
+
 import static org.elasticsearch.common.xcontent.XContentFactory.*;
 
 import com.google.common.base.Preconditions;
@@ -137,17 +138,9 @@ public class ESIndexServiceImpl implements IndexService {
 	 */
 	private void addDocumentsToBulkRequest(BulkRequestBuilder bulkRequest, List<File> filesToIndex) throws Exception {
 		for (File f : filesToIndex) {
-			boolean unReadable = f.isHidden() || f.isDirectory() || !f.canRead() || !f.exists();
-			if (!unReadable) {
-				StringBuilder sb = new StringBuilder();
-				List<String> lines = FileUtils.readLines(f);
-				for(String line: lines){
-					sb.append(line);
-					sb.append(" ");
-				}
-
-				IndexRequestBuilder requestBuilder = getIndexRequestBuilder(f,sb.toString());
-				bulkRequest.add(requestBuilder);
+			IndexRequestBuilder requestBuilder = createIndexRequestBuilderFromFile(f);
+			if(requestBuilder != null){
+				bulkRequest.add(requestBuilder);				
 			}
 		}
 	}
@@ -160,25 +153,35 @@ public class ESIndexServiceImpl implements IndexService {
 	 * @param id
 	 * @param content
 	 * @return {@link IndexRequestBuilder} object
-	 * @throws IOException
+	 * @throws Exception 
 	 */
-	private IndexRequestBuilder getIndexRequestBuilder(File f, String content) throws IOException{
+	private IndexRequestBuilder createIndexRequestBuilderFromFile(File f) throws Exception{
 		
-		Path path = Paths.get(f.getCanonicalPath());
-		UserPrincipal owner = Files.getOwner(path);
-		String author = owner.getName();
-		BasicFileAttributes attr = Files.readAttributes(path, BasicFileAttributes.class);
-		
-		
-		return client.prepareIndex("owlpad-index", "docs")
-				.setSource(jsonBuilder().startObject()
-						.field("contents", content)
-						.field("filepath",f.getCanonicalPath())
-						.field("filename", f.getName())
-						.field("author", author)
-						.field("created", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format((attr.creationTime().toMillis())))
-						.field("lastModified", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format((attr.lastModifiedTime().toMillis())))
-						.field("size", String.valueOf(attr.size()))
-						.endObject());
+		boolean unReadable = f.isHidden() || f.isDirectory() || !f.canRead() || !f.exists();
+		if (!unReadable) {
+			StringBuilder sb = new StringBuilder();
+			List<String> lines = FileUtils.readLines(f);
+			for(String line: lines){
+				sb.append(line);
+				sb.append(" ");
+			}		
+			Path path = Paths.get(f.getCanonicalPath());
+			UserPrincipal owner = Files.getOwner(path);
+			String author = owner.getName();
+			BasicFileAttributes attr = Files.readAttributes(path, BasicFileAttributes.class);
+			
+			
+			return client.prepareIndex("owlpad-index", "docs")
+					.setSource(jsonBuilder().startObject()
+							.field("contents", sb.toString())
+							.field("filepath",f.getCanonicalPath())
+							.field("filename", f.getName())
+							.field("author", author)
+							.field("created", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format((attr.creationTime().toMillis())))
+							.field("lastModified", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format((attr.lastModifiedTime().toMillis())))
+							.field("size", String.valueOf(attr.size()))
+							.endObject());
+		}
+		return null;
 	}
 }

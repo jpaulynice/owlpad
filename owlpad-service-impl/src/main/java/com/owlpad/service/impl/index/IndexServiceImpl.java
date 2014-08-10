@@ -37,7 +37,7 @@ public class IndexServiceImpl implements IndexService{
 	 * @see com.owlpad.service.index.IndexService#index(com.owlpad.domain.index.IndexRequest)
 	 */
 	@Override
-	public IndexResponse index(IndexRequest indexRequest){
+	public IndexResponse index(final IndexRequest indexRequest){
 		IndexResponse response = new IndexResponse();
 		
 		Directory indexDir = null;
@@ -70,13 +70,11 @@ public class IndexServiceImpl implements IndexService{
 	 * @throws IOException 
      * @throws Exception
      */
-    private int indexDir(Directory indexDir, File dataDir, String suffix) throws IOException {
+    private int indexDir(final Directory indexDir,final File dataDir,final String suffix) throws IOException {
       
     	StandardAnalyzer analyzer = new StandardAnalyzer(Version.LUCENE_48);
     	IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_48, analyzer);
-    	IndexWriter indexWriter = null;
-		
-    	indexWriter = new IndexWriter(indexDir, config);      
+    	IndexWriter indexWriter = new IndexWriter(indexDir, config);      
         indexDirectory(indexWriter, dataDir, suffix);
         
         int numIndexed = indexWriter.maxDoc();
@@ -95,7 +93,7 @@ public class IndexServiceImpl implements IndexService{
      * @param suffix
      * @throws IOException
      */
-    private void indexDirectory(IndexWriter indexWriter, File dataDir, String suffix) throws IOException {
+    private void indexDirectory(final IndexWriter indexWriter,final  File dataDir,final String suffix) throws IOException {
 
         File[] files = dataDir.listFiles();
         for (int i = 0; i < files.length; i++) {
@@ -118,8 +116,7 @@ public class IndexServiceImpl implements IndexService{
      * @param suffix
      * @throws IOException
      */
-    private void indexFileWithIndexWriter(IndexWriter indexWriter, File f, 
-            String suffix) throws IOException {
+    private void indexFileWithIndexWriter(final IndexWriter indexWriter,final File f,final String suffix) throws IOException {
 
         if (f.isHidden() || f.isDirectory() || !f.canRead() || !f.exists()) {
             return;
