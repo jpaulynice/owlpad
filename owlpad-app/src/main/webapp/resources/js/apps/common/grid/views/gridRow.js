@@ -10,7 +10,15 @@ define([ 'jquery',
 
 	var GridRow = Backbone.Marionette.ItemView.extend({
 		template : gridRowTemplate,
-		tagName : "tr"
+		tagName : "tr",
+		
+		events:{
+		    "click": "handleClick"
+		},
+		
+		handleClick: function(e){
+		    this.model.trigger('app:grid:showPreview',this.model.get('source'));
+		}
 	});
 
 	return GridRow;

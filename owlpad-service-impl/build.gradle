@@ -4,6 +4,7 @@ apply plugin: 'war'
 description = 'owlpad-service-impl'
 dependencies {
     compile group: 'org.springframework', name: 'spring-webmvc', version:'3.2.6.RELEASE'
+    compile group: 'commons-io', name: 'commons-io', version:'2.4'
     compile group: 'javax.servlet', name: 'jstl', version:'1.2'
     compile group: 'org.springframework', name: 'spring-tx', version:'3.2.6.RELEASE'
     compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.5'

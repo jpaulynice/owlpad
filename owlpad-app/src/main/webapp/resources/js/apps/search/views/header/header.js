@@ -35,8 +35,6 @@ define([ 'jquery',
 				this.trigger('searchapp:search',data);
 			}
 		}
-		
-	
 	});
 
 

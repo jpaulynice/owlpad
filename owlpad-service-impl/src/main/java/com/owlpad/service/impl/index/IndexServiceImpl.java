@@ -79,8 +79,7 @@ public class IndexServiceImpl implements IndexService{
         
         int numIndexed = indexWriter.maxDoc();
 		indexWriter.close();
-		
-        
+	
         return numIndexed;
         
     }

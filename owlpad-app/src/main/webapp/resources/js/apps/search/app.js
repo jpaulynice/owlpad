@@ -13,13 +13,14 @@ define([ 'jquery',
 
 	App.addRegions({
 		header:".navbar-default",
-		gridRegion : '.gridRegion'
+		gridRegion : '.gridRegion',
+		preview:'.previewRegion'
 	});
 	
 	var utils = new AppUtils();
 	utils.setup();
 	
-	var appRegions = {'header':App.header,'gridRegion':App.gridRegion};
+	var appRegions = {'header':App.header,'gridRegion':App.gridRegion,preview:App.preview};
 
 	var searchMediator = new SearchMediator(appRegions);
 

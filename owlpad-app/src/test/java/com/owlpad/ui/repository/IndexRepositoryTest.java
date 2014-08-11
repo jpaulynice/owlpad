@@ -6,7 +6,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
-@ContextConfiguration(locations={"classpath:servlet-context.xml"})
+@ContextConfiguration(locations={"classpath:applicationContextTest.xml"})
 public class IndexRepositoryTest extends AbstractTestNGSpringContextTests{
 	@Autowired
 	private IndexRepository indexRepository;

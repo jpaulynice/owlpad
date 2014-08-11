@@ -42,7 +42,7 @@ test {
     useTestNG()
     
     testLogging {
-        events 'started', 'passed'
+        events 'passed'
     }
     
     beforeTest { descriptor ->

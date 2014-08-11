@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.cxf.helpers.FileUtils;
+import org.apache.commons.io.FileUtils;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.index.IndexRequestBuilder;
@@ -159,12 +159,7 @@ public class ESIndexServiceImpl implements IndexService {
 		
 		boolean unReadable = f.isHidden() || f.isDirectory() || !f.canRead() || !f.exists();
 		if (!unReadable) {
-			StringBuilder sb = new StringBuilder();
-			List<String> lines = FileUtils.readLines(f);
-			for(String line: lines){
-				sb.append(line);
-				sb.append(" ");
-			}		
+			String content = FileUtils.readFileToString(f);
 			Path path = Paths.get(f.getCanonicalPath());
 			UserPrincipal owner = Files.getOwner(path);
 			String author = owner.getName();
@@ -173,7 +168,7 @@ public class ESIndexServiceImpl implements IndexService {
 			
 			return client.prepareIndex("owlpad-index", "docs")
 					.setSource(jsonBuilder().startObject()
-							.field("contents", sb.toString())
+							.field("contents", content)
 							.field("filepath",f.getCanonicalPath())
 							.field("filename", f.getName())
 							.field("author", author)

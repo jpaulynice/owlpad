@@ -7,7 +7,10 @@
 		<link href="./resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 		<link href="./resources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<link href="./resources/css/styles.css" rel="stylesheet">
-		
+		<script src="./resources/js/syntaxHighlighter/shCore.js"></script>
+		<script src="./resources/js/syntaxHighlighter/shBrushJScript.js"></script>
+		<link rel="stylesheet" type="text/css" href="./resources/css/syntaxHighlighter/shCoreDefault.css">
+		<script>SyntaxHighlighter.all();</script>		
 		<title>Owlpad Search</title>
 	</head>
 	<body>
@@ -26,12 +29,11 @@
 			<div class="bs-example">
 				<div class="panel panel-default">
 				  <div class="panel-heading">Preview</div>
-				  	<div class="preview">
+				  	<div class="previewRegion">
 				  		<div class="empty-view" style="margin-right:auto;margin-left:auto;width:50%;">Click a row to see more details</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="spinner"></div>
 	</body>
 </html>

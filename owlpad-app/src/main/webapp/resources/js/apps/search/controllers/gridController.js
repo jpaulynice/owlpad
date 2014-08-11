@@ -33,24 +33,33 @@ define([ 'jquery',
 				
 				_.each(data.documents,function(doc){
 				    var visibleFields = [];
+				    var source = "";
 				    _.each(doc.fields, function(field){
 				        if(field.visible){
 				            visibleFields.push(field);
 				        }
+				        
+				        if(field.fieldId === 'doc_source'){
+				            source = field.value;
+				        }
 				    });
-				    coll.add(new Backbone.Model({fields:visibleFields}));
+				    coll.add(new Backbone.Model({fields:visibleFields,source:source}));
 				});
 
 				var gridView = new Grid({
 					collection : coll,
 					headers : headers
 				});
+				this.listenTo(gridView,'app:gc:showPreview',this.showPreview);
 				this.gridRegion.show(gridView);
 			}else{
 				this.gridRegion.show(new EmptyView());
 			}
+		},
+		
+		showPreview: function(data){
+		    this.trigger('app:am:showPreview',data);
 		}
-
 	});
 
 	return GridController;
