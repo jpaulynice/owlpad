@@ -172,3 +172,7 @@ body.loading {
 body.loading .spinner {
 	display: block;
 }
+
+.highlighted{
+	background:#BBD9BB;
+}

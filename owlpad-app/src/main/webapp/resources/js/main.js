@@ -11,7 +11,9 @@ require.config({
 		backbone : 'vendor/backbone',
 		marionette : 'vendor/backbone.marionette.min',
 		i18nprecompile : 'vendor/i18nprecompile',
-		bootstrap:'vendor/bootstrap.min'
+		bootstrap:'vendor/bootstrap.min',
+		syntaxHighlighter: 'vendor/syntaxHighlighter/shCore',
+		shBrush: 'vendor/syntaxHighlighter/shBrushJava'
 	},
 
 	shim : {
@@ -38,6 +40,14 @@ require.config({
 		bootstrap:{
 			deps:['jquery'],
 			exports:'Bootstrap'
-		}
+		},
+		syntaxHighlighter:{
+		    deps:['jquery'],
+		    exports:'SyntaxHighlighter'
+		},
+		shBrush:{
+            deps:['syntaxHighlighter'],
+            exports:'shBrush'
+        }
 	}
 });

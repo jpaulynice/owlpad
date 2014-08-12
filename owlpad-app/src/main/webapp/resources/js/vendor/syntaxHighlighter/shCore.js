@@ -30,7 +30,6 @@
  * @requires N/A
  */
 var XRegExp;
-
 // Avoid running twice; that would reset tokens and could break references to native globals
 XRegExp = XRegExp || (function (undef) {
     "use strict";
