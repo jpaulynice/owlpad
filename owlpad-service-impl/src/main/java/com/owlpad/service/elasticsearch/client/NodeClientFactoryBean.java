@@ -30,7 +30,9 @@ public class NodeClientFactoryBean implements FactoryBean<NodeClient>, Initializ
 	NodeClientFactoryBean() {
 	}
 
-	public NodeClientFactoryBean(boolean local) {
+	public NodeClientFactoryBean(String clusterName, boolean local, boolean enableHttp) {
+		this.local = local;
+		this.enableHttp = enableHttp;
 		this.local = local;
 	}
 
@@ -54,7 +56,7 @@ public class NodeClientFactoryBean implements FactoryBean<NodeClient>, Initializ
 		ImmutableSettings.Builder settings = ImmutableSettings.settingsBuilder().put("http.enabled",
 				String.valueOf(this.enableHttp));
 
-		nodeClient = (NodeClient) nodeBuilder().settings(settings).clusterName(this.clusterName).local(this.local).node()
+		this.nodeClient = (NodeClient) nodeBuilder().settings(settings).clusterName(this.clusterName).local(this.local).node()
 				.client();
 	}
 
