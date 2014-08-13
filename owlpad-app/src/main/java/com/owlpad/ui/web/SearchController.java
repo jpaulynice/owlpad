@@ -2,6 +2,8 @@ package com.owlpad.ui.web;
 
 import java.util.Locale;
 
+import javax.annotation.Nonnull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,7 +51,7 @@ public class SearchController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody SearchResponse search(@RequestBody SearchRequest searchRequest){
+	public @ResponseBody SearchResponse search(@Nonnull @RequestBody SearchRequest searchRequest){
 		return searchRepository.search(searchRequest);
 	}
 }

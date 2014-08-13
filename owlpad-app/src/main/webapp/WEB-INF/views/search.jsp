@@ -7,10 +7,6 @@
 		<link href="./resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 		<link href="./resources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<link href="./resources/css/styles.css" rel="stylesheet">
-		<!--<script src="./resources/js/syntaxHighlighter/shCore.js"></script>
-		<script src="./resources/js/syntaxHighlighter/shBrushJScript.js"></script>
-		<script src="./resources/js/syntaxHighlighter/shBrushJava.js"></script>
-		<script>SyntaxHighlighter.all();</script>-->
 		<link rel="stylesheet" type="text/css" href="./resources/css/syntaxHighlighter/shCoreDefault.css">
 		<title>Owlpad Search</title>
 	</head>

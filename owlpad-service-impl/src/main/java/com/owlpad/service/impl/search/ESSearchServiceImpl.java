@@ -45,7 +45,7 @@ public class ESSearchServiceImpl implements SearchService{
 		org.elasticsearch.action.search.SearchResponse response = client.prepareSearch("owlpad-index")
 				.setTypes("docs")
 				.setSearchType(SearchType.QUERY_THEN_FETCH)
-				.setQuery(QueryBuilders.matchQuery("contents",searchRequest.getKeyWord()))
+				.setQuery(QueryBuilders.queryString(searchRequest.getKeyWord()))
 				.setFrom(from)
 				.setSize(size)
 				.execute()

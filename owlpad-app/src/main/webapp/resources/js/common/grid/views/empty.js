@@ -6,7 +6,7 @@ define( [ 'jquery',
           'underscore', 
           'backbone', 
           'marionette',
-          'hbs!apps/common/grid/templates/empty' ], 
+          'hbs!common/grid/templates/empty' ], 
           function($, _, Backbone, Marionette, emptyTemplate) {
 
 	var EmptyView = Backbone.Marionette.ItemView.extend({

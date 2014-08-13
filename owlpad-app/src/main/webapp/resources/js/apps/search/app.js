@@ -5,7 +5,7 @@ define([ 'jquery',
          'underscore', 
          'backbone', 
          'marionette',
-         'apps/common/utils',
+         'common/utils',
          'apps/search/mediators/searchMediator'],
          function($, _, Backbone, Marionette,AppUtils,SearchMediator) {
 

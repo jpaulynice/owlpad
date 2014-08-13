@@ -13,10 +13,6 @@ public class ESSearchServiceImplTest extends AbstractTestNGSpringContextTests{
 	@Autowired
 	private SearchService searchService;
 	
-	public ESSearchServiceImplTest(){
-		
-	}
-	
 	@Test
 	public void testNonnullService(){
 		Assert.assertNotNull(searchService);

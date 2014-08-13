@@ -11,13 +11,14 @@ public class NodeClientFactoryBeanTest extends AbstractTestNGSpringContextTests{
 	@Autowired
 	private NodeClientFactoryBean nodeClientFactoryBean;
 	
-	public NodeClientFactoryBeanTest(){
-		
-	}
-	
 	@Test
 	public void testNonnullNodeClientFactoryBean(){
 		Assert.assertNotNull(nodeClientFactoryBean);
+	}
+	
+	@Test
+	public void testGetClient() throws Exception{
+		Assert.assertNotNull(nodeClientFactoryBean.getObject());
 	}
 
 	/**
@@ -33,5 +34,4 @@ public class NodeClientFactoryBeanTest extends AbstractTestNGSpringContextTests{
 	public void setNodeClientFactoryBean(NodeClientFactoryBean nodeClientFactoryBean) {
 		this.nodeClientFactoryBean = nodeClientFactoryBean;
 	}
-
 }

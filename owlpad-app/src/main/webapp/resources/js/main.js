@@ -12,7 +12,7 @@ require.config({
 		marionette : 'vendor/backbone.marionette.min',
 		i18nprecompile : 'vendor/i18nprecompile',
 		bootstrap:'vendor/bootstrap.min',
-		syntaxHighlighter: 'vendor/syntaxHighlighter/shCore',
+		syntaxHighlighter: 'vendor/syntaxHighlighter/shCore.min',
 		shBrush: 'vendor/syntaxHighlighter/shBrushJava'
 	},
 

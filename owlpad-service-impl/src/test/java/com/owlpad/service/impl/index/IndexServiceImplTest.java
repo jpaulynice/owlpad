@@ -13,10 +13,6 @@ public class IndexServiceImplTest extends AbstractTestNGSpringContextTests{
 	@Autowired
 	private IndexService indexService;
 	
-	public IndexServiceImplTest(){
-		
-	}
-	
 	@Test
 	public void testNonnullService(){
 		Assert.assertNotNull(indexService);

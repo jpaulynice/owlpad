@@ -6,8 +6,8 @@ define([ 'jquery',
          'underscore', 
          'backbone', 
          'marionette',
-         'apps/common/grid/views/grid',
-         'apps/common/grid/views/empty'], 
+         'common/grid/views/grid',
+         'common/grid/views/empty'], 
          function($, _,Backbone, Marionette, Grid, EmptyView) {
 
 	var GridController = Backbone.Marionette.Controller.extend({
