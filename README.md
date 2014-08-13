@@ -26,6 +26,11 @@ Technology stack
 <li><b>Middle and Service tiers:</b> Java, Spring Framework, Apache CXF, Gradle, Apache lucene and Elasticsearch</li>
 </ul>
 
+Dependencies:
+ 
+1. Install Gradle
+2. Install Elasticsearch
+
 Steps to work:
 
 1. clone repo: 
@@ -33,9 +38,9 @@ Steps to work:
 2. import projects in eclipse:
   <code>file-->import-->gradle project-->specify directory-->build model-->finish</code>
 
-<p>To test the service as an app deployed under tomcat in 'service' using port 8080:</p>
+<p>Command line tests for the service as an app deployed under tomcat in '/' using port 8080:</p>
 
-<b>index service:</b>
+<b>index api:</b>
 <pre>
 curl -X POST -H 'Content-Type: application/json' -d 
 '{
@@ -48,11 +53,14 @@ curl -X POST -H 'Content-Type: application/json' -d
 'http://localhost:8080/api/v1/index'
 </pre>
 
-<b>search service:</b>
+<b>search api:</b>
 <pre>curl -X POST -H 'Content-Type: application/json' -d 
 '{
-  "keyWord": "java",
-  "maxHits": 10
+  "searchRequest":
+  {
+    "keyWord":"lucene",
+    "maxHits":"10"
+  }
 }' 
-'http://localhost:8080/service/api/v1/search'
+'http://localhost:8080/api/v1/search'
 </pre>
