@@ -2,6 +2,10 @@ OwlPad
 ==========
 [![Build Status](https://travis-ci.org/julesbond007/owlpad.svg)](https://travis-ci.org/julesbond007/owlpad)
 
+UI Screenshot
+==========
+![Settings Window](https://raw.github.com/julesbond007/owlpad/master/owlpad-app/src/main/webapp/resources/img/screenshot.png)
+
 A very simple search application built on top of apache lucene and elasticsearch engine.  This is a work in progress.  I will try to document this as much as possible as well.
 
 The original idea was to build an internal tool to quickly search and analyze source code repositories such as git, mercurial, svn, cvs, etc.
@@ -52,7 +56,3 @@ curl -X POST -H 'Content-Type: application/json' -d
 }' 
 'http://localhost:8080/service/api/v1/search'
 </pre>
-
-Screenshot
-==========
-![Settings Window](https://raw.github.com/julesbond007/owlpad/master/owlpad-app/src/main/webapp/resources/img/screenshot.png)
