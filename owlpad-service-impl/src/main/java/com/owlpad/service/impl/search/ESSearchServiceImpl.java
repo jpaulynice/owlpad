@@ -32,7 +32,7 @@ public class ESSearchServiceImpl implements SearchService{
 	@Autowired
 	public ESSearchServiceImpl(NodeClientFactoryBean nodeClientFactoryBean) throws Exception{
 		this.nodeClientFactoryBean = nodeClientFactoryBean;
-		client = this.nodeClientFactoryBean.getObject();
+		this.client = this.nodeClientFactoryBean.getObject();
 	}
 	
 	@Override

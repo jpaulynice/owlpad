@@ -29,6 +29,7 @@
 				  	<div class="previewRegion"></div>
 				</div>
 			</div>
-		</div>		
+		</div>	
+		<div class="spinner"></div>	
 	</body>
 </html>

@@ -154,7 +154,7 @@ i.fa.fa-search{
 }
 
 
-.spinner {
+.spinner{
 	display: none;
 	position: fixed;
 	z-index: 1000;
@@ -162,10 +162,10 @@ i.fa.fa-search{
 	left: 0;
 	height: 100%;
 	width: 100%;
-	background: rgba( 255, 255, 255, .8 ) url('../img/spinner.gif')50% 50%no-repeat;
+	background: rgba( 255, 255, 255, .3 ) url('../img/spinner.gif')50% 50%no-repeat;
 }
 
-body.loading {
+body.loading{
 	overflow: hidden;
 }
 
@@ -175,4 +175,8 @@ body.loading .spinner {
 
 .highlighted{
 	background:#BBD9BB;
+}
+
+.syntaxhighlighter .container{
+	width:100%;
 }
