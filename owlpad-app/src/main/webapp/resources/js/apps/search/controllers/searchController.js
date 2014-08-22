@@ -28,7 +28,20 @@ define([ 'jquery',
 			});
 			
 			return defer.promise();
-		}
+		},
+		
+		getDocById: function(docId){
+            var defer = $.Deferred();
+            var call = this.searchEntities.getDocById(docId);
+
+            $.when(call).done(function(jsonRes) {
+                defer.resolve(jsonRes);
+            }).fail(function() {
+                defer.reject();
+            });
+            
+            return defer.promise();
+        },
 	});
 
 	return SearchAppController;

@@ -13,6 +13,7 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
+import com.owlpad.domain.search.DocResponse;
 import com.owlpad.domain.search.Document;
 import com.owlpad.domain.search.SearchRequest;
 import com.owlpad.domain.search.SearchResponse;
@@ -95,5 +96,10 @@ public class SearchServiceImpl implements SearchService{
 		response.setTotalDocuments(hits.length);
 
 		return response;
+	}
+
+	@Override
+	public DocResponse getDocById(String docId) {
+		return null;
 	}
 }

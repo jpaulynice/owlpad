@@ -33,17 +33,17 @@ define([ 'jquery',
 				
 				_.each(data.documents,function(doc){
 				    var visibleFields = [];
-				    var source = "";
+				    var docId = "";
 				    _.each(doc.fields, function(field){
 				        if(field.visible){
 				            visibleFields.push(field);
 				        }
 				        
-				        if(field.fieldId === 'doc_source'){
-				            source = field.value;
+				        if(field.name === 'dId'){
+				            docId = field.value;
 				        }
 				    });
-				    coll.add(new Backbone.Model({fields:visibleFields,source:source}));
+				    coll.add(new Backbone.Model({fields:visibleFields,docId:docId}));
 				});
 
 				var gridView = new Grid({

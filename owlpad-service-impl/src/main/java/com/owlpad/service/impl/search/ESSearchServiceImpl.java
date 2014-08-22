@@ -3,14 +3,17 @@ package com.owlpad.service.impl.search;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.node.NodeClient;
+import org.elasticsearch.common.base.Preconditions;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.owlpad.domain.search.DocResponse;
 import com.owlpad.domain.search.Document;
 import com.owlpad.domain.search.SearchRequest;
 import com.owlpad.domain.search.SearchResponse;
@@ -64,5 +67,22 @@ public class ESSearchServiceImpl implements SearchService{
 		internalResponse.setStatus(StatusType.SUCCESS);
 
 		return internalResponse;
+	}
+
+	@Override
+	public DocResponse getDocById(String docId) {
+		Preconditions.checkNotNull(docId);
+		
+		DocResponse res = new DocResponse();
+		
+		GetResponse response = client.prepareGet("owlpad-index","docs",docId)
+				.execute()
+				.actionGet();
+		String source = (String) response.getSourceAsMap().get("contents");
+		
+		res.setSource(source);
+		res.setStatus(StatusType.SUCCESS);
+		
+		return res;
 	}
 }

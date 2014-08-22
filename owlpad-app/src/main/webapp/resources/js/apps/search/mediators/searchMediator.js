@@ -20,7 +20,7 @@ define([ 'jquery',
             var headerController = new HeaderController(regions.header);
             
             this.listenTo(headerController,'searchapp:header:search',this.search);
-            this.listenTo(this.gridController,"app:am:showPreview",this.showPreview);
+            this.listenTo(this.gridController,"app:am:showPreview",this.getDocById);
         },
         
         search: function(data){
@@ -35,9 +35,17 @@ define([ 'jquery',
             this.gridController.showGridResults(data);
         },
         
+        getDocById: function(docId){
+            var self = this;
+            var call = this.searchController.getDocById(docId);
+            $.when(call).done(function(results){
+                self.showPreview(results);
+            });
+        },
+        
         showPreview: function(data){
             var view = new Preview({
-              model:new Backbone.Model().set({source:data})
+              model:new Backbone.Model({source:data.source})
             });
             this.preview.show(view);
         }

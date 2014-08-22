@@ -7,11 +7,13 @@ import javax.annotation.Nonnull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.owlpad.domain.search.DocResponse;
 import com.owlpad.domain.search.SearchRequest;
 import com.owlpad.domain.search.SearchResponse;
 import com.owlpad.ui.repository.SearchRepository;
@@ -23,7 +25,7 @@ import com.owlpad.ui.repository.SearchRepository;
  *
  */
 @Controller
-@RequestMapping(value = "/search")
+@RequestMapping(value="search")
 public class SearchController {
 	private SearchRepository searchRepository;
 	
@@ -53,5 +55,10 @@ public class SearchController {
 	@RequestMapping(method = RequestMethod.POST)
 	public @ResponseBody SearchResponse search(@Nonnull @RequestBody SearchRequest searchRequest){
 		return searchRepository.search(searchRequest);
+	}
+	
+	@RequestMapping(value = "/{docId}",method=RequestMethod.GET)
+	public @ResponseBody DocResponse getDocById(@Nonnull @PathVariable("docId") String docId){
+		return searchRepository.getDocById(docId);
 	}
 }

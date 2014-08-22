@@ -22,6 +22,15 @@ define([ 'jquery',
 				url : "/owlpad/search"
 			});
 		};
+		
+		this.getDocById = function(data){
+		    return $.ajax({
+                method : "GET",
+                dataType : "json",
+                contentType : "application/json",
+                url : "/owlpad/search/"+encodeURIComponent(data)
+            });
+		};
 	};
 
 	return SearchEntities;

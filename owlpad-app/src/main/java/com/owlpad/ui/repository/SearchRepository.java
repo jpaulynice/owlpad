@@ -1,5 +1,6 @@
 package com.owlpad.ui.repository;
 
+import com.owlpad.domain.search.DocResponse;
 import com.owlpad.domain.search.SearchRequest;
 import com.owlpad.domain.search.SearchResponse;
 import com.owlpad.service.search.SearchService;
@@ -37,6 +38,16 @@ public class SearchRepository {
 			// service response status as well...just map
 			// from responses: 200, 404, 500 etc. to
 			// SUCCESS, NOT_FOUND etc...
+		}
+
+		return response;
+	}
+	
+	public DocResponse getDocById(String docId){
+		DocResponse response = new DocResponse();
+		try {
+			response = searchService.getDocById(docId);
+		} catch (Exception e) {
 		}
 
 		return response;

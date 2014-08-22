@@ -22,7 +22,7 @@ define([ 'jquery',
 		    });
 		    this.model.set('highlighted',true);
 		    */
-		    this.model.trigger('app:grid:showPreview',this.model.get('source'));
+		    this.model.trigger('app:grid:showPreview',this.model.get('docId'));
 		}
 	});
 
