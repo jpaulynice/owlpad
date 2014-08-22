@@ -74,14 +74,20 @@ public class ESSearchServiceImpl implements SearchService{
 		Preconditions.checkNotNull(docId);
 		
 		DocResponse res = new DocResponse();
+		GetResponse response = null;
 		
-		GetResponse response = client.prepareGet("owlpad-index","docs",docId)
-				.execute()
-				.actionGet();
-		String source = (String) response.getSourceAsMap().get("contents");
-		
-		res.setSource(source);
-		res.setStatus(StatusType.SUCCESS);
+		try{
+			response = client.prepareGet("owlpad-index","docs",docId)
+					.execute()
+					.actionGet();
+			String source = (String) response.getSourceAsMap().get("contents");
+			
+			res.setSource(source);
+			res.setStatus(StatusType.SUCCESS);
+		}catch(Exception e){
+			res.setStatus(StatusType.FAIL);
+			res.setErrorMessage(e.toString());
+		}
 		
 		return res;
 	}

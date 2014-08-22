@@ -21,6 +21,8 @@ define([ 'jquery',
             
             this.listenTo(headerController,'searchapp:header:search',this.search);
             this.listenTo(this.gridController,"app:am:showPreview",this.getDocById);
+            
+            this.search({keyWord:"*",maxHits:10});
         },
         
         search: function(data){

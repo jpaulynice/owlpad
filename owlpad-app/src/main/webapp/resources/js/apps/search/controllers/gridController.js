@@ -52,6 +52,9 @@ define([ 'jquery',
 				});
 				this.listenTo(gridView,'app:gc:showPreview',this.showPreview);
 				this.gridRegion.show(gridView);
+				
+				var pData = coll.models[0].get('docId');
+				this.showPreview(pData);
 			}else{
 				this.gridRegion.show(new EmptyView());
 			}
