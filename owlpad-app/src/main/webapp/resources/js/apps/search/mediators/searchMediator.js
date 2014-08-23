@@ -9,8 +9,9 @@ define([ 'jquery',
          'apps/search/controllers/headerController' ,
          'apps/search/controllers/searchController',
          'apps/search/controllers/gridController',
-         'apps/search/views/previewView'], 
-         function($, _,Backbone, Marionette,HeaderController,SearchController,GridController,Preview) {
+         'apps/search/views/previewView',
+         'common/grid/views/empty'], 
+         function($, _,Backbone, Marionette,HeaderController,SearchController,GridController,Preview,EmptyView) {
 
     var AppMediator = Backbone.Marionette.Controller.extend({
         initialize : function(regions) {
@@ -46,10 +47,14 @@ define([ 'jquery',
         },
         
         showPreview: function(data){
-            var view = new Preview({
-              model:new Backbone.Model({source:data.source})
-            });
-            this.preview.show(view);
+            if(data && data.source){
+                var view = new Preview({
+                    model:new Backbone.Model({source:data.source})
+                });
+                this.preview.show(view);   
+            }else{
+                this.preview.show(new EmptyView({model: new Backbone.Model({message:"No preview to show!"})}));
+            }
         }
     });
 

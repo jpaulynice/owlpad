@@ -56,7 +56,8 @@ define([ 'jquery',
 				var pData = coll.models[0].get('docId');
 				this.showPreview(pData);
 			}else{
-				this.gridRegion.show(new EmptyView());
+				this.gridRegion.show(new EmptyView({model: new Backbone.Model({message:"No documents found!"})}));
+				this.showPreview();
 			}
 		},
 		
