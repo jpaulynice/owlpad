@@ -29,8 +29,8 @@ define([ 'jquery',
 			
 			return defer.promise();
 		},
-		
-		getDocById: function(docId){
+
+        getDocById: function(docId) {
             var defer = $.Deferred();
             var call = this.searchEntities.getDocById(docId);
 
@@ -39,9 +39,10 @@ define([ 'jquery',
             }).fail(function() {
                 defer.reject();
             });
-            
+
             return defer.promise();
         },
+
 	});
 
 	return SearchAppController;
