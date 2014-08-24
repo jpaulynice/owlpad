@@ -10,7 +10,6 @@ define([ 'jquery',
 
 	var SearchEntities = function(data) {
 
-
         /**
          * Call the search end point
          *
@@ -37,7 +36,6 @@ define([ 'jquery',
                 url : "/owlpad/search/docs/" + encodeURIComponent(docId)
             });
         };
-
 
 	};
 
