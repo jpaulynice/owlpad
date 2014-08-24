@@ -14,28 +14,32 @@ define([ 'jquery',
 		 * Call the search end point
 		 * 
 		 */
-		this.search = function(data) {
-			return $.ajax({
-				method : "POST",
-				data : JSON.stringify(data),
-				dataType : "json",
-				contentType : "application/json",
-				url : "/owlpad/search/docs"
-			});
-		};
+
+        this.search = function(data) {
+            return $.ajax({
+                method : "POST",
+                data : JSON.stringify(data),
+                dataType : "json",
+                contentType : "application/json",
+                url : "/owlpad/search/docs"
+            });
+        }; 
+
 		
 		/**
 		 * Get a document by id
 		 * 
 		 */
-		this.getDocById = function(docId){
-		    return $.ajax({
+
+        this.getDocById = function(docId) {
+            return $.ajax({
                 method : "GET",
                 dataType : "json",
                 contentType : "application/json",
-                url : "/owlpad/search/docs/"+encodeURIComponent(docId)
+                url : "/owlpad/search/docs/" + encodeURIComponent(docId)
             });
-		};
+        }; 
+
 	};
 
 	return SearchEntities;
