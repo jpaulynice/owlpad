@@ -10,11 +10,11 @@ define([ 'jquery',
 
 	var SearchEntities = function(data) {
 
-		/**
-		 * Call the search end point
-		 * 
-		 */
 
+        /**
+         * Call the search end point
+         *
+         */
         this.search = function(data) {
             return $.ajax({
                 method : "POST",
@@ -23,14 +23,12 @@ define([ 'jquery',
                 contentType : "application/json",
                 url : "/owlpad/search/docs"
             });
-        }; 
+        };
 
-		
-		/**
-		 * Get a document by id
-		 * 
-		 */
-
+        /**
+         * Get a document by id
+         *
+         */
         this.getDocById = function(docId) {
             return $.ajax({
                 method : "GET",
@@ -38,7 +36,8 @@ define([ 'jquery',
                 contentType : "application/json",
                 url : "/owlpad/search/docs/" + encodeURIComponent(docId)
             });
-        }; 
+        };
+
 
 	};
 
