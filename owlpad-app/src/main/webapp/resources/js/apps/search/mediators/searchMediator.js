@@ -38,7 +38,7 @@ define(['jquery',
 
         handlePaging : function(action) {
             var hitsPerpage = this.searchCriteria['maxHits'];
-            var start = this.searchCriteria.resultStart;
+            var start = this.searchCriteria['resultStart'];
 
             if (action === 'first') {
                 start = 0;
@@ -61,7 +61,7 @@ define(['jquery',
                     this.currentPage++;
                 }
             }
-            this.searchCriteria.resultStart = start;
+            this.searchCriteria['resultStart'] = start;
             this.search(this.searchCriteria);
         },
 
