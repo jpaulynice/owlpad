@@ -71,7 +71,7 @@ public class ESSearchServiceImpl implements SearchService{
 
 	@Override
 	public DocResponse getDocById(String docId) {
-		Preconditions.checkNotNull(docId);
+		Preconditions.checkNotNull(docId,"Document id is required to get document.");
 		
 		DocResponse res = new DocResponse();
 		GetResponse response = null;
