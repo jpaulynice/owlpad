@@ -15,7 +15,7 @@ define(['jquery',
             this.gridRegion = options;
         },
 
-        getHeaders : function(fields, headers) {
+        getHeaders : function(fields) {
             var headers = [];
             _.each(fields, function(field) {
                 if (field.visible) {
