@@ -43,8 +43,8 @@ import com.owlpad.service.index.IndexService;
  */
 @Service("indexService")
 public class ESIndexServiceImpl implements IndexService {
-	NodeClientFactoryBean nodeClientFactoryBean;
-	NodeClient client;
+	private NodeClientFactoryBean nodeClientFactoryBean;
+	private NodeClient client;
 	private static final Logger logger = LoggerFactory.getLogger(ESIndexServiceImpl.class);
 	
 	@Autowired

@@ -16,6 +16,10 @@ define([ 'jquery',
 				className: "table",
 				itemView : GridRow,
 				
+				events:{
+				    "click .paging": "handlePaging"
+				},
+				
 				initialize : function(options) {
 					this.model = new Backbone.Model();
 					this.model.collection = options.collection;
@@ -23,11 +27,16 @@ define([ 'jquery',
 						this.model.set('headers', options.headers);
 					}
 					
-					this.listenTo(this.model.collection,"app:grid:showPreview",this.showPreview);
+					this.listenTo(this.model.collection,"app:gridRow:preview",this.showPreview);
+				},
+				
+				handlePaging: function(e){
+				    var pag = $(e.currentTarget).data("paging");
+				    this.trigger("app:grid:paging",pag);
 				},
 				
 				showPreview: function(data){
-				  this.trigger('app:gc:showPreview',data);
+				    this.trigger('app:grid:preview',data);
 				},
 
 				appendHtml : function(collectionView, itemView) {

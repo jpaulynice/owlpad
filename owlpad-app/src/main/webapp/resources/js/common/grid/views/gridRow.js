@@ -13,16 +13,29 @@ define([ 'jquery',
 		tagName : "tr",
 		
 		events:{
-		    "click": "handleClick"
+		    "click": "highlightRow"
 		},
 		
-		handleClick: function(e){
-		    /*_.each(this.model.collection.models,function(model){
+		initialize: function(options){
+		  _.bindAll(this,'render');
+		  this.listenTo(this.model,'change reset', this.render);  
+		},
+
+        onRender: function() {
+            if (this.model.get('highlighted') && !this.$el.hasClass('highlighted')) {
+                this.$el.addClass('highlighted');
+            }else if(this.$el.hasClass('highlighted')){
+                this.$el.removeClass('highlighted');
+            }
+        },
+
+		
+		highlightRow: function(e){
+		    _.each(this.model.collection.models,function(model){
 		        model.set('highlighted',false);
 		    });
 		    this.model.set('highlighted',true);
-		    */
-		    this.model.trigger('app:grid:showPreview',this.model.get('docId'));
+		    this.model.trigger('app:gridRow:preview',this.model.get('docId'));
 		}
 	});
 

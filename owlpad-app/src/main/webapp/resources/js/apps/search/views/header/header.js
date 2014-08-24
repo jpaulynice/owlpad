@@ -32,7 +32,7 @@ define([ 'jquery',
 			var keyWord = this.ui.searchText.val();
 			if(keyWord){
 				var data = {keyWord:keyWord,maxHits:10};
-				this.trigger('searchapp:search',data);
+				this.trigger('app:view:search',data);
 			}
 		}
 	});

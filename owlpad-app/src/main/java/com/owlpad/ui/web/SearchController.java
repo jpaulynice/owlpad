@@ -52,12 +52,12 @@ public class SearchController {
 	 * @param searchRequest
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value="docs", method = RequestMethod.POST)
 	public @ResponseBody SearchResponse search(@Nonnull @RequestBody SearchRequest searchRequest){
 		return searchRepository.search(searchRequest);
 	}
 	
-	@RequestMapping(value = "/{docId}",method=RequestMethod.GET)
+	@RequestMapping(value = "docs/{docId}",method=RequestMethod.GET)
 	public @ResponseBody DocResponse getDocById(@Nonnull @PathVariable("docId") String docId){
 		return searchRepository.getDocById(docId);
 	}

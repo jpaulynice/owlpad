@@ -14,11 +14,11 @@ define([ 'jquery',
             var headerView = new HeaderView();
             headerRegion.show(headerView);
 
-            this.listenTo(headerView,'searchapp:search',this.search);
+            this.listenTo(headerView,'app:view:search',this.search);
         },
         
         search: function(data){
-            this.trigger('searchapp:header:search',data);
+            this.trigger('app:header:search',data);
         }
     });
 

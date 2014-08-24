@@ -28,7 +28,6 @@ define([ 'jquery',
 				    }
 				});
 				
-				
 				var coll = new Backbone.Collection();
 				
 				_.each(data.documents,function(doc){
@@ -50,9 +49,12 @@ define([ 'jquery',
 					collection : coll,
 					headers : headers
 				});
-				this.listenTo(gridView,'app:gc:showPreview',this.showPreview);
+				this.listenTo(gridView,'app:grid:preview',this.showPreview);
+				this.listenTo(gridView,'app:grid:paging',this.paging);
+
 				this.gridRegion.show(gridView);
 				
+				coll.models[0].set('highlighted',true);
 				var pData = coll.models[0].get('docId');
 				this.showPreview(pData);
 			}else{
@@ -61,8 +63,12 @@ define([ 'jquery',
 			}
 		},
 		
+		paging: function(data){
+		  this.trigger('app:controller:page', data);  
+		},
+		
 		showPreview: function(data){
-		    this.trigger('app:am:showPreview',data);
+		    this.trigger('app:controller:preview',data);
 		}
 	});
 

@@ -20,13 +20,49 @@ define([ 'jquery',
             this.searchController = new SearchController();
             var headerController = new HeaderController(regions.header);
             
-            this.listenTo(headerController,'searchapp:header:search',this.search);
-            this.listenTo(this.gridController,"app:am:showPreview",this.getDocById);
-            
-            this.search({keyWord:"*",maxHits:10});
+            this.listenTo(headerController,'app:header:search',this.search);
+            this.listenTo(this.gridController,'app:controller:preview',this.getDocById);
+            this.listenTo(this.gridController,'app:controller:page',this.paging);
+            this.searchCriteria = {resultStart:0,keyWord:"*",maxHits:10};
+            this.currentPage = 1;
+            this.totalHits = 0;
+
+            this.search(this.searchCriteria);
         },
         
+
+        paging: function(pagingAction) {
+            var hitsPerpage = this.searchCriteria['maxHits'];
+            var start = this.searchCriteria.resultStart;
+
+            if (pagingAction === 'first') {
+                start = 0;
+                this.currentPage = 1;
+            } else if (pagingAction === 'prev') {
+                this.currentPage--;
+                start = hitsPerpage * (this.currentPage - 1);
+            } else if (pagingAction === 'next') {
+                start = hitsPerpage * this.currentPage;
+                this.currentPage++;
+            } else if (pagingAction === 'last') {
+                var mod = this.totalHits % hitsPerpage;
+                var counter = Math.floor(this.totalHits / hitsPerpage);
+                this.currentPage = mod === 0 ? counter : counter + 1;
+
+                if (mod === 0) {
+                    start = this.totalHits - hitsPerpage;
+                } else {
+                    start = this.totalHits - mod;
+                }
+            }
+            this.searchCriteria.resultStart = start;
+            this.search(this.searchCriteria);
+        },
+
+
+        
         search: function(data){
+            this.searchCriteria = data;
             var self = this;
             var searchCall = this.searchController.search(data);
             $.when(searchCall).done(function(results){
@@ -35,6 +71,7 @@ define([ 'jquery',
         },
         
         showSearchResults: function(data){
+            this.totalHits = data.totalDocuments;
             this.gridController.showGridResults(data);
         },
         
