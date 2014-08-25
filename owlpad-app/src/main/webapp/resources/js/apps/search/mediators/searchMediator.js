@@ -25,7 +25,7 @@ define(['jquery',
             this.listenTo(this.gridController, 'app:controller:preview', this.getDocById);
             this.listenTo(this.gridController, 'app:controller:page', this.handlePaging);
             
-            this.searchCriteria = {
+            var searchCriteria = {
                 resultStart : 0,
                 keyWord : "*",
                 maxHits : 20
@@ -33,7 +33,7 @@ define(['jquery',
             this.currentPage = 1;
             this.totalHits = 0;
 
-            this.search(this.searchCriteria);
+            this.search(searchCriteria);
         },
 
         handlePaging : function(action) {
