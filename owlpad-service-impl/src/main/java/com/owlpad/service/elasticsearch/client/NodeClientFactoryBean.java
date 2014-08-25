@@ -31,9 +31,9 @@ public class NodeClientFactoryBean implements FactoryBean<NodeClient>, Initializ
 	}
 
 	public NodeClientFactoryBean(String clusterName, boolean local, boolean enableHttp) {
+		this.clusterName = clusterName;
 		this.local = local;
 		this.enableHttp = enableHttp;
-		this.local = local;
 	}
 
 	@Override

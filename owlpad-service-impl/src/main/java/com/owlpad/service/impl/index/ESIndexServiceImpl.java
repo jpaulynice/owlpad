@@ -22,10 +22,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-
-
-
 import static org.elasticsearch.common.xcontent.XContentFactory.*;
 
 import com.google.common.base.Preconditions;
