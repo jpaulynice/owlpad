@@ -56,11 +56,10 @@ localhost:8080/owlpad/search and localhost:8080/owlpad/search
      port: 9000
      context: /
      webappcontext: src/main/webapp
+</pre>
 
 service is now running: 
 localhost:9000/api/v1/search and locahost:9000/api/v1
-</pre>
-     
 
 <p>To start index some documents by specifying a 'directoryToIndex'</p>
 
