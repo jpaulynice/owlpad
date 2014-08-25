@@ -47,19 +47,18 @@ or using maven
      port: 8080
      context: /owlpad
      webappcontext: src/main/webapp
-</pre>
 
-web-app is now running: 
-localhost:8080/owlpad/search and localhost:8080/owlpad/search
-<pre>
+ web-app is now running: 
+ localhost:8080/owlpad/search and localhost:8080/owlpad/search
+
   b. owlpad-service-impl:
      port: 9000
      context: /
      webappcontext: src/main/webapp
-</pre>
 
-service is now running: 
-localhost:9000/api/v1/search and locahost:9000/api/v1
+ service is now running: 
+ localhost:9000/api/v1/search and locahost:9000/api/v1
+</pre>
 
 <p>To start index some documents by specifying a 'directoryToIndex'</p>
 
