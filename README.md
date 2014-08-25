@@ -28,15 +28,32 @@ Technology stack
 
 Dependencies:
  
-1. Install Gradle
+1. Install Gradle or Maven
 2. Install Elasticsearch
 
 Steps to work:
 
 1. clone repo: 
   <code>git clone https://github.com/julesbond007/owlpad.git</code>
-2. import projects in eclipse:
-  <code>file-->import-->gradle project-->specify directory-->build model-->finish</code>
+2. using gradle: import projects in eclipse:
+  <code>file-->import-->gradle project-->specify directory-->build model-->finish</code> 
+or using maven 
+<code>cd owlpad</code>
+<code>mvn eclipse:eclipse</code>
+<code>import as existing projects</code>
+3. Using Jetty: debug as or run as:
+<pre>
+  a. owlpad-app:
+     port: 8080
+     context: /owlpad
+     webappcontext: src/main/webapp
+
+  b. owlpad-service-impl:
+     port: 9000
+     context: /
+     webappcontext: src/main/webapp
+</pre>
+     
 
 <p>Command line tests for the service as an app deployed under tomcat in '/' using port 8080:</p>
 
