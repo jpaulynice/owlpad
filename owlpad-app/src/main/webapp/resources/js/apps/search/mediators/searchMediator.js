@@ -36,9 +36,14 @@ define(['jquery',
             this.search(searchCriteria);
         },
 
+        //paging works fine, but need to disable buttons
+        //if user is on first page of results then user 
+        //should not be able to click the go to first page 
+        //icon and so on.  working on that.
         handlePaging : function(action) {
-            var hitsPerpage = this.searchCriteria['maxHits'];
-            var start = this.searchCriteria['resultStart'];
+            var searchCriteria = this.searchCriteria;
+            var hitsPerpage = searchCriteria['maxHits'];
+            var start = searchCriteria['resultStart'];
 
             if (action === 'first') {
                 start = 0;
@@ -61,8 +66,8 @@ define(['jquery',
                     this.currentPage++;
                 }
             }
-            this.searchCriteria['resultStart'] = start;
-            this.search(this.searchCriteria);
+            searchCriteria['resultStart'] = start;
+            this.search(searchCriteria);
         },
 
         search : function(data) {
