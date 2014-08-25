@@ -13,12 +13,13 @@
 		http://www.springframework.org/schema/context/spring-context.xsd
 		http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
         http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd">
+    	
     <annotation-driven />
     
     <beans:import resource="classpath:META-INF/cxf/cxf.xml" />
     <beans:import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
     	
-    <!--specify the location of the service deployment location:  i.e: localhost:9000/api/v1-->
+    <!--specify location the service is running:  i.e: localhost:9000/api/v1-->
     <context:property-placeholder location="classpath:META-INF/properties/service.properties"/>
     
    	<resources mapping="/resources/**" location="/resources/" />
