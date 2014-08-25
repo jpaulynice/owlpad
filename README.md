@@ -48,14 +48,18 @@ or using maven
      context: /owlpad
      webappcontext: src/main/webapp
 
+web-app is now running: localhost:8080/owlpad/search and localhost:8080/owlpad/index
+
   b. owlpad-service-impl:
      port: 9000
      context: /
      webappcontext: src/main/webapp
 </pre>
+
+service is now running: localhost:9000/api/v1/search and locahost:9000/api/v1/index
      
 
-<p>Command line tests for the service as an app deployed under tomcat in '/' using port 8080:</p>
+<p>To start index some documents by specifying and 'directoryToIndex'</p>
 
 <b>index api:</b>
 <pre>
