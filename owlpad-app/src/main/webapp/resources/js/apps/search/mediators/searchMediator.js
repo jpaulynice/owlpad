@@ -28,7 +28,7 @@ define(['jquery',
             this.searchCriteria = {
                 resultStart : 0,
                 keyWord : "*",
-                maxHits : 10
+                maxHits : 20
             };
             this.currentPage = 1;
             this.totalHits = 0;

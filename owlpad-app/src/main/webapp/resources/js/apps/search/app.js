@@ -20,7 +20,7 @@ define([ 'jquery',
 	var utils = new AppUtils();
 	utils.setup();
 	
-	var appRegions = {'header':App.header,'gridRegion':App.gridRegion,preview:App.preview};
+	var appRegions = {'header':App.header,'gridRegion':App.gridRegion,'preview':App.preview};
 
 	var searchMediator = new SearchMediator(appRegions);
 

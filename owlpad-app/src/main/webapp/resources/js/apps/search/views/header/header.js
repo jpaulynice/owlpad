@@ -33,7 +33,7 @@ define(['jquery',
             if (keyWord) {
                 var data = {
                     keyWord : keyWord,
-                    maxHits : 10
+                    maxHits : 20
                 };
                 this.trigger('app:view:search', data);
             }
