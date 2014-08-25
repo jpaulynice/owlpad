@@ -24,6 +24,7 @@ import com.owlpad.domain.search.StatusType;
 import com.owlpad.service.index.IndexService;
 
 /**
+ * Apache Lucene indexService implementation
  * 
  * @author Jay Paulynice
  *

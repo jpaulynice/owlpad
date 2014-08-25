@@ -161,7 +161,6 @@ public class ESIndexServiceImpl implements IndexService {
 			String author = owner.getName();
 			BasicFileAttributes attr = Files.readAttributes(path, BasicFileAttributes.class);
 			
-			
 			return client.prepareIndex("owlpad-index", "docs")
 					.setSource(jsonBuilder().startObject()
 							.field("contents", content)

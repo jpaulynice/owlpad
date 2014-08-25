@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
- * {@link SearchService} implementation.
+ * Apache Lucene searchService implementation.
  * 
  * @author Jay Paulynice
  * 
@@ -100,6 +100,7 @@ public class SearchServiceImpl implements SearchService{
 
 	@Override
 	public DocResponse getDocById(String docId) {
+		//TODO: add implementation
 		return null;
 	}
 }
