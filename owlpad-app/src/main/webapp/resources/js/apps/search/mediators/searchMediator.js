@@ -25,39 +25,28 @@ define(['jquery',
             this.listenTo(this.gridController, 'app:controller:preview', this.getDocById);
             this.listenTo(this.gridController, 'app:controller:page', this.handlePaging);
             
-            var searchCriteria = {
-                resultStart : 0,
-                keyWord : "*",
-                maxHits : 20
-            };
             this.currentPage = 1;
             this.totalHits = 0;
-
-            this.search(searchCriteria);
         },
 
-        //paging works fine, but need to disable buttons
-        //if user is on first page of results then user 
-        //should not be able to click the go to first page 
-        //icon and so on.  working on that.
+        //working on paging...not complete yet.
         handlePaging : function(action) {
             var searchCriteria = this.searchCriteria;
             var hitsPerpage = searchCriteria['maxHits'];
             var start = searchCriteria['resultStart'];
 
-            if (action === 'first') {
+            if (action == 'first') {
                 start = 0;
                 this.currentPage = 1;
-            } else if (action === 'prev') {
+            } else if (action == 'prev') {
                 this.currentPage--;
                 start = hitsPerpage * (this.currentPage - 1);
-            } else if (action === 'next') {
+            } else if (action == 'next') {
                 start = hitsPerpage * this.currentPage;
                 this.currentPage++;
-            } else if (action === 'last') {
+            } else if (action == 'last') {
                 var mod = this.totalHits % hitsPerpage;
-                var counter = Math.floor(this.totalHits / hitsPerpage);
-                this.currentPage = counter;
+                this.currentPage = Math.floor(this.totalHits / hitsPerpage);
 
                 if (mod === 0) {
                     start = this.totalHits - hitsPerpage;
@@ -93,20 +82,13 @@ define(['jquery',
         },
 
         showPreview : function(data) {
+            var view = '';
             if (data && data.source) {
-                var view = new Preview({
-                    model : new Backbone.Model({
-                        source : data.source
-                    })
-                });
-                this.preview.show(view);
+                view = new Preview({model : new Backbone.Model({source : data.source})});
             } else {
-                this.preview.show(new EmptyView({
-                    model : new Backbone.Model({
-                        message : "No preview to show!"
-                    })
-                }));
+                view = new EmptyView({model : new Backbone.Model({message : "No preview to show!"})});
             }
+            this.preview.show(view);
         }
     });
 
