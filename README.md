@@ -28,17 +28,39 @@ Technology stack
 
 Dependencies:
  
-1. Install Gradle
+1. Install Gradle or Maven
 2. Install Elasticsearch
 
 Steps to work:
 
 1. clone repo: 
   <code>git clone https://github.com/julesbond007/owlpad.git</code>
-2. import projects in eclipse:
-  <code>file-->import-->gradle project-->specify directory-->build model-->finish</code>
+2. using gradle: import projects in eclipse:
+  <code>file-->import-->gradle project-->specify directory-->build model-->finish</code> 
+or using maven 
+<code>cd owlpad</code>
+<code>mvn eclipse:eclipse</code>
+<code>import as existing projects</code>
+3. Using Jetty: debug as or run as:
+<pre>
+  a. owlpad-app:
+     port: 8080
+     context: /owlpad
+     webappcontext: src/main/webapp
 
-<p>Command line tests for the service as an app deployed under tomcat in '/' using port 8080:</p>
+ web-app is now running: 
+ localhost:8080/owlpad/search
+
+  b. owlpad-service-impl:
+     port: 9000
+     context: /
+     webappcontext: src/main/webapp
+
+ service is now running: 
+ localhost:9000/api/v1/search
+</pre>
+
+<p>To start index some documents by specifying a 'directoryToIndex'</p>
 
 <b>index api:</b>
 <pre>
@@ -50,7 +72,7 @@ curl -X POST -H 'Content-Type: application/json' -d
     "suffix":".java"
   }
 }' 
-'http://localhost:8080/api/v1/index'
+'http://localhost:9000/api/v1/index'
 </pre>
 
 <b>search api:</b>
@@ -62,5 +84,5 @@ curl -X POST -H 'Content-Type: application/json' -d
     "maxHits":"10"
   }
 }' 
-'http://localhost:8080/api/v1/search'
+'http://localhost:9000/api/v1/search'
 </pre>
