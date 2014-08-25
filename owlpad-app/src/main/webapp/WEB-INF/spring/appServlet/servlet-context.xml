@@ -17,6 +17,9 @@
     
     <beans:import resource="classpath:META-INF/cxf/cxf.xml" />
     <beans:import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+    	
+    <!--specify the location of the service deployment location:  i.e: localhost:9000/api/v1-->
+    <context:property-placeholder location="classpath:META-INF/properties/service.properties"/>
     
    	<resources mapping="/resources/**" location="/resources/" />
 	<context:component-scan base-package="com.owlpad.ui.web" />
@@ -43,9 +46,7 @@
 	        <beans:ref bean="localeChangeInterceptor" />
 	    </beans:property>
 	</beans:bean>
-    
-	<context:property-placeholder location="classpath:META-INF/properties/service.properties"/>
-	 
+    	 
 	<beans:bean id="searchRepository" class="com.owlpad.ui.repository.SearchRepository">
 		<beans:constructor-arg><beans:ref bean="searchService"/></beans:constructor-arg>
 	</beans:bean>
