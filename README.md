@@ -86,3 +86,7 @@ curl -X POST -H 'Content-Type: application/json' -d
 }' 
 'http://localhost:9000/api/v1/search'
 </pre>
+
+Questions/Comments:
+
+jay.paulynice@gmail.com
