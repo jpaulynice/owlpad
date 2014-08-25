@@ -14,6 +14,10 @@
 		http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
         http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd">
     <annotation-driven />
+    
+    <beans:import resource="classpath:META-INF/cxf/cxf.xml" />
+    <beans:import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+    
    	<resources mapping="/resources/**" location="/resources/" />
 	<context:component-scan base-package="com.owlpad.ui.web" />
 	
@@ -40,9 +44,6 @@
 	    </beans:property>
 	</beans:bean>
     
-    <beans:import resource="classpath:META-INF/cxf/cxf.xml" />
-    <beans:import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
-    
 	<context:property-placeholder location="classpath:META-INF/properties/service.properties"/>
 	 
 	<beans:bean id="searchRepository" class="com.owlpad.ui.repository.SearchRepository">
@@ -53,23 +54,24 @@
 		<beans:constructor-arg><beans:ref bean="indexService"/></beans:constructor-arg>
 	</beans:bean>
 	
-	<jaxrs:client id="searchService" address="${serviceUrl}" 
-		serviceClass="com.owlpad.service.search.SearchService" 
+	<!--search api-->
+	<jaxrs:client id="searchService" address="${serviceUrl}"
+		serviceClass="com.owlpad.service.search.SearchService"
 		inheritHeaders="true">
-       <jaxrs:headers>
-           <entry key="Accept" value="application/json"/>
-           <entry key="ContentType" value="application/json"/>
-       </jaxrs:headers>
+			<jaxrs:headers>
+				<entry key="Accept" value="application/json"/>
+				<entry key="ContentType" value="application/json"/>
+			</jaxrs:headers>
 	</jaxrs:client>
 	
-	<jaxrs:client id="indexService"
-       address="${serviceUrl}"
-       serviceClass="com.owlpad.service.index.IndexService"
-       inheritHeaders="true">
-       <jaxrs:headers>
-           <entry key="Accept" value="application/json"/>
-           <entry key="ContentType" value="application/json"/>
-       </jaxrs:headers>
+	<!--index api-->
+	<jaxrs:client id="indexService" address="${serviceUrl}"
+		serviceClass="com.owlpad.service.index.IndexService"
+		inheritHeaders="true">
+			<jaxrs:headers>
+				<entry key="Accept" value="application/json"/>
+				<entry key="ContentType" value="application/json"/>
+			</jaxrs:headers>
 	</jaxrs:client>		
 	
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
