@@ -47,9 +47,11 @@ or using maven
      port: 8080
      context: /owlpad
      webappcontext: src/main/webapp
+</pre>
 
 web-app is now running: localhost:8080/owlpad/search and localhost:8080/owlpad/index
 
+<pre>
   b. owlpad-service-impl:
      port: 9000
      context: /
