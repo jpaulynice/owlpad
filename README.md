@@ -49,19 +49,20 @@ or using maven
      webappcontext: src/main/webapp
 </pre>
 
-web-app is now running: localhost:8080/owlpad/search and localhost:8080/owlpad/index
-
+web-app is now running: 
+localhost:8080/owlpad/search and localhost:8080/owlpad/search
 <pre>
   b. owlpad-service-impl:
      port: 9000
      context: /
      webappcontext: src/main/webapp
 
-service is now running: localhost:9000/api/v1/search and locahost:9000/api/v1/index
+service is now running: 
+localhost:9000/api/v1/search and locahost:9000/api/v1
 </pre>
      
 
-<p>To start index some documents by specifying and 'directoryToIndex'</p>
+<p>To start index some documents by specifying a 'directoryToIndex'</p>
 
 <b>index api:</b>
 <pre>
@@ -73,7 +74,7 @@ curl -X POST -H 'Content-Type: application/json' -d
     "suffix":".java"
   }
 }' 
-'http://localhost:8080/api/v1/index'
+'http://localhost:9000/api/v1/index'
 </pre>
 
 <b>search api:</b>
@@ -85,5 +86,5 @@ curl -X POST -H 'Content-Type: application/json' -d
     "maxHits":"10"
   }
 }' 
-'http://localhost:8080/api/v1/search'
+'http://localhost:9000/api/v1/search'
 </pre>
