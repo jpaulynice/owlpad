@@ -61,8 +61,6 @@ public class ESSearchServiceImpl implements SearchService{
 					.setTypes("docs")
 					.setSearchType(SearchType.QUERY_THEN_FETCH)
 					.setQuery(QueryBuilders.queryString(searchRequest.getKeyWord()))
-					//.addFacet(FacetBuilders.termsFacet("facets").field("author"))
-					//.addFacet(FacetBuilders.termsFacet("facets").field("docType"))
 					.addAggregation(AggregationBuilders.terms("authors").field("author"))
 					.addAggregation(AggregationBuilders.terms("docTypes").field("docType"))
 					.setFrom(from)
@@ -81,19 +79,7 @@ public class ESSearchServiceImpl implements SearchService{
 			}
 			
 			Aggregations aggs = response.getAggregations();
-			List<FacetResult> facets = new ArrayList<FacetResult>();
-			
-			for(Aggregation ag: aggs){
-				StringTerms st = (StringTerms) ag;
-				Collection<org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket> buckets = st.getBuckets();
-				for(org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket b: buckets){
-					FacetResult fr = new FacetResult();
-					fr.setEntry(b.getKey());
-					fr.setCount(b.getDocCount());
-					facets.add(fr);
-				}
-				
-			}
+			List<FacetResult> facets = getFacetsFromAggregations(aggs);
 			
 			internalResponse.setFacets(facets);
 			internalResponse.setDocuments(docs);
@@ -106,6 +92,24 @@ public class ESSearchServiceImpl implements SearchService{
 		}
 
 		return internalResponse;
+	}
+	
+	private List<FacetResult> getFacetsFromAggregations(Aggregations aggs){
+		List<FacetResult> facets = new ArrayList<FacetResult>();
+		
+		for(Aggregation ag: aggs){
+			StringTerms st = (StringTerms) ag;
+			Collection<org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket> buckets = st.getBuckets();
+			for(org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket b: buckets){
+				FacetResult fr = new FacetResult();
+				fr.setEntry(b.getKey());
+				fr.setCount(b.getDocCount());
+				facets.add(fr);
+			}
+			
+		}
+		
+		return facets;
 	}
 
 	@Override

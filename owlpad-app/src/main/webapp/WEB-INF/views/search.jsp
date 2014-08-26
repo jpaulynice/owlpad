@@ -8,6 +8,8 @@
 		<link href="./resources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<link href="./resources/css/styles.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="./resources/css/syntaxHighlighter/shCoreDefault.css">
+		<link rel="shortcut icon" href="./resources/img/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="./resources/img/favicon.ico" type="image/x-icon">
 		<title>Owlpad Search</title>
 	</head>
 	<body>
