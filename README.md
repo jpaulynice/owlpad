@@ -81,7 +81,7 @@ curl -X POST -H 'Content-Type: application/json' -d
   "searchRequest":
   {
     "keyWord":"lucene",
-    "maxHits":"10"
+    "hitsPerPage":"10"
   }
 }' 
 'http://localhost:9000/api/v1/search'

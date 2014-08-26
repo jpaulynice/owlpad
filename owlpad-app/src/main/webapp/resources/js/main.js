@@ -13,9 +13,7 @@ require.config({
         i18nprecompile : 'vendor/i18nprecompile',
         bootstrap : 'vendor/bootstrap.min',
         syntaxHighlighter : 'vendor/syntaxHighlighter/shCore.min',
-        shBrush : 'vendor/syntaxHighlighter/shBrushJava',
-        jasmine: 'tests/jasmine/lib/jasmine',
-        'jasmine-html': 'tests/jasmine/lib/jasmine-html',
+        shBrush : 'vendor/syntaxHighlighter/shBrushJava'
     },
 
     shim : {
@@ -50,13 +48,6 @@ require.config({
         shBrush : {
             deps : ['syntaxHighlighter'],
             exports : 'shBrush'
-        },
-        jasmine: {
-            exports: 'jasmine'
-        },
-        'jasmine-html': {
-          deps: ['jasmine'],
-          exports: 'jasmine-html'
         }
     }
 }); 

@@ -116,7 +116,7 @@ public class ESIndexServiceImpl implements IndexService {
 			if (f.isDirectory()) {
 				getFilesFromDirectory(f, filesToIndex,suffix);
 			} else {
-				if(f.getCanonicalPath().endsWith(suffix) || suffix == null){
+				if(suffix == null || f.getCanonicalPath().endsWith(suffix)){
 					filesToIndex.add(f);
 				}
 			}
@@ -160,16 +160,20 @@ public class ESIndexServiceImpl implements IndexService {
 			UserPrincipal owner = Files.getOwner(path);
 			String author = owner.getName();
 			BasicFileAttributes attr = Files.readAttributes(path, BasicFileAttributes.class);
+			String fileName = f.getCanonicalPath();
+			int indexOfDot = fileName.indexOf(".");
+			String docType = fileName.substring(indexOfDot+1);
 			
 			return client.prepareIndex("owlpad-index", "docs")
 					.setSource(jsonBuilder().startObject()
 							.field("contents", content)
-							.field("filepath",f.getCanonicalPath())
+							.field("filepath",fileName)
 							.field("filename", f.getName())
 							.field("author", author)
 							.field("created", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format((attr.creationTime().toMillis())))
 							.field("lastModified", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format((attr.lastModifiedTime().toMillis())))
 							.field("size", String.valueOf(attr.size()))
+							.field("docType",docType)
 							.endObject());
 		}
 		return null;

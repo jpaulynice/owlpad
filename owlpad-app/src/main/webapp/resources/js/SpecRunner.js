@@ -14,8 +14,8 @@ require.config({
         bootstrap : 'vendor/bootstrap.min',
         syntaxHighlighter : 'vendor/syntaxHighlighter/shCore.min',
         shBrush : 'vendor/syntaxHighlighter/shBrushJava',
-        'jasmine': 'vendor/jasmine',
-        'jasmine-html': 'vendor/jasmine-html',
+        'jasmine': 'tests/jasmine/lib/jasmine',
+        'jasmine-html': 'tests/jasmine/lib/jasmine-html',
         spec: 'tests/spec'
     },
 

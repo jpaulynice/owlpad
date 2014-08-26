@@ -2,18 +2,15 @@ package com.owlpad.domain.search;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
 /**
  * 
  * @author Jay Paulynice
  *
  */
 @XmlRootElement(name = "searchRequest")
-@JsonIgnoreProperties(ignoreUnknown=true)
 public class SearchRequest {
 	private String keyWord;
-	private int maxHits;
+	private int hitsPerPage;
 	private int resultStart;
 	
 	public SearchRequest(){
@@ -29,20 +26,6 @@ public class SearchRequest {
 	}
 
 	/**
-	 * @return the maxHits
-	 */
-	public int getMaxHits() {
-		return maxHits;
-	}
-
-	/**
-	 * @param maxHits the maxHits to set
-	 */
-	public void setMaxHits(int maxHits) {
-		this.maxHits = maxHits;
-	}
-
-	/**
 	 * @return the resultStart
 	 */
 	public int getResultStart() {
@@ -54,6 +37,20 @@ public class SearchRequest {
 	 */
 	public void setResultStart(int resultStart) {
 		this.resultStart = resultStart;
+	}
+
+	/**
+	 * @return the hitsPerPage
+	 */
+	public int getHitsPerPage() {
+		return hitsPerPage;
+	}
+
+	/**
+	 * @param hitsPerPage the hitsPerPage to set
+	 */
+	public void setHitsPerPage(int hitsPerPage) {
+		this.hitsPerPage = hitsPerPage;
 	}
 
 }

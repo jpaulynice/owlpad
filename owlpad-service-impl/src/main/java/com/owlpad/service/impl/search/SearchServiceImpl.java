@@ -45,7 +45,7 @@ public class SearchServiceImpl implements SearchService{
 	public SearchResponse search(SearchRequest searchRequest){
 		SearchResponse response = new SearchResponse();
 		String query = searchRequest.getKeyWord();
-		int hits = searchRequest.getMaxHits();
+		int hits = searchRequest.getHitsPerPage();
 		
 		File indexDir = new File("/Users/julespaulynice/Documents/luna/index");
 		Directory directory = null;
@@ -62,15 +62,15 @@ public class SearchServiceImpl implements SearchService{
 	}
 
 	/**
-	 * Search the index for our query string and return only the maxHits count.
+	 * Search the index for our query string and return only the hitsPerPage count.
 	 * 
 	 * @param indexDir
 	 * @param queryStr
-	 * @param maxHits
+	 * @param hitsPerPage
 	 * @return
 	 * @throws Exception
 	 */
-	private SearchResponse searchIndex(Directory indexDir, String queryStr,int maxHits) throws Exception {
+	private SearchResponse searchIndex(Directory indexDir, String queryStr,int hitsPerPage) throws Exception {
 
 		SearchResponse response = new SearchResponse();
 		List<Document> results = new ArrayList<Document>();
@@ -82,7 +82,7 @@ public class SearchServiceImpl implements SearchService{
 		Query query = parser.parse(queryStr);
 		ScoreDoc[] hits = searcher.search(query, null, Integer.MAX_VALUE).scoreDocs;
 		
-		int docsPerPage = hits.length < maxHits ? hits.length : maxHits;
+		int docsPerPage = hits.length < hitsPerPage ? hits.length : hitsPerPage;
 
 		for (int i = 0; i < docsPerPage; i++) {
 			int docId = hits[i].doc;

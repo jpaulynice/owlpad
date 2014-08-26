@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
 /**
  * {@link SearchResponse} is the wrapper for the response to get search result or documents
  * matching our search query.
@@ -14,11 +12,12 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
  *
  */
 @XmlRootElement(name = "searchResponse")
-@JsonIgnoreProperties(ignoreUnknown=true)
 public class SearchResponse {
 	private StatusType status;
 	private List<Document> documents;
 	private long totalDocuments;
+	private List<FacetResult> facets;
+	private String errorMessage;
 	
 	public SearchResponse(){
 		
@@ -64,5 +63,33 @@ public class SearchResponse {
 	 */
 	public void setTotalDocuments(long totalDocuments) {
 		this.totalDocuments = totalDocuments;
+	}
+
+	/**
+	 * @return the facets
+	 */
+	public List<FacetResult> getFacets() {
+		return facets;
+	}
+
+	/**
+	 * @param facets the facets to set
+	 */
+	public void setFacets(List<FacetResult> facets) {
+		this.facets = facets;
+	}
+
+	/**
+	 * @return the errorMessage
+	 */
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	/**
+	 * @param errorMessage the errorMessage to set
+	 */
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 }

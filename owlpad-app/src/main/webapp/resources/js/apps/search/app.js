@@ -32,7 +32,7 @@ define(['jquery',
     var searchCriteria = {
         resultStart : 0,
         keyWord : "*",
-        maxHits : 20
+        hitsPerPage : 20
     };
     searchMediator.search(searchCriteria);
 

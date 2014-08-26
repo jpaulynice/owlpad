@@ -18,8 +18,8 @@ define(['jquery',
         initialize : function(regions) {
             this.preview = regions.preview;
             this.gridController = new GridController(regions.gridRegion);
-            this.searchController = new SearchController();
             var headerController = new HeaderController(regions.header);
+            this.searchController = new SearchController();
 
             this.listenTo(headerController, 'app:header:search', this.search);
             this.listenTo(this.gridController, 'app:controller:preview', this.getDocById);
@@ -32,7 +32,7 @@ define(['jquery',
         //working on paging...not complete yet.
         handlePaging : function(action) {
             var searchCriteria = this.searchCriteria;
-            var hitsPerpage = searchCriteria['maxHits'];
+            var hitsPerpage = searchCriteria['hitsPerPage'];
             var start = searchCriteria['resultStart'];
 
             if (action == 'first') {
@@ -60,9 +60,9 @@ define(['jquery',
         },
 
         search : function(data) {
-            this.searchCriteria = data;
             var self = this;
-            var searchCall = this.searchController.search(data);
+            self.searchCriteria = data;
+            var searchCall = self.searchController.search(data);
             $.when(searchCall).done(function(results) {
                 self.showSearchResults(results);
             });
@@ -75,7 +75,7 @@ define(['jquery',
 
         getDocById : function(docId) {
             var self = this;
-            var call = this.searchController.getDocById(docId);
+            var call = self.searchController.getDocById(docId);
             $.when(call).done(function(results) {
                 self.showPreview(results);
             });
