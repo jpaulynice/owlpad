@@ -49,9 +49,13 @@ public class ESSearchServiceImpl implements SearchService{
 		this.client = this.nodeClientFactoryBean.getObject();
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see com.owlpad.service.search.SearchService#search(com.owlpad.domain.search.SearchRequest)
+	 */
 	@Override
 	public SearchResponse search(SearchRequest searchRequest) {
-		SearchResponse internalResponse = new SearchResponse();
+		SearchResponse res = new SearchResponse();
 		int from = searchRequest.getResultStart();
 		int size = searchRequest.getHitsPerPage();
 		size = size == 0 ? Integer.MAX_VALUE:size;
@@ -81,37 +85,23 @@ public class ESSearchServiceImpl implements SearchService{
 			Aggregations aggs = response.getAggregations();
 			List<FacetResult> facets = getFacetsFromAggregations(aggs);
 			
-			internalResponse.setFacets(facets);
-			internalResponse.setDocuments(docs);
-			internalResponse.setTotalDocuments(hits.getTotalHits());
-			internalResponse.setStatus(StatusType.SUCCESS);
+			res.setFacets(facets);
+			res.setDocuments(docs);
+			res.setTotalDocuments(hits.getTotalHits());
+			res.setStatus(StatusType.SUCCESS);
 		}catch(Exception e){
 			logger.error("Exception while executing search",e);
-			internalResponse.setStatus(StatusType.FAIL);
-			internalResponse.setErrorMessage(e.toString());
+			res.setStatus(StatusType.FAIL);
+			res.setErrorMessage(e.toString());
 		}
 
-		return internalResponse;
+		return res;
 	}
 	
-	private List<FacetResult> getFacetsFromAggregations(Aggregations aggs){
-		List<FacetResult> facets = new ArrayList<FacetResult>();
-		
-		for(Aggregation ag: aggs){
-			StringTerms st = (StringTerms) ag;
-			Collection<org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket> buckets = st.getBuckets();
-			for(org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket b: buckets){
-				FacetResult fr = new FacetResult();
-				fr.setEntry(b.getKey());
-				fr.setCount(b.getDocCount());
-				facets.add(fr);
-			}
-			
-		}
-		
-		return facets;
-	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see com.owlpad.service.search.SearchService#getDocById(java.lang.String)
+	 */
 	@Override
 	public DocResponse getDocById(String docId) {
 		Preconditions.checkNotNull(docId,"Document id is required to get document.");
@@ -134,5 +124,38 @@ public class ESSearchServiceImpl implements SearchService{
 		}
 		
 		return res;
+	}
+	
+	/**
+	 * Create facets from aggregations
+	 * 
+	 * @param aggs
+	 * @return
+	 */
+	private List<FacetResult> getFacetsFromAggregations(Aggregations aggs){
+		List<FacetResult> facets = new ArrayList<FacetResult>();
+		for(Aggregation aggregation: aggs){
+			StringTerms st = (StringTerms) aggregation;
+			Collection<org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket> buckets = st.getBuckets();
+			for(org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket b: buckets){
+				facets.add(getFacetResult(b));
+			}
+			
+		}		
+		return facets;
+	}
+	
+	/**
+	 * Create a facet result from aggregation term buckets.
+	 * 
+	 * @param b
+	 * @return
+	 */
+	private FacetResult getFacetResult(org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket b){
+		FacetResult fr = new FacetResult();
+		fr.setEntry(b.getKey());
+		fr.setCount(b.getDocCount());
+		
+		return fr;
 	}
 }
