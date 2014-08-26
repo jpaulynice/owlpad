@@ -14,70 +14,77 @@
 		http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
         http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd">
     	
-    <annotation-driven />
+    	<annotation-driven />
     
-    <beans:import resource="classpath:META-INF/cxf/cxf.xml" />
-    <beans:import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+    	<beans:import resource="classpath:META-INF/cxf/cxf.xml" />
+    	<beans:import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
     	
-    <!--specify location the service is running:  i.e: localhost:9000/api/v1-->
-    <context:property-placeholder location="classpath:META-INF/properties/service.properties"/>
+    	<!--specify location the service is running:  i.e: localhost:9000/api/v1-->
+    	<context:property-placeholder location="classpath:META-INF/properties/service.properties"/>
     
-   	<resources mapping="/resources/**" location="/resources/" />
-	<context:component-scan base-package="com.owlpad.ui.web" />
-	
-	<beans:bean id="messageSource"
-	    class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-	    <beans:property name="basename" value="classpath:messages" />
-	    <beans:property name="defaultEncoding" value="UTF-8"/>
-	</beans:bean>
-	 
-	<beans:bean id="localeChangeInterceptor"
-	    class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-	    <beans:property name="paramName" value="lang" />
-	</beans:bean>
-	 
-	<beans:bean id="localeResolver"
-	    class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
-	    <beans:property name="defaultLocale" value="en"/>
-	</beans:bean>
-	 
-	<beans:bean id="handlerMapping"
-	    class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
-	    <beans:property name="interceptors">
-	        <beans:ref bean="localeChangeInterceptor" />
-	    </beans:property>
-	</beans:bean>
-    	 
-	<beans:bean id="searchRepository" class="com.owlpad.ui.repository.SearchRepository">
-		<beans:constructor-arg><beans:ref bean="searchService"/></beans:constructor-arg>
-	</beans:bean>
-	
-	<beans:bean id="indexRepository" class="com.owlpad.ui.repository.IndexRepository">
-		<beans:constructor-arg><beans:ref bean="indexService"/></beans:constructor-arg>
-	</beans:bean>
-	
-	<!--search api-->
-	<jaxrs:client id="searchService" address="${serviceUrl}"
+		<resources mapping="/resources/**" location="/resources/" />
+		<context:component-scan base-package="com.owlpad.ui.web" />
+
+		<beans:bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+			<beans:property name="basename" value="classpath:messages" />
+			<beans:property name="defaultEncoding" value="UTF-8"/>
+		</beans:bean>
+		
+		<beans:bean id="localeChangeInterceptor"
+		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<beans:property name="paramName" value="lang" />
+		</beans:bean>
+		
+		<beans:bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+			<beans:property name="defaultLocale" value="en"/>
+		</beans:bean>
+		
+		<beans:bean id="handlerMapping"
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+			<beans:property name="interceptors">
+				<beans:ref bean="localeChangeInterceptor" />
+			</beans:property>
+		</beans:bean>
+		
+		<!--searchRepository bean-->
+		<beans:bean id="searchRepository" class="com.owlpad.ui.repository.SearchRepository">
+			<beans:constructor-arg>
+				<beans:ref bean="searchService"/>
+			</beans:constructor-arg>
+		</beans:bean>
+		
+		<!--indexRepository bean-->
+		<beans:bean id="indexRepository" class="com.owlpad.ui.repository.IndexRepository">
+			<beans:constructor-arg>
+				<beans:ref bean="indexService"/>
+			</beans:constructor-arg>
+		</beans:bean>
+		
+		<!--search api-->
+		<jaxrs:client id="searchService" address="${serviceUrl}"
 		serviceClass="com.owlpad.service.search.SearchService"
 		inheritHeaders="true">
 			<jaxrs:headers>
 				<entry key="Accept" value="application/json"/>
 				<entry key="ContentType" value="application/json"/>
 			</jaxrs:headers>
-	</jaxrs:client>
-	
-	<!--index api-->
-	<jaxrs:client id="indexService" address="${serviceUrl}"
+		</jaxrs:client>
+		
+		<!--index api-->
+		<jaxrs:client id="indexService" address="${serviceUrl}"
 		serviceClass="com.owlpad.service.index.IndexService"
 		inheritHeaders="true">
 			<jaxrs:headers>
 				<entry key="Accept" value="application/json"/>
 				<entry key="ContentType" value="application/json"/>
 			</jaxrs:headers>
-	</jaxrs:client>		
-	
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/" />
-		<beans:property name="suffix" value=".jsp" />
-	</beans:bean>
+		</jaxrs:client>
+		
+		<!--view resolver-->
+		<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+			<beans:property name="prefix" value="/WEB-INF/views/" />
+			<beans:property name="suffix" value=".jsp" />
+		</beans:bean>
 </beans:beans>
