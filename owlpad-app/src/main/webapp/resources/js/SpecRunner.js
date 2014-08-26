@@ -14,8 +14,9 @@ require.config({
         bootstrap : 'vendor/bootstrap.min',
         syntaxHighlighter : 'vendor/syntaxHighlighter/shCore.min',
         shBrush : 'vendor/syntaxHighlighter/shBrushJava',
-        jasmine: 'tests/jasmine/lib/jasmine',
-        'jasmine-html': 'tests/jasmine/lib/jasmine-html',
+        'jasmine': 'vendor/jasmine',
+        'jasmine-html': 'vendor/jasmine-html',
+        spec: 'tests/spec'
     },
 
     shim : {
@@ -51,12 +52,39 @@ require.config({
             deps : ['syntaxHighlighter'],
             exports : 'shBrush'
         },
-        jasmine: {
+        'jasmine': {
             exports: 'jasmine'
         },
         'jasmine-html': {
           deps: ['jasmine'],
-          exports: 'jasmine-html'
+          exports: 'jasmine'
         }
     }
+}); 
+
+require(['jquery', 
+         'underscore', 
+         'jasmine-html'], 
+         function($, _, jasmine) {
+
+    var jasmineEnv = jasmine.getEnv();
+    jasmineEnv.updateInterval = 1000;
+    specs = [];
+
+    var htmlReporter = new jasmine.HtmlReporter();
+
+    jasmineEnv.addReporter(htmlReporter);
+
+    jasmineEnv.specFilter = function(spec) {
+        return htmlReporter.specFilter(spec);
+    };
+
+    specs.push('spec/model');
+
+    $(function() {
+        require(specs, function() {
+            jasmineEnv.execute();
+        });
+    });
+
 }); 
