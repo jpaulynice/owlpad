@@ -160,14 +160,14 @@ public class ESIndexServiceImpl implements IndexService {
 			UserPrincipal owner = Files.getOwner(path);
 			String author = owner.getName();
 			BasicFileAttributes attr = Files.readAttributes(path, BasicFileAttributes.class);
-			String fileName = f.getCanonicalPath();
-			int indexOfDot = fileName.indexOf(".");
-			String docType = fileName.substring(indexOfDot+1);
+			String filePath = f.getCanonicalPath();
+			int indexOfDot = filePath.indexOf(".");
+			String docType = filePath.substring(indexOfDot);
 			
 			return client.prepareIndex("owlpad-index", "docs")
 					.setSource(jsonBuilder().startObject()
 							.field("contents", content)
-							.field("filepath",fileName)
+							.field("filepath",filePath)
 							.field("filename", f.getName())
 							.field("author", author)
 							.field("created", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format((attr.creationTime().toMillis())))
