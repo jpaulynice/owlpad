@@ -19,6 +19,7 @@ import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -140,7 +141,7 @@ public class ESSearchServiceImpl implements SearchService{
 		Map<String,Facets> facets = new HashMap<String,Facets>();
 		for(Aggregation ag: aggs){
 			StringTerms st = (StringTerms) ag;
-			Collection<org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket> buckets = st.getBuckets();
+			Collection<Bucket> buckets = st.getBuckets();
 			Facets f = getFacetResults(buckets);
 			facets.put(ag.getName(), f);
 		}		
@@ -148,15 +149,15 @@ public class ESSearchServiceImpl implements SearchService{
 	}
 	
 	/**
-	 * Create a facet result from aggregation term buckets.
+	 * Create facets result from aggregation term buckets.
 	 * 
 	 * @param b
 	 * @return
 	 */
-	private Facets getFacetResults(Collection<org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket> buckets){
+	private Facets getFacetResults(Collection<Bucket> buckets){
 		Facets fr = new Facets();
 		Set<FacetResult> fres = new HashSet<>();
-		for(org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket b: buckets){
+		for(Bucket b: buckets){
 			FacetResult f = new FacetResult();
 			f.setCount(b.getDocCount());
 			f.setEntry(b.getKey());
