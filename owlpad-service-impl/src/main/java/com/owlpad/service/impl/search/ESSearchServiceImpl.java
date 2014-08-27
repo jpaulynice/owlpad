@@ -62,31 +62,52 @@ public class ESSearchServiceImpl implements SearchService{
 	@Override
 	public SearchResponse search(SearchRequest searchRequest) {
 		Preconditions.checkNotNull(searchRequest,"No search request specified.");
-		boolean paging = searchRequest.isPaging();
-
-		SearchResponse res = new SearchResponse();
+		SearchResponse res;
+		
 		int from = searchRequest.getResultStart();
 		int size = searchRequest.getHitsPerPage();
+		boolean paging = searchRequest.isPaging();
+		String keyWord = searchRequest.getKeyWord();
 		
 		try{
-			org.elasticsearch.action.search.SearchResponse response = search(paging,searchRequest.getKeyWord(),from,size);
-			
-			SearchHits hits = response.getHits();
-			
-			List<Document> docs = getDocumentsFromSearchHits(hits,from);
-			Map<String,Facets> facets = getFacetsFromAggregations(response.getAggregations());
-			
-			res.setFacets(facets);
-			res.setDocuments(docs);
-			res.setTotalDocuments(hits.getTotalHits());
-			res.setStatus(StatusType.SUCCESS);
+			org.elasticsearch.action.search.SearchResponse response = search(paging,keyWord,from,size);
+			res = getInternalResponse(response,from);
 		}catch(Exception e){
 			logger.error("Exception while executing search",e);
-			res.setStatus(StatusType.FAIL);
-			res.setErrorMessage(e.toString());
+			res = getErrorResponse(e.toString());
 		}
 
 		return res;
+	}
+	
+	/**
+	 * Return error search response
+	 * 
+	 * @param message
+	 * @return
+	 */
+	private SearchResponse getErrorResponse(String message){
+		SearchResponse res = new SearchResponse();
+		res.setStatus(StatusType.FAIL);
+		res.setErrorMessage(message);
+		
+		return res;
+	}
+	
+	/**
+	 * Map from elastic search searchResponse to internal searchResponse
+	 * 
+	 * @param response
+	 * @param from
+	 * @return
+	 */
+	private SearchResponse getInternalResponse(org.elasticsearch.action.search.SearchResponse response, int from){
+		SearchHits hits = response.getHits();
+		
+		List<Document> docs = getDocumentsFromSearchHits(hits,from);
+		Map<String,Facets> facets = getFacetsFromAggregations(response.getAggregations());
+		
+		return new SearchResponse(StatusType.SUCCESS,docs,hits.getTotalHits(),facets,null);
 	}
 	
 	/**
@@ -96,7 +117,7 @@ public class ESSearchServiceImpl implements SearchService{
 	 * @param from
 	 * @return
 	 */
-	public List<Document> getDocumentsFromSearchHits(SearchHits hits, int from){
+	private List<Document> getDocumentsFromSearchHits(SearchHits hits, int from){
 		List<Document> docs = new ArrayList<Document>();
 
 		int id = from + 1;
@@ -119,7 +140,7 @@ public class ESSearchServiceImpl implements SearchService{
 	 * @param size
 	 * @return
 	 */
-	public org.elasticsearch.action.search.SearchResponse search(boolean isPaging,String keyWord,int from, int size) throws Exception{
+	private org.elasticsearch.action.search.SearchResponse search(boolean isPaging,String keyWord,int from, int size) throws Exception{
 		
 		SearchRequestBuilder builder = client.prepareSearch("owlpad-index")
 				.setTypes("docs")

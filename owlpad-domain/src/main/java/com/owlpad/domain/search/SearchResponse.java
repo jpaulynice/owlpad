@@ -23,6 +23,14 @@ public class SearchResponse {
 	public SearchResponse(){
 		
 	}
+	
+	public SearchResponse(StatusType status,List<Document> docs, long total, Map<String,Facets> facets,String message){
+		this.status = status;
+		this.documents = docs;
+		this.totalDocuments = total;
+		this.facets = facets;
+		this.errorMessage = message;
+	}
 
 	/**
 	 * @return the status
