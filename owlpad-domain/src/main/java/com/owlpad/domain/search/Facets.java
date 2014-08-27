@@ -3,10 +3,14 @@ package com.owlpad.domain.search;
 import java.util.Set;
 
 public class Facets{
-	Set<FacetResult> facetResults;
+	private Set<FacetResult> facetResults;
 
 	public Facets(){
 		
+	}
+	
+	public Facets(Set<FacetResult> facets){
+		this.facetResults = facets;
 	}
 	
 	/**

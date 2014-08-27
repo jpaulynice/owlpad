@@ -85,19 +85,19 @@ public class ESIndexServiceImpl implements IndexService {
 	 */
 	private int indexDir(File dataDir, String suffix) throws Exception {
 		try {
-			CreateIndexRequestBuilder createIndexRequestBuilder = client.admin().indices().prepareCreate("owlpad-index");
-			createIndexRequestBuilder.execute().actionGet();
+			CreateIndexRequestBuilder cirb = client.admin().indices().prepareCreate("owlpad-index");
+			cirb.execute().actionGet();
 		} catch (IndexAlreadyExistsException e) {
 			logger.info("Could not create index because it exists already.",e);
 		}
 
-		BulkRequestBuilder bulkRequest = client.prepareBulk();
+		BulkRequestBuilder br = client.prepareBulk();
 
 		List<File> filesToIndex = new ArrayList<File>();
 		getFilesFromDirectory(dataDir, filesToIndex,suffix);
-		addDocumentsToBulkRequest(bulkRequest, filesToIndex);
+		addDocumentsToBulkRequest(br, filesToIndex);
 		if (filesToIndex.size() > 0) {
-			bulkRequest.execute().actionGet();
+			br.execute().actionGet();
 		}
 
 		return filesToIndex.size();
@@ -108,7 +108,8 @@ public class ESIndexServiceImpl implements IndexService {
 	 * 
 	 * @param dataDir
 	 * @param filesToIndex
-	 * @throws IOException 
+	 * @param suffix
+	 * @throws IOException
 	 */
 	private void getFilesFromDirectory(File dataDir, List<File> filesToIndex,String suffix) throws IOException {
 		File[] files = dataDir.listFiles();
@@ -126,17 +127,15 @@ public class ESIndexServiceImpl implements IndexService {
 	/**
 	 * Build up {@link BulkRequestBuilder} object 
 	 * 
-	 * @param client
 	 * @param bulkRequest
 	 * @param filesToIndex
-	 * @param suffix
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	private void addDocumentsToBulkRequest(BulkRequestBuilder bulkRequest, List<File> filesToIndex) throws Exception {
 		for (File f : filesToIndex) {
-			IndexRequestBuilder requestBuilder = createIndexRequestBuilderFromFile(f);
-			if(requestBuilder != null){
-				bulkRequest.add(requestBuilder);				
+			IndexRequestBuilder rb = createIndexRequestBuilderFromFile(f);
+			if(rb != null){
+				bulkRequest.add(rb);				
 			}
 		}
 	}
@@ -144,23 +143,20 @@ public class ESIndexServiceImpl implements IndexService {
 	/**
 	 * Create an indexRequestBuilder object give the client, file, id,and content
 	 * 
-	 * @param client
 	 * @param f
-	 * @param id
-	 * @param content
-	 * @return {@link IndexRequestBuilder} object
-	 * @throws Exception 
+	 * @return
+	 * @throws Exception
 	 */
 	private IndexRequestBuilder createIndexRequestBuilderFromFile(File f) throws Exception{
 		
 		boolean unReadable = f.isHidden() || f.isDirectory() || !f.canRead() || !f.exists();
 		if (!unReadable) {
 			String content = FileUtils.readFileToString(f);
-			Path path = Paths.get(f.getCanonicalPath());
+			String filePath = f.getCanonicalPath();
+			Path path = Paths.get(filePath);
 			UserPrincipal owner = Files.getOwner(path);
 			String author = owner.getName();
 			BasicFileAttributes attr = Files.readAttributes(path, BasicFileAttributes.class);
-			String filePath = f.getCanonicalPath();
 			int indexOfDot = filePath.indexOf(".");
 			String docType = filePath.substring(indexOfDot);
 			

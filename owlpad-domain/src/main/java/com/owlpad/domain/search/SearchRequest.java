@@ -12,6 +12,7 @@ public class SearchRequest {
 	private String keyWord;
 	private int hitsPerPage;
 	private int resultStart;
+	private boolean paging;
 	
 	public SearchRequest(){
 		
@@ -51,6 +52,20 @@ public class SearchRequest {
 	 */
 	public void setHitsPerPage(int hitsPerPage) {
 		this.hitsPerPage = hitsPerPage;
+	}
+
+	/**
+	 * @return the paging
+	 */
+	public boolean isPaging() {
+		return paging;
+	}
+
+	/**
+	 * @param paging the paging to set
+	 */
+	public void setPaging(boolean paging) {
+		this.paging = paging;
 	}
 
 }

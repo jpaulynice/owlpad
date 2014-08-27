@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.elasticsearch.action.get.GetResponse;
+import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.node.NodeClient;
 import org.elasticsearch.common.base.Preconditions;
@@ -60,35 +61,20 @@ public class ESSearchServiceImpl implements SearchService{
 	 */
 	@Override
 	public SearchResponse search(SearchRequest searchRequest) {
+		Preconditions.checkNotNull(searchRequest,"No search request specified.");
+		boolean paging = searchRequest.isPaging();
+
 		SearchResponse res = new SearchResponse();
 		int from = searchRequest.getResultStart();
 		int size = searchRequest.getHitsPerPage();
-		size = size == 0 ? Integer.MAX_VALUE:size;
 		
 		try{
-			org.elasticsearch.action.search.SearchResponse response = client.prepareSearch("owlpad-index")
-					.setTypes("docs")
-					.setSearchType(SearchType.QUERY_THEN_FETCH)
-					.setQuery(QueryBuilders.queryString(searchRequest.getKeyWord()))
-					.addAggregation(AggregationBuilders.terms("authors").field("author"))
-					.addAggregation(AggregationBuilders.terms("docTypes").field("docType"))
-					.setFrom(from)
-					.setSize(size)
-					.execute()
-					.actionGet();
+			org.elasticsearch.action.search.SearchResponse response = search(paging,searchRequest.getKeyWord(),from,size);
 			
 			SearchHits hits = response.getHits();
 			
-			List<Document> docs = new ArrayList<Document>();
-			int id = from + 1;
-			for(SearchHit hit: hits){
-				Document doc = new Document(hit,id);
-				docs.add(doc);
-				id++;
-			}
-			
-			Aggregations aggs = response.getAggregations();
-			Map<String,Facets> facets = getFacetsFromAggregations(aggs);
+			List<Document> docs = getDocumentsFromSearchHits(hits,from);
+			Map<String,Facets> facets = getFacetsFromAggregations(response.getAggregations());
 			
 			res.setFacets(facets);
 			res.setDocuments(docs);
@@ -101,6 +87,53 @@ public class ESSearchServiceImpl implements SearchService{
 		}
 
 		return res;
+	}
+	
+	/**
+	 * Map from searchHits to Documents
+	 * 
+	 * @param hits
+	 * @param from
+	 * @return
+	 */
+	public List<Document> getDocumentsFromSearchHits(SearchHits hits, int from){
+		List<Document> docs = new ArrayList<Document>();
+
+		int id = from + 1;
+		for(SearchHit hit: hits){
+			Document doc = new Document(hit,id);
+			docs.add(doc);
+			id++;
+		}
+		
+		return docs;
+	}
+	
+	/**
+	 * Execute search given parameters.  If we're paging, we don't need to add aggregations.  
+	 * Looking to use scrolling instead.
+	 * 
+	 * @param paging
+	 * @param keyWord
+	 * @param from
+	 * @param size
+	 * @return
+	 */
+	public org.elasticsearch.action.search.SearchResponse search(boolean isPaging,String keyWord,int from, int size) throws Exception{
+		
+		SearchRequestBuilder builder = client.prepareSearch("owlpad-index")
+				.setTypes("docs")
+				.setSearchType(SearchType.QUERY_THEN_FETCH)
+				.setQuery(QueryBuilders.queryString(keyWord))
+				.setFrom(from)
+				.setSize(size);
+		
+		if(!isPaging){
+			builder.addAggregation(AggregationBuilders.terms("authors").field("author"))
+			.addAggregation(AggregationBuilders.terms("docTypes").field("docType"));
+		}
+		
+		return builder.execute().actionGet();
 	}
 	
 	/*
@@ -141,8 +174,7 @@ public class ESSearchServiceImpl implements SearchService{
 		Map<String,Facets> facets = new HashMap<String,Facets>();
 		for(Aggregation ag: aggs){
 			StringTerms st = (StringTerms) ag;
-			Collection<Bucket> buckets = st.getBuckets();
-			Facets f = getFacetResults(buckets);
+			Facets f = getFacetResults(st.getBuckets());
 			facets.put(ag.getName(), f);
 		}		
 		return facets;
@@ -155,7 +187,6 @@ public class ESSearchServiceImpl implements SearchService{
 	 * @return
 	 */
 	private Facets getFacetResults(Collection<Bucket> buckets){
-		Facets fr = new Facets();
 		Set<FacetResult> fres = new HashSet<>();
 		for(Bucket b: buckets){
 			FacetResult f = new FacetResult();
@@ -163,8 +194,6 @@ public class ESSearchServiceImpl implements SearchService{
 			f.setEntry(b.getKey());
 			fres.add(f);
 		}
-		
-		fr.setFacetResults(fres);
-		return fr;
+		return new Facets(fres);
 	}
 }

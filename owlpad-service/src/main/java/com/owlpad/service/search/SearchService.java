@@ -32,10 +32,10 @@ public interface SearchService {
 	 */
 	@POST
 	@Path("")
-	public SearchResponse search(SearchRequest searchRequest);
+	public SearchResponse search(final SearchRequest searchRequest);
 	
 	
 	@GET
 	@Path("{docId}")
-	public DocResponse getDocById(@PathParam("docId") String docId);
+	public DocResponse getDocById(final @PathParam("docId") String docId);
 }

@@ -21,5 +21,5 @@ public interface IndexService {
 
 	@POST
 	@Path("")
-	public IndexResponse index(IndexRequest indexRequest);
+	public IndexResponse index(final IndexRequest indexRequest);
 }
