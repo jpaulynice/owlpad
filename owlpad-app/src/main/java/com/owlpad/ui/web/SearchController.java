@@ -53,12 +53,20 @@ public class SearchController {
 	 * @return
 	 */
 	@RequestMapping(value="docs", method = RequestMethod.POST)
-	public @ResponseBody SearchResponse search(@Nonnull @RequestBody SearchRequest searchRequest){
+	@ResponseBody
+	public SearchResponse search(@Nonnull @RequestBody SearchRequest searchRequest){
 		return searchRepository.search(searchRequest);
 	}
 	
+	/**
+	 * Get a document by id
+	 * 
+	 * @param docId
+	 * @return
+	 */
 	@RequestMapping(value = "docs/{docId}",method=RequestMethod.GET)
-	public @ResponseBody DocResponse getDocById(@Nonnull @PathVariable("docId") String docId){
+	@ResponseBody
+	public DocResponse getDocById(@Nonnull @PathVariable("docId") String docId){
 		return searchRepository.getDocById(docId);
 	}
 }

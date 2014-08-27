@@ -1,6 +1,7 @@
 package com.owlpad.domain.search;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -16,7 +17,7 @@ public class SearchResponse {
 	private StatusType status;
 	private List<Document> documents;
 	private long totalDocuments;
-	private List<FacetResult> facets;
+	private Map<String,Facets> facets;
 	private String errorMessage;
 	
 	public SearchResponse(){
@@ -66,20 +67,6 @@ public class SearchResponse {
 	}
 
 	/**
-	 * @return the facets
-	 */
-	public List<FacetResult> getFacets() {
-		return facets;
-	}
-
-	/**
-	 * @param facets the facets to set
-	 */
-	public void setFacets(List<FacetResult> facets) {
-		this.facets = facets;
-	}
-
-	/**
 	 * @return the errorMessage
 	 */
 	public String getErrorMessage() {
@@ -91,5 +78,19 @@ public class SearchResponse {
 	 */
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
+	}
+
+	/**
+	 * @return the facets
+	 */
+	public Map<String,Facets> getFacets() {
+		return facets;
+	}
+
+	/**
+	 * @param facets the facets to set
+	 */
+	public void setFacets(Map<String,Facets> facets) {
+		this.facets = facets;
 	}
 }

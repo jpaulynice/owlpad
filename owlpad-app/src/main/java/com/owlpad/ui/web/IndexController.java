@@ -48,7 +48,8 @@ public class IndexController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody IndexResponse index(@RequestBody IndexRequest indexRequest){
+	@ResponseBody
+	public IndexResponse index(@RequestBody IndexRequest indexRequest){
 		return indexRepository.index(indexRequest);
 	}
 }

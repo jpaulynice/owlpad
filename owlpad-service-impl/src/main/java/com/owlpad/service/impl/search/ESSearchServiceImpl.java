@@ -2,7 +2,11 @@ package com.owlpad.service.impl.search;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -15,7 +19,6 @@ import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
-
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,7 @@ import org.slf4j.Logger;
 import com.owlpad.domain.search.DocResponse;
 import com.owlpad.domain.search.Document;
 import com.owlpad.domain.search.FacetResult;
+import com.owlpad.domain.search.Facets;
 import com.owlpad.domain.search.SearchRequest;
 import com.owlpad.domain.search.SearchResponse;
 import com.owlpad.domain.search.StatusType;
@@ -83,7 +87,7 @@ public class ESSearchServiceImpl implements SearchService{
 			}
 			
 			Aggregations aggs = response.getAggregations();
-			List<FacetResult> facets = getFacetsFromAggregations(aggs);
+			Map<String,Facets> facets = getFacetsFromAggregations(aggs);
 			
 			res.setFacets(facets);
 			res.setDocuments(docs);
@@ -132,15 +136,13 @@ public class ESSearchServiceImpl implements SearchService{
 	 * @param aggs
 	 * @return
 	 */
-	private List<FacetResult> getFacetsFromAggregations(Aggregations aggs){
-		List<FacetResult> facets = new ArrayList<FacetResult>();
-		for(Aggregation aggregation: aggs){
-			StringTerms st = (StringTerms) aggregation;
+	private Map<String,Facets> getFacetsFromAggregations(Aggregations aggs){
+		Map<String,Facets> facets = new HashMap<String,Facets>();
+		for(Aggregation ag: aggs){
+			StringTerms st = (StringTerms) ag;
 			Collection<org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket> buckets = st.getBuckets();
-			for(org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket b: buckets){
-				facets.add(getFacetResult(b));
-			}
-			
+			Facets f = getFacetResults(buckets);
+			facets.put(ag.getName(), f);
 		}		
 		return facets;
 	}
@@ -151,11 +153,17 @@ public class ESSearchServiceImpl implements SearchService{
 	 * @param b
 	 * @return
 	 */
-	private FacetResult getFacetResult(org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket b){
-		FacetResult fr = new FacetResult();
-		fr.setEntry(b.getKey());
-		fr.setCount(b.getDocCount());
+	private Facets getFacetResults(Collection<org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket> buckets){
+		Facets fr = new Facets();
+		Set<FacetResult> fres = new HashSet<>();
+		for(org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket b: buckets){
+			FacetResult f = new FacetResult();
+			f.setCount(b.getDocCount());
+			f.setEntry(b.getKey());
+			fres.add(f);
+		}
 		
+		fr.setFacetResults(fres);
 		return fr;
 	}
 }

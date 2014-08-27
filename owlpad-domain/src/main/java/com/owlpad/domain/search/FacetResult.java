@@ -1,5 +1,6 @@
 package com.owlpad.domain.search;
 
+
 public class FacetResult {
 	private String entry;
 	private long count;
