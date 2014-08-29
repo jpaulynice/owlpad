@@ -180,3 +180,7 @@ body.loading .spinner {
 .syntaxhighlighter .container{
 	width:100%;
 }
+
+.pagination{
+	margin:5px;
+}

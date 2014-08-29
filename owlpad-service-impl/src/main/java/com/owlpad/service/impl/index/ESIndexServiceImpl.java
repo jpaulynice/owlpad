@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.UserPrincipal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +15,7 @@ import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.client.node.NodeClient;
+import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.indices.IndexAlreadyExistsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -148,30 +148,47 @@ public class ESIndexServiceImpl implements IndexService {
 	 * @throws Exception
 	 */
 	private IndexRequestBuilder createIndexRequestBuilderFromFile(File f) throws Exception{
-		
 		boolean unReadable = f.isHidden() || f.isDirectory() || !f.canRead() || !f.exists();
 		if (!unReadable) {
 			String content = FileUtils.readFileToString(f);
 			String filePath = f.getCanonicalPath();
 			Path path = Paths.get(filePath);
-			UserPrincipal owner = Files.getOwner(path);
-			String author = owner.getName();
+			String author = Files.getOwner(path).getName();
 			BasicFileAttributes attr = Files.readAttributes(path, BasicFileAttributes.class);
 			int indexOfDot = filePath.indexOf(".");
 			String docType = filePath.substring(indexOfDot);
 			
-			return client.prepareIndex("owlpad-index", "docs")
-					.setSource(jsonBuilder().startObject()
-							.field("contents", content)
-							.field("filepath",filePath)
-							.field("filename", f.getName())
-							.field("author", author)
-							.field("created", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format((attr.creationTime().toMillis())))
-							.field("lastModified", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format((attr.lastModifiedTime().toMillis())))
-							.field("size", String.valueOf(attr.size()))
-							.field("docType",docType)
-							.endObject());
+			XContentBuilder source = this.getSource(content, filePath, f.getName(), author, attr, docType);
+			
+			return client.prepareIndex("owlpad-index", "docs").setSource(source);
 		}
 		return null;
+	}
+	
+	/**
+	 * Get json source from file attributes to index
+	 * 
+	 * @param content
+	 * @param filePath
+	 * @param fileName
+	 * @param author
+	 * @param attr
+	 * @param docType
+	 * @return
+	 * @throws IOException
+	 */
+	public XContentBuilder getSource(String content, String filePath, String fileName, String author,BasicFileAttributes attr, String docType) throws IOException{
+		XContentBuilder builder = jsonBuilder().startObject()
+			.field("contents", content)
+			.field("filepath",filePath)
+			.field("filename", fileName)
+			.field("author", author)
+			.field("created", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format((attr.creationTime().toMillis())))
+			.field("lastModified", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format((attr.lastModifiedTime().toMillis())))
+			.field("size", String.valueOf(attr.size()))
+			.field("docType",docType)
+			.endObject();
+		
+		return builder;
 	}
 }

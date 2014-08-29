@@ -31,7 +31,7 @@ public class Document {
 		List<Field> fields = new ArrayList<Field>();
 		Field docIdField = new Field();
 		docIdField.setFieldId("doc_id");
-		docIdField.setName("ID");
+		docIdField.setName("#");
 		docIdField.setI18nKey("searchapp.docId");
 		docIdField.setFieldType("string");
 		docIdField.setValue(String.valueOf(id));
@@ -92,7 +92,7 @@ public class Document {
 		List<Field> fields = new ArrayList<Field>();
 		Field docIdField = new Field();
 		docIdField.setFieldId("doc_id");
-		docIdField.setName("ID");
+		docIdField.setName("#");
 		docIdField.setI18nKey("searchapp.docId");
 		docIdField.setFieldType("string");
 		docIdField.setValue(String.valueOf(id));
