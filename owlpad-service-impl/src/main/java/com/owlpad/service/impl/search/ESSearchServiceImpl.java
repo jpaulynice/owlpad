@@ -81,56 +81,6 @@ public class ESSearchServiceImpl implements SearchService{
 	}
 	
 	/**
-	 * Return error search response
-	 * 
-	 * @param message
-	 * @return
-	 */
-	private SearchResponse getErrorResponse(String message){
-		SearchResponse res = new SearchResponse();
-		res.setStatus(StatusType.FAIL);
-		res.setErrorMessage(message);
-		
-		return res;
-	}
-	
-	/**
-	 * Map from elastic search searchResponse to internal searchResponse
-	 * 
-	 * @param response
-	 * @param from
-	 * @return
-	 */
-	private SearchResponse getInternalResponse(org.elasticsearch.action.search.SearchResponse response, int from){
-		SearchHits hits = response.getHits();
-		
-		List<Document> docs = getDocumentsFromSearchHits(hits,from);
-		Map<String,Facets> facets = getFacetsFromAggregations(response.getAggregations());
-		
-		return new SearchResponse(StatusType.SUCCESS,docs,hits.getTotalHits(),facets,null);
-	}
-	
-	/**
-	 * Map from searchHits to Documents
-	 * 
-	 * @param hits
-	 * @param from
-	 * @return
-	 */
-	private List<Document> getDocumentsFromSearchHits(SearchHits hits, int from){
-		List<Document> docs = new ArrayList<Document>();
-
-		int id = from + 1;
-		for(SearchHit hit: hits){
-			Document doc = new Document(hit,id);
-			docs.add(doc);
-			id++;
-		}
-		
-		return docs;
-	}
-	
-	/**
 	 * Execute search given parameters.  If we're paging, we don't need to add aggregations.  
 	 * Looking to use scrolling instead.
 	 * 
@@ -157,32 +107,54 @@ public class ESSearchServiceImpl implements SearchService{
 		return builder.execute().actionGet();
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see com.owlpad.service.search.SearchService#getDocById(java.lang.String)
+	/**
+	 * Map from elastic search searchResponse to internal searchResponse
+	 * 
+	 * @param response
+	 * @param from
+	 * @return
 	 */
-	@Override
-	public DocResponse getDocById(String docId) {
-		Preconditions.checkNotNull(docId,"Document id is required to get document.");
+	private SearchResponse getInternalResponse(org.elasticsearch.action.search.SearchResponse response, int from){
+		SearchHits hits = response.getHits();
 		
-		DocResponse res = new DocResponse();
-		GetResponse response = null;
+		List<Document> docs = getDocumentsFromSearchHits(hits,from);
+		Map<String,Facets> facets = getFacetsFromAggregations(response.getAggregations());
 		
-		try{
-			response = client.prepareGet("owlpad-index","docs",docId)
-					.execute()
-					.actionGet();
-			String source = (String) response.getSourceAsMap().get("contents");
-			
-			res.setSource(source);
-			res.setStatus(StatusType.SUCCESS);
-		}catch(Exception e){
-			logger.error("Exception while executing getDocById",e);
-			res.setStatus(StatusType.FAIL);
-			res.setErrorMessage(e.toString());
-		}
+		return new SearchResponse(StatusType.SUCCESS,docs,hits.getTotalHits(),facets,null);
+	}
+	
+	/**
+	 * Return error search response
+	 * 
+	 * @param message
+	 * @return
+	 */
+	private SearchResponse getErrorResponse(String message){
+		SearchResponse res = new SearchResponse();
+		res.setStatus(StatusType.FAIL);
+		res.setErrorMessage(message);
 		
 		return res;
+	}
+	
+	/**
+	 * Map from searchHits to Documents
+	 * 
+	 * @param hits
+	 * @param from
+	 * @return
+	 */
+	private List<Document> getDocumentsFromSearchHits(SearchHits hits, int from){
+		List<Document> docs = new ArrayList<Document>();
+
+		int id = from + 1;
+		for(SearchHit hit: hits){
+			Document doc = new Document(hit,id);
+			docs.add(doc);
+			id++;
+		}
+		
+		return docs;
 	}
 	
 	/**
@@ -216,5 +188,33 @@ public class ESSearchServiceImpl implements SearchService{
 			fres.add(f);
 		}
 		return new Facets(fres);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.owlpad.service.search.SearchService#getDocById(java.lang.String)
+	 */
+	@Override
+	public DocResponse getDocById(String docId) {
+		Preconditions.checkNotNull(docId,"Document id is required to get document.");
+		
+		DocResponse res = new DocResponse();
+		GetResponse response = null;
+		
+		try{
+			response = client.prepareGet("owlpad-index","docs",docId)
+					.execute()
+					.actionGet();
+			String source = (String) response.getSourceAsMap().get("contents");
+			
+			res.setSource(source);
+			res.setStatus(StatusType.SUCCESS);
+		}catch(Exception e){
+			logger.error("Exception while executing getDocById",e);
+			res.setStatus(StatusType.FAIL);
+			res.setErrorMessage(e.toString());
+		}
+		
+		return res;
 	}
 }
