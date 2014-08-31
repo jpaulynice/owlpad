@@ -149,7 +149,6 @@ public class Document {
 
 		fields.add(docIdField);
 		fields.add(docIdStringField);
-
 		fields.add(docNameField);
 		fields.add(authorField);
 		fields.add(dateField);
