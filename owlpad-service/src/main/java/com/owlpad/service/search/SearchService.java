@@ -31,7 +31,6 @@ public interface SearchService {
 	 * @throws Exception 
 	 */
 	@POST
-	@Path("")
 	public SearchResponse search(final SearchRequest searchRequest);
 	
 	

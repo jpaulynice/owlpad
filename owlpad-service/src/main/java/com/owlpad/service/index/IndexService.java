@@ -20,6 +20,5 @@ import com.owlpad.domain.index.IndexResponse;
 public interface IndexService {
 
 	@POST
-	@Path("")
 	public IndexResponse index(final IndexRequest indexRequest);
 }
