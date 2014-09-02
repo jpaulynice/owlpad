@@ -2,9 +2,9 @@ rootProject.name = 'owlpad'
 include ':owlpad-domain'
 include ':owlpad-service'
 include ':owlpad-service-impl'
-include ':owlpad-app'
+include ':owlpad-webapp'
 
 project(':owlpad-domain').projectDir = "$rootDir/owlpad-domain" as File
 project(':owlpad-service').projectDir = "$rootDir/owlpad-service" as File
 project(':owlpad-service-impl').projectDir = "$rootDir/owlpad-service-impl" as File
-project(':owlpad-app').projectDir = "$rootDir/owlpad-app" as File
+project(':owlpad-webapp').projectDir = "$rootDir/owlpad-webapp" as File

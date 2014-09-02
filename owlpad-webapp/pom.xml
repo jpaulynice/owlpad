@@ -8,8 +8,8 @@
 	  <artifactId>owlpad</artifactId>
 	  <version>1.0</version>
    	</parent>
-	<artifactId>owlpad-app</artifactId>
-	<name>owlpad-app</name>
+	<artifactId>owlpad-webapp</artifactId>
+	<name>owlpad-webapp</name>
 	<packaging>war</packaging>
 	<properties>
 		<java-version>1.7</java-version>

@@ -1,7 +1,7 @@
 group = 'com.owlpad.search'
 apply plugin: 'war'
 
-description = 'owlpad-app'
+description = 'owlpad-webapp'
 dependencies {
     compile(group: 'org.springframework', name: 'spring-context', version:'3.2.6.RELEASE') {
         exclude(module: 'commons-logging')

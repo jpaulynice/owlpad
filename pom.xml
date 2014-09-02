@@ -8,7 +8,7 @@
         <module>owlpad-domain</module>
         <module>owlpad-service</module> 
         <module>owlpad-service-impl</module>          
-        <module>owlpad-app</module>
+        <module>owlpad-webapp</module>
     </modules>
     <properties>
 		<java.version>1.7</java.version>
