@@ -35,7 +35,6 @@ import com.owlpad.domain.search.FacetResult;
 import com.owlpad.domain.search.Facets;
 import com.owlpad.domain.search.SearchRequest;
 import com.owlpad.domain.search.SearchResponse;
-import com.owlpad.domain.search.StatusType;
 import com.owlpad.service.elasticsearch.client.NodeClientFactoryBean;
 import com.owlpad.service.search.SearchService;
 
@@ -120,11 +119,15 @@ public class ESSearchServiceImpl implements SearchService{
 	 */
 	private SearchResponse getInternalResponse(org.elasticsearch.action.search.SearchResponse response, int from){
 		SearchHits hits = response.getHits();
+		SearchResponse res = new SearchResponse();
 		
 		List<Document> docs = getDocumentsFromSearchHits(hits,from);
 		HashMap<String,Facets> facets = getFacetsFromAggregations(response.getAggregations());
+		res.setDocuments(docs);
+		res.setFacets(facets);
+		res.setTotalDocuments(hits.getTotalHits());
 		
-		return new SearchResponse(StatusType.SUCCESS,docs,hits.getTotalHits(),facets,null);
+		return res;
 	}
 	
 	/**
@@ -197,9 +200,7 @@ public class ESSearchServiceImpl implements SearchService{
 			Map<String, Object> sourceMap = response.getSourceAsMap();
 			if(sourceMap!= null){
 				String source = (String) sourceMap.get("contents");
-				
 				res.setSource(source);
-				res.setStatus(StatusType.SUCCESS);	
 			}
 		}catch(Exception e){
 			logger.error("Exception while executing getDocById",e);
@@ -207,5 +208,6 @@ public class ESSearchServiceImpl implements SearchService{
 		}
 		
 		GenericEntity<DocResponse> entity = new GenericEntity<DocResponse>(res){};
-		return Response.ok().entity(entity).build();	}
+		return Response.ok().entity(entity).build();	
+	}
 }
