@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xmlns:jaxrs-client="http://cxf.apache.org/jaxrs-client"
     xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
 		http://www.springframework.org/schema/mvc/spring-mvc.xsd
@@ -11,7 +11,7 @@
 		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context 
 		http://www.springframework.org/schema/context/spring-context.xsd
-		http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+		http://cxf.apache.org/jaxrs-client http://cxf.apache.org/schemas/jaxrs-client.xsd
         http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd">
     	
     	<annotation-driven />
@@ -61,26 +61,30 @@
 				<beans:ref bean="indexService"/>
 			</beans:constructor-arg>
 		</beans:bean>
-		
+				
 		<!--search api-->
-		<jaxrs:client id="searchService" address="${serviceUrl}"
+		<jaxrs-client:client id="searchService" address="${serviceUrl}"
 		serviceClass="com.owlpad.service.search.SearchService"
 		inheritHeaders="true">
-			<jaxrs:headers>
+			<jaxrs-client:headers>
 				<entry key="Accept" value="application/json"/>
-				<entry key="ContentType" value="application/json"/>
-			</jaxrs:headers>
-		</jaxrs:client>
+			</jaxrs-client:headers>
+			<jaxrs-client:providers>
+				<beans:bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
+			</jaxrs-client:providers>
+		</jaxrs-client:client>
 		
 		<!--index api-->
-		<jaxrs:client id="indexService" address="${serviceUrl}"
+		<jaxrs-client:client id="indexService" address="${serviceUrl}"
 		serviceClass="com.owlpad.service.index.IndexService"
 		inheritHeaders="true">
-			<jaxrs:headers>
+			<jaxrs-client:headers>
 				<entry key="Accept" value="application/json"/>
-				<entry key="ContentType" value="application/json"/>
-			</jaxrs:headers>
-		</jaxrs:client>
+			</jaxrs-client:headers>
+			<jaxrs-client:providers>
+				<beans:bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
+			</jaxrs-client:providers>
+		</jaxrs-client:client>
 		
 		<!--view resolver-->
 		<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

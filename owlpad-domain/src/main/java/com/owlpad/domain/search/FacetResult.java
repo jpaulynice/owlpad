@@ -1,6 +1,11 @@
 package com.owlpad.domain.search;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "facetResult")
 public class FacetResult {
 	private String entry;
 	private long count;

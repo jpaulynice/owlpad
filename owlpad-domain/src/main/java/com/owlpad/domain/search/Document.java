@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.elasticsearch.search.SearchHit;
 
 /**
@@ -12,7 +17,10 @@ import org.elasticsearch.search.SearchHit;
  * @author Jay Paulynice
  *
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "document")
 public class Document {
+	@XmlElement(name = "fields")
 	private List<Field> fields;
 	
 	public Document(){

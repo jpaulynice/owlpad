@@ -25,18 +25,20 @@
 				<cxf:logging/>
 			</cxf:features>
 		</cxf:bus>
-		
-		<bean id="jsonProvider" class="org.codehaus.jackson.map.ObjectMapper"></bean>
-		
+				
 		<!--jax-rs server-->
 		<jaxrs:server id="restContainer" address="/">
 			<jaxrs:serviceBeans>
 				<ref bean="index"/>
 				<ref bean="search"/>
 			</jaxrs:serviceBeans>
-			<jaxrs:providers>
-				<ref bean="jsonProvider"/>
-			</jaxrs:providers>
+			<jaxrs:extensionMappings>
+			    <entry key="json" value="application/json"/>
+			    <entry key="xml" value="application/xml"/>
+			  </jaxrs:extensionMappings>
+			  <jaxrs:providers>
+				<bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>			  
+			  </jaxrs:providers>
 		</jaxrs:server>
 		
 		<!--Elastic search client factory-->

@@ -4,6 +4,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.queryparser.classic.QueryParser;
@@ -42,7 +45,7 @@ public class SearchServiceImpl implements SearchService{
 	 * com.owlpad.search.service.SearchService#search(com.owlpad.search.domain.SearchRequest)
 	 */
 	@Override
-	public SearchResponse search(SearchRequest searchRequest){
+	public Response search(SearchRequest searchRequest){
 		SearchResponse response = new SearchResponse();
 		String query = searchRequest.getKeyWord();
 		int hits = searchRequest.getHitsPerPage();
@@ -55,10 +58,10 @@ public class SearchServiceImpl implements SearchService{
 			response.setStatus(StatusType.SUCCESS);
 		} 
 		catch (Exception e) {
-			response.setStatus(StatusType.FAIL);
 			logger.info("Exception while calling search.  Exception: "+e);
+			return Response.serverError().build();
 		}
-		return response;
+		return Response.ok(response).type(MediaType.APPLICATION_JSON).build();
 	}
 
 	/**
@@ -99,7 +102,7 @@ public class SearchServiceImpl implements SearchService{
 	}
 
 	@Override
-	public DocResponse getDocById(String docId) {
+	public DocResponse getDocContentById(String docId) {
 		//TODO: add implementation
 		return null;
 	}

@@ -5,8 +5,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
+
+import javax.ws.rs.core.GenericEntity;
+import javax.ws.rs.core.Response;
 
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
@@ -60,7 +62,7 @@ public class ESSearchServiceImpl implements SearchService{
 	 * @see com.owlpad.service.search.SearchService#search(com.owlpad.domain.search.SearchRequest)
 	 */
 	@Override
-	public SearchResponse search(SearchRequest searchRequest) {
+	public Response search(SearchRequest searchRequest) {
 		Preconditions.checkNotNull(searchRequest,"No search request specified.");
 		SearchResponse res;
 		
@@ -74,10 +76,11 @@ public class ESSearchServiceImpl implements SearchService{
 			res = getInternalResponse(response,from);
 		}catch(Exception e){
 			logger.error("Exception while executing search",e);
-			res = getErrorResponse(e.toString());
+			return Response.serverError().build();
 		}
 
-		return res;
+		GenericEntity<SearchResponse> entity = new GenericEntity<SearchResponse>(res){};
+		return Response.ok().entity(entity).build();
 	}
 	
 	/**
@@ -118,23 +121,9 @@ public class ESSearchServiceImpl implements SearchService{
 		SearchHits hits = response.getHits();
 		
 		List<Document> docs = getDocumentsFromSearchHits(hits,from);
-		Map<String,Facets> facets = getFacetsFromAggregations(response.getAggregations());
+		HashMap<String,Facets> facets = getFacetsFromAggregations(response.getAggregations());
 		
 		return new SearchResponse(StatusType.SUCCESS,docs,hits.getTotalHits(),facets,null);
-	}
-	
-	/**
-	 * Return error search response
-	 * 
-	 * @param message
-	 * @return
-	 */
-	private SearchResponse getErrorResponse(String message){
-		SearchResponse res = new SearchResponse();
-		res.setStatus(StatusType.FAIL);
-		res.setErrorMessage(message);
-		
-		return res;
 	}
 	
 	/**
@@ -163,8 +152,8 @@ public class ESSearchServiceImpl implements SearchService{
 	 * @param aggs
 	 * @return
 	 */
-	private Map<String,Facets> getFacetsFromAggregations(Aggregations aggs){
-		Map<String,Facets> facets = new HashMap<String,Facets>();
+	private HashMap<String,Facets> getFacetsFromAggregations(Aggregations aggs){
+		HashMap<String,Facets> facets = new HashMap<String,Facets>();
 		for(Aggregation ag: aggs){
 			StringTerms st = (StringTerms) ag;
 			Facets f = getFacetResults(st.getBuckets());
@@ -195,7 +184,7 @@ public class ESSearchServiceImpl implements SearchService{
 	 * @see com.owlpad.service.search.SearchService#getDocById(java.lang.String)
 	 */
 	@Override
-	public DocResponse getDocById(String docId) {
+	public DocResponse getDocContentById(String docId) {
 		Preconditions.checkNotNull(docId,"Document id is required to get document.");
 		
 		DocResponse res = new DocResponse();

@@ -7,10 +7,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.owlpad.domain.search.DocResponse;
 import com.owlpad.domain.search.SearchRequest;
-import com.owlpad.domain.search.SearchResponse;
 
 /**
  * Simple interface for search
@@ -19,8 +19,6 @@ import com.owlpad.domain.search.SearchResponse;
  * 
  */
 @Path("search")
-@Consumes({ MediaType.APPLICATION_JSON })
-@Produces({ MediaType.APPLICATION_JSON })
 public interface SearchService {
 
 	/**
@@ -31,10 +29,19 @@ public interface SearchService {
 	 * @throws Exception 
 	 */
 	@POST
-	public SearchResponse search(final SearchRequest searchRequest);
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response search(final SearchRequest searchRequest);
 	
-	
+	/**
+	 * Method to get a document content by id
+	 * 
+	 * @param docId
+	 * @return
+	 */
 	@GET
 	@Path("{docId}")
-	public DocResponse getDocById(final @PathParam("docId") String docId);
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public DocResponse getDocContentById(final @PathParam("docId") String docId);
 }

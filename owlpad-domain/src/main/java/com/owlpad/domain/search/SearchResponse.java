@@ -1,8 +1,12 @@
 package com.owlpad.domain.search;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -13,18 +17,29 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement(name = "searchResponse")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class SearchResponse {
+	
+	@XmlElement(name = "status")
 	private StatusType status;
+	
+	@XmlElement(name = "documents")
 	private List<Document> documents;
+	
+	@XmlElement(name = "totalDocuments")
 	private long totalDocuments;
-	private Map<String,Facets> facets;
+	
+	@XmlElement(name = "facets")
+	private HashMap<String,Facets> facets;
+	
+	@XmlElement(name = "errorMessage")
 	private String errorMessage;
 	
 	public SearchResponse(){
 		
 	}
 	
-	public SearchResponse(StatusType status,List<Document> docs, long total, Map<String,Facets> facets,String message){
+	public SearchResponse(StatusType status,List<Document> docs, long total, HashMap<String,Facets> facets,String message){
 		this.status = status;
 		this.documents = docs;
 		this.totalDocuments = total;
@@ -98,7 +113,7 @@ public class SearchResponse {
 	/**
 	 * @param facets the facets to set
 	 */
-	public void setFacets(Map<String,Facets> facets) {
+	public void setFacets(HashMap<String,Facets> facets) {
 		this.facets = facets;
 	}
 }
