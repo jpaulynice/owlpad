@@ -13,7 +13,7 @@ The original idea was to build an internal tool to quickly search and analyze so
 Projects in this repository: 
 
 <ul>
-<li><b>owlpad-app</b>: the web application</li>
+<li><b>owlpad-webapp</b>: the web application</li>
 <li><b>owlpad-service</b>: the api (set of interfaces)</li>
 <li><b>owlpad-domain</b>: domain objects shared by the api, service and the client (web-app)</li>
 <li><b>owlpad-service-impl</b>: service implementation</li>
