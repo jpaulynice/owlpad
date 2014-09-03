@@ -16,6 +16,7 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
+import com.google.common.base.Preconditions;
 import com.owlpad.domain.search.Document;
 import com.owlpad.domain.search.SearchRequest;
 import com.owlpad.domain.search.SearchResponse;
@@ -44,6 +45,8 @@ public class SearchServiceImpl implements SearchService{
 	 */
 	@Override
 	public Response search(SearchRequest searchRequest){
+		Preconditions.checkNotNull(searchRequest,"No search request specified.");
+
 		SearchResponse response = new SearchResponse();
 		List<Document> docs;
 		String query = searchRequest.getKeyWord();

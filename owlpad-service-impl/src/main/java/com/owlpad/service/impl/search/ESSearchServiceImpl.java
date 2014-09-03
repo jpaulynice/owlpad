@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.ws.rs.core.GenericEntity;
@@ -14,7 +15,6 @@ import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.node.NodeClient;
-import org.elasticsearch.common.base.Preconditions;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 
+import com.google.common.base.Preconditions;
 import com.owlpad.domain.search.DocResponse;
 import com.owlpad.domain.search.Document;
 import com.owlpad.domain.search.FacetResult;
@@ -193,10 +194,13 @@ public class ESSearchServiceImpl implements SearchService{
 			GetResponse response = client.prepareGet("owlpad-index","docs",docId)
 					.execute()
 					.actionGet();
-			String source = (String) response.getSourceAsMap().get("contents");
-			
-			res.setSource(source);
-			res.setStatus(StatusType.SUCCESS);
+			Map<String, Object> sourceMap = response.getSourceAsMap();
+			if(sourceMap!= null){
+				String source = (String) sourceMap.get("contents");
+				
+				res.setSource(source);
+				res.setStatus(StatusType.SUCCESS);	
+			}
 		}catch(Exception e){
 			logger.error("Exception while executing getDocById",e);
 			return Response.serverError().build();
