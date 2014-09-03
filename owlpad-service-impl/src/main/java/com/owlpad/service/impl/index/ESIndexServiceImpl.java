@@ -10,9 +10,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.core.GenericEntity;
+import javax.ws.rs.core.Response;
+
 import org.apache.commons.io.FileUtils;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
+import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.client.node.NodeClient;
 import org.elasticsearch.common.xcontent.XContentBuilder;
@@ -27,7 +31,6 @@ import static org.elasticsearch.common.xcontent.XContentFactory.*;
 import com.google.common.base.Preconditions;
 import com.owlpad.domain.index.IndexRequest;
 import com.owlpad.domain.index.IndexResponse;
-import com.owlpad.domain.search.StatusType;
 import com.owlpad.service.elasticsearch.client.NodeClientFactoryBean;
 import com.owlpad.service.index.IndexService;
 
@@ -54,7 +57,7 @@ public class ESIndexServiceImpl implements IndexService {
 	 * @see com.owlpad.service.index.IndexService#index(com.owlpad.domain.index.IndexRequest)
 	 */
 	@Override
-	public IndexResponse index(IndexRequest indexRequest) {
+	public Response index(final IndexRequest indexRequest) {
 		Preconditions.checkNotNull(indexRequest.getDirectoryToIndex(),"No directory specified for indexing...");
 		
 		IndexResponse response = new IndexResponse();
@@ -64,15 +67,14 @@ public class ESIndexServiceImpl implements IndexService {
 
 		try {
 			response.setDocumentsIndexed(indexDir(dataDir, suffix));
-			response.setStatus(StatusType.SUCCESS);
 		}
 		catch (Exception e) {
-			response.setStatus(StatusType.FAIL);
-			response.setErrorMessage(e.toString());
 			logger.info("Exception while calling index.  Exception" + e);
+			return Response.serverError().build();
 		}
 
-		return response;
+		GenericEntity<IndexResponse> entity = new GenericEntity<IndexResponse>(response){};
+		return Response.ok().entity(entity).build();	
 	}
 
 	/**
@@ -97,14 +99,17 @@ public class ESIndexServiceImpl implements IndexService {
 		getFilesFromDirectory(dataDir, filesToIndex,suffix);
 		addDocumentsToBulkRequest(br, filesToIndex);
 		if (filesToIndex.size() > 0) {
-			br.execute().actionGet();
+			BulkResponse bResponse = br.execute().actionGet();
+			return bResponse.getItems().length;
 		}
 
-		return filesToIndex.size();
+		return 0;
 	}
 
 	/**
-	 * Get files from a directory
+	 * Get files from a directory recursively.  If the suffix is null then 
+	 * index all files in the directory.  Otherwise index only files with 
+	 * the suffix ending.
 	 * 
 	 * @param dataDir
 	 * @param filesToIndex
@@ -125,7 +130,7 @@ public class ESIndexServiceImpl implements IndexService {
 	}
 
 	/**
-	 * Build up {@link BulkRequestBuilder} object 
+	 * Build {@link BulkRequestBuilder} object 
 	 * 
 	 * @param bulkRequest
 	 * @param filesToIndex

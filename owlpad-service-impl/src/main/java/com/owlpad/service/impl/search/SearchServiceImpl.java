@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -16,11 +16,9 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
-import com.owlpad.domain.search.DocResponse;
 import com.owlpad.domain.search.Document;
 import com.owlpad.domain.search.SearchRequest;
 import com.owlpad.domain.search.SearchResponse;
-import com.owlpad.domain.search.StatusType;
 import com.owlpad.service.search.SearchService;
 
 import org.apache.lucene.util.Version;
@@ -47,6 +45,7 @@ public class SearchServiceImpl implements SearchService{
 	@Override
 	public Response search(SearchRequest searchRequest){
 		SearchResponse response = new SearchResponse();
+		List<Document> docs;
 		String query = searchRequest.getKeyWord();
 		int hits = searchRequest.getHitsPerPage();
 		
@@ -54,14 +53,16 @@ public class SearchServiceImpl implements SearchService{
 		Directory directory = null;
 		try {
 			directory = FSDirectory.open(indexDir);
-			response = searchIndex(directory, query, hits);
-			response.setStatus(StatusType.SUCCESS);
+			docs = searchIndex(directory, query, hits);
+			response.setDocuments(docs);
+			response.setTotalDocuments(docs.size());
 		} 
 		catch (Exception e) {
 			logger.info("Exception while calling search.  Exception: "+e);
 			return Response.serverError().build();
 		}
-		return Response.ok(response).type(MediaType.APPLICATION_JSON).build();
+		GenericEntity<SearchResponse> entity = new GenericEntity<SearchResponse>(response){};
+		return Response.ok().entity(entity).build();
 	}
 
 	/**
@@ -73,9 +74,8 @@ public class SearchServiceImpl implements SearchService{
 	 * @return
 	 * @throws Exception
 	 */
-	private SearchResponse searchIndex(Directory indexDir, String queryStr,int hitsPerPage) throws Exception {
+	private List<Document> searchIndex(Directory indexDir, String queryStr,int hitsPerPage) throws Exception {
 
-		SearchResponse response = new SearchResponse();
 		List<Document> results = new ArrayList<Document>();
 
 		DirectoryReader ireader = DirectoryReader.open(indexDir);
@@ -95,14 +95,12 @@ public class SearchServiceImpl implements SearchService{
 
 			results.add(docResult);
 		}
-		response.setDocuments(results);
-		response.setTotalDocuments(hits.length);
 
-		return response;
+		return results;
 	}
 
 	@Override
-	public DocResponse getDocContentById(String docId) {
+	public Response getDocContentById(String docId) {
 		//TODO: add implementation
 		return null;
 	}

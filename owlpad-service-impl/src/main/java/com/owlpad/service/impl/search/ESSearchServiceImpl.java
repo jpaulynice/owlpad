@@ -184,14 +184,13 @@ public class ESSearchServiceImpl implements SearchService{
 	 * @see com.owlpad.service.search.SearchService#getDocById(java.lang.String)
 	 */
 	@Override
-	public DocResponse getDocContentById(String docId) {
+	public Response getDocContentById(String docId) {
 		Preconditions.checkNotNull(docId,"Document id is required to get document.");
 		
 		DocResponse res = new DocResponse();
-		GetResponse response = null;
 		
 		try{
-			response = client.prepareGet("owlpad-index","docs",docId)
+			GetResponse response = client.prepareGet("owlpad-index","docs",docId)
 					.execute()
 					.actionGet();
 			String source = (String) response.getSourceAsMap().get("contents");
@@ -200,10 +199,9 @@ public class ESSearchServiceImpl implements SearchService{
 			res.setStatus(StatusType.SUCCESS);
 		}catch(Exception e){
 			logger.error("Exception while executing getDocById",e);
-			res.setStatus(StatusType.FAIL);
-			res.setErrorMessage(e.toString());
+			return Response.serverError().build();
 		}
 		
-		return res;
-	}
+		GenericEntity<DocResponse> entity = new GenericEntity<DocResponse>(res){};
+		return Response.ok().entity(entity).build();	}
 }

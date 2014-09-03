@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.ws.rs.core.GenericEntity;
+import javax.ws.rs.core.Response;
+
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -20,7 +23,6 @@ import org.springframework.stereotype.Service;
 
 import com.owlpad.domain.index.IndexRequest;
 import com.owlpad.domain.index.IndexResponse;
-import com.owlpad.domain.search.StatusType;
 import com.owlpad.service.index.IndexService;
 
 /**
@@ -38,7 +40,7 @@ public class IndexServiceImpl implements IndexService{
 	 * @see com.owlpad.service.index.IndexService#index(com.owlpad.domain.index.IndexRequest)
 	 */
 	@Override
-	public IndexResponse index(final IndexRequest indexRequest){
+	public Response index(final IndexRequest indexRequest){
 		IndexResponse response = new IndexResponse();
 		
 		Directory indexDir = null;
@@ -50,15 +52,15 @@ public class IndexServiceImpl implements IndexService{
 			
 			numIndexed = indexDir(indexDir, dataDir, indexRequest.getSuffix());
 			
-			response.setStatus(StatusType.SUCCESS);
+			response.setDocumentsIndexed(numIndexed);
 		} catch (IOException e) {
-			response.setStatus(StatusType.FAIL);
 			logger.info("Exception while calling index.  Exception: "+ e);
+			return Response.serverError().build();
 		}
 		
-		response.setDocumentsIndexed(numIndexed);
-		
-		return response;
+
+		GenericEntity<IndexResponse> entity = new GenericEntity<IndexResponse>(response){};
+		return Response.ok().entity(entity).build();		
 	}
 
 	/**

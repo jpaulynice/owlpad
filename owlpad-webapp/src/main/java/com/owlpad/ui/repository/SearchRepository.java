@@ -5,6 +5,7 @@ import javax.ws.rs.core.Response;
 import com.owlpad.domain.search.DocResponse;
 import com.owlpad.domain.search.SearchRequest;
 import com.owlpad.domain.search.SearchResponse;
+import com.owlpad.domain.search.StatusType;
 import com.owlpad.service.search.SearchService;
 
 import org.slf4j.Logger;
@@ -36,24 +37,36 @@ public class SearchRepository {
 	 * @return
 	 */
 	public SearchResponse search(SearchRequest searchRequest) {
-		SearchResponse response = null;
-		Response r = searchService.search(searchRequest);
-		if (r!=null && r.getStatus() == 200) {
-			response = r.readEntity(SearchResponse.class);
+		Response serverResponse = searchService.search(searchRequest);
+		SearchResponse res = new SearchResponse();
+		if (serverResponse!=null && serverResponse.getStatus() == 200) {
+			res = serverResponse.readEntity(SearchResponse.class);
+			res.setStatus(StatusType.SUCCESS);
 		} else {
-			logger.info("Exception while calling search method");
+			res.setErrorMessage("Service error.");
+			res.setStatus(StatusType.FAIL);
+			logger.info("Exception while calling search method.");
 		}
-		return response;
+		return res;
 	}
 	
-	public DocResponse getDocById(String docId){
-		DocResponse response = new DocResponse();
-		try {
-			response = searchService.getDocContentById(docId);
-		} catch (Exception e) {
-			//
+	/**
+	 * Get a document content by docId
+	 * 
+	 * @param docId
+	 * @return
+	 */
+	public DocResponse getDocContentById(String docId){
+		Response serverResponse = searchService.getDocContentById(docId);
+		DocResponse res = new DocResponse();
+		if (serverResponse!=null && serverResponse.getStatus() == 200) {
+			res = serverResponse.readEntity(DocResponse.class);
+			res.setStatus(StatusType.SUCCESS);
+		} else {
+			res.setErrorMessage("Service error.");
+			res.setStatus(StatusType.FAIL);
+			logger.info("Service exception while calling getDocContentById method.");
 		}
-
-		return response;
+		return res;
 	}
 }
