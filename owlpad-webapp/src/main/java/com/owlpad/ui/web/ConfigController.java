@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.owlpad.domain.configuration.Configuration;
-
+import com.owlpad.domain.configuration.ConfigurationResponse;
 import com.owlpad.ui.repository.ConfigRepository;
 
 @Controller
@@ -22,7 +21,7 @@ public class ConfigController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public Configuration index(){
+	public ConfigurationResponse index(){
 		return configRepository.getConfig();
 	}
 	

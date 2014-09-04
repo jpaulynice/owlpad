@@ -6,8 +6,9 @@ define(['jquery',
         'backbone', 
         'marionette', 
         'common/utils', 
-        'apps/search/mediators/searchMediator'], 
-        function($, _, Backbone, Marionette, AppUtils, SearchMediator) {
+        'apps/search/mediators/searchMediator',
+        'apps/search/mediators/configMediator'], 
+        function($, _, Backbone, Marionette, AppUtils, SearchMediator, ConfigMediator) {
 
     var App = new Backbone.Marionette.Application();
 
@@ -26,6 +27,9 @@ define(['jquery',
         'preview' : App.preview
     };
 
+    var configMediator = new ConfigMediator();
+    configMediator.loadConfig();
+    
     var searchMediator = new SearchMediator(appRegions);
 
     //kick off a "*" search on app startup.

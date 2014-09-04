@@ -1,21 +1,24 @@
 package com.owlpad.domain.configuration;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlRootElement;
 
+
+@XmlRootElement
 @Entity(name="configuration")
 public class Configuration {
 	@Id
-	@GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "left_region") 
-	private String leftRegion;
-	
-	@Column(name = "right_region") 
-	private String rightRegion;
+	@OneToOne(cascade = CascadeType.ALL)
+	private Layout layout;
 	
 	/**
 	 * @return the id
@@ -23,34 +26,20 @@ public class Configuration {
 	public int getId() {
 		return id;
 	}
+
+
 	/**
-	 * @return the leftRegion
+	 * @return the layout
 	 */
-	public String getLeftRegion() {
-		return leftRegion;
+	public Layout getLayout() {
+		return layout;
 	}
+
+
 	/**
-	 * @return the rightRegion
+	 * @param layout the layout to set
 	 */
-	public String getRightRegion() {
-		return rightRegion;
-	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
-	/**
-	 * @param leftRegion the leftRegion to set
-	 */
-	public void setLeftRegion(String leftRegion) {
-		this.leftRegion = leftRegion;
-	}
-	/**
-	 * @param rightRegion the rightRegion to set
-	 */
-	public void setRightRegion(String rightRegion) {
-		this.rightRegion = rightRegion;
+	public void setLayout(Layout layout) {
+		this.layout = layout;
 	}
 }

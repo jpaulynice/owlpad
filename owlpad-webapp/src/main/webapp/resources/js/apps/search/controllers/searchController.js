@@ -13,6 +13,19 @@ define(['jquery',
         initialize : function(options) {
             this.searchEntities = new SearchEntities();
         },
+        
+        loadConfig: function(){
+            var defer = $.Deferred();
+            var call = this.configEntities.loadConfig();
+
+            $.when(call).done(function(jsonRes) {
+                defer.resolve(jsonRes);
+            }).fail(function() {
+                defer.reject();
+            });
+
+            return defer.promise();
+        },
 
         /**
          * Search end point to call search from the controller.

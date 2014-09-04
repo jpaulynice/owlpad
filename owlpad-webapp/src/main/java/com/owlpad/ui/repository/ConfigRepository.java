@@ -4,7 +4,7 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.owlpad.domain.configuration.Configuration;
+import com.owlpad.domain.configuration.ConfigurationResponse;
 import com.owlpad.service.configuration.ConfigurationService;
 
 public class ConfigRepository {
@@ -16,11 +16,11 @@ public class ConfigRepository {
 		this.configService = configService;
 	}
 	
-	public Configuration getConfig(){
+	public ConfigurationResponse getConfig(){
 		Response res = this.configService.getUserConfiguration();
 		
 		if(res!= null && res.getStatus() == 200){
-			return res.readEntity(Configuration.class);					
+			return res.readEntity(ConfigurationResponse.class);					
 		}
 		return null;
 	}
