@@ -3,12 +3,12 @@ apply plugin: 'war'
 
 description = 'owlpad-webapp'
 dependencies {
-    compile(group: 'org.springframework', name: 'spring-context', version:'3.2.6.RELEASE') {
+    compile(group: 'org.springframework', name: 'spring-context', version:'3.2.8.RELEASE') {
         exclude(module: 'commons-logging')
     }
-    compile group: 'org.springframework', name: 'spring-webmvc', version:'3.2.6.RELEASE'
-    compile group: 'org.springframework', name: 'spring-core', version:'3.2.6.RELEASE'
-    compile group: 'org.springframework', name: 'spring-web', version:'3.2.6.RELEASE'
+    compile group: 'org.springframework', name: 'spring-webmvc', version:'3.2.8.RELEASE'
+    compile group: 'org.springframework', name: 'spring-core', version:'3.2.8.RELEASE'
+    compile group: 'org.springframework', name: 'spring-web', version:'3.2.8.RELEASE'
     compile group: 'org.aspectj', name: 'aspectjrt', version:'1.6.10'
     compile group: 'org.slf4j', name: 'slf4j-api', version:'1.6.6'
     compile group: 'javax.inject', name: 'javax.inject', version:'1'
@@ -32,7 +32,7 @@ dependencies {
     }
     testCompile group: 'junit', name: 'junit', version:'4.7'
     testCompile group: 'org.testng', name: 'testng', version:'6.8.8'
-    testCompile group: 'org.springframework', name: 'spring-test', version:'3.2.6.RELEASE'
+    testCompile group: 'org.springframework', name: 'spring-test', version:'3.2.8.RELEASE'
     providedCompile group: 'javax.servlet', name: 'servlet-api', version:'2.5'
     providedCompile group: 'javax.servlet.jsp', name: 'jsp-api', version:'2.1'
 }

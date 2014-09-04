@@ -1,5 +1,7 @@
 package com.owlpad.dao;
 
-public class ConfigurationDao {
+import com.owlpad.domain.configuration.Configuration;
 
+public interface ConfigurationDao {
+	public Configuration getUserConfiguration();
 }
