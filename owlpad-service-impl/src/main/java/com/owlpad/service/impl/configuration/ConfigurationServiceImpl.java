@@ -1,5 +1,8 @@
 package com.owlpad.service.impl.configuration;
 
+import javax.ws.rs.core.GenericEntity;
+import javax.ws.rs.core.Response;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +21,12 @@ public class ConfigurationServiceImpl implements ConfigurationService{
 	}
 	
 	@Override
-	public ConfigurationResponse getUserConfiguration() {
+	public Response getUserConfiguration() {
 		ConfigurationResponse res = new ConfigurationResponse();
 		Configuration c = confDao.getUserConfiguration();
-		res.setConfiguration(c);	
-		return res;
+		res.setConfiguration(c);
+		
+		GenericEntity<ConfigurationResponse> entity = new GenericEntity<ConfigurationResponse>(res){};
+		return Response.ok().entity(entity).build();
 	}
 }

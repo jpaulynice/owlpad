@@ -61,6 +61,13 @@
 				<beans:ref bean="indexService"/>
 			</beans:constructor-arg>
 		</beans:bean>
+		
+		<!--confiRepository bean-->
+		<beans:bean id="configRepository" class="com.owlpad.ui.repository.ConfigRepository">
+			<beans:constructor-arg>
+				<beans:ref bean="configService"/>
+			</beans:constructor-arg>
+		</beans:bean>
 				
 		<!--search api-->
 		<jaxrs-client:client id="searchService" address="${serviceUrl}"
@@ -77,6 +84,18 @@
 		<!--index api-->
 		<jaxrs-client:client id="indexService" address="${serviceUrl}"
 		serviceClass="com.owlpad.service.index.IndexService"
+		inheritHeaders="true">
+			<jaxrs-client:headers>
+				<entry key="Accept" value="application/json"/>
+			</jaxrs-client:headers>
+			<jaxrs-client:providers>
+				<beans:bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
+			</jaxrs-client:providers>
+		</jaxrs-client:client>
+		
+		<!--config api-->
+		<jaxrs-client:client id="configService" address="${serviceUrl}"
+		serviceClass="com.owlpad.service.configuration.ConfigurationService"
 		inheritHeaders="true">
 			<jaxrs-client:headers>
 				<entry key="Accept" value="application/json"/>

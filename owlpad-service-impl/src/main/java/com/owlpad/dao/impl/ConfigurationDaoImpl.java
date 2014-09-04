@@ -2,7 +2,6 @@ package com.owlpad.dao.impl;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -20,7 +19,6 @@ public class ConfigurationDaoImpl implements ConfigurationDao{
 	}
 
 	@SuppressWarnings("unchecked")
-	@Transactional
 	@Override
 	public Configuration getUserConfiguration() {
 		Session session = sessionFactory.openSession();		
