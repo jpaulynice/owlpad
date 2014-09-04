@@ -38,6 +38,7 @@
 	        <property name="annotatedClasses">
 	            <list>
 	                <value>com.owlpad.domain.configuration.Configuration</value>
+	              	<value>com.owlpad.domain.configuration.Layout</value>
 	            </list>
 	        </property>
 	        <property name="hibernateProperties">
