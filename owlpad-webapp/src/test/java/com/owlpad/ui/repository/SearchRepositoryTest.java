@@ -11,10 +11,6 @@ public class SearchRepositoryTest extends AbstractTestNGSpringContextTests{
 	@Autowired
 	private SearchRepository searchRepository;
 	
-	public SearchRepositoryTest(){
-		
-	}
-	
 	@Test
 	public void testNonnullSearchService(){
 		Assert.assertNotNull(searchRepository);
@@ -33,5 +29,4 @@ public class SearchRepositoryTest extends AbstractTestNGSpringContextTests{
 	public void setSearchRepository(SearchRepository searchRepository) {
 		this.searchRepository = searchRepository;
 	}
-
 }

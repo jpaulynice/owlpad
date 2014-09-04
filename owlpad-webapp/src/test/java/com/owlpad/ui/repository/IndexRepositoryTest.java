@@ -11,9 +11,6 @@ public class IndexRepositoryTest extends AbstractTestNGSpringContextTests{
 	@Autowired
 	private IndexRepository indexRepository;
 	
-	public IndexRepositoryTest(){
-	}
-	
 	@Test
 	public void testNonnullIndexRepository(){
 		Assert.assertNotNull(indexRepository);
