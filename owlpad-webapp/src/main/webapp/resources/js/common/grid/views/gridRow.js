@@ -30,12 +30,15 @@ define(['jquery',
         },
 
         highlightRow : function(e) {
-            _.each(this.model.collection.models, function(model) {
-                model.set('highlighted', false);
-            });
-            this.model.set('highlighted', true);
-            this.model.trigger('app:gridRow:preview', this.model.get('docId'));
+            if (!this.model.get('highlighted')) {
+                _.each(this.model.collection.models, function(model) {
+                    model.set('highlighted', false);
+                });
+                this.model.set('highlighted', true);
+                this.model.trigger('app:gridRow:preview', this.model.get('docId'));
+            }
         }
+
     });
 
     return GridRow;
