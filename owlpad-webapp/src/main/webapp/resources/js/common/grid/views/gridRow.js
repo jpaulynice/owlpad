@@ -31,13 +31,18 @@ define(['jquery',
 
         highlightRow : function(e) {
             if (!this.model.get('highlighted')) {
-                _.each(this.model.collection.models, function(model) {
-                    model.set('highlighted', false);
+                var models = this.model.collection.where({
+                    highlighted : true
                 });
-                this.model.set('highlighted', true);
-                this.model.trigger('app:gridRow:preview', this.model.get('docId'));
+                if (models.length > 0) {
+                    var foundModel = models[0];
+                    foundModel.set('highlighted', false);
+                    this.model.set('highlighted', true);
+                    this.model.trigger('app:gridRow:preview', this.model.get('docId'));
+                }
             }
         }
+
 
     });
 
