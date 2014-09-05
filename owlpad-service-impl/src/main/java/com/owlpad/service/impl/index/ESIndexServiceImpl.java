@@ -31,7 +31,7 @@ import static org.elasticsearch.common.xcontent.XContentFactory.*;
 import com.google.common.base.Preconditions;
 import com.owlpad.domain.index.IndexRequest;
 import com.owlpad.domain.index.IndexResponse;
-import com.owlpad.service.elasticsearch.client.NodeClientFactoryBean;
+import com.owlpad.elasticsearch.client.NodeClientFactoryBean;
 import com.owlpad.service.index.IndexService;
 
 /**

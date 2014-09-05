@@ -2,6 +2,11 @@ package com.owlpad.domain.configuration;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * 
+ * @author Jay Paulynice
+ *
+ */
 @XmlRootElement
 public class ConfigurationResponse {
 	private Configuration configuration;

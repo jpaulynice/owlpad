@@ -6,6 +6,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
+import com.owlpad.elasticsearch.client.NodeClientFactoryBean;
+
 @ContextConfiguration(locations={"classpath:applicationContext.xml"})
 public class NodeClientFactoryBeanTest extends AbstractTestNGSpringContextTests{
 	@Autowired

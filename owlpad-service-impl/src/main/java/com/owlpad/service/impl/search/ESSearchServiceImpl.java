@@ -35,7 +35,7 @@ import com.owlpad.domain.search.FacetResult;
 import com.owlpad.domain.search.Facets;
 import com.owlpad.domain.search.SearchRequest;
 import com.owlpad.domain.search.SearchResponse;
-import com.owlpad.service.elasticsearch.client.NodeClientFactoryBean;
+import com.owlpad.elasticsearch.client.NodeClientFactoryBean;
 import com.owlpad.service.search.SearchService;
 
 /**

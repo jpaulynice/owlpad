@@ -79,7 +79,7 @@
 		</jaxrs:server>
 		
 		<!--Elastic search client factory-->
-		<bean id="nodeClientFactoryBean" class="com.owlpad.service.elasticsearch.client.NodeClientFactoryBean">
+		<bean id="nodeClientFactoryBean" class="com.owlpad.elasticsearch.client.NodeClientFactoryBean">
 			<property name="clusterName" value="elasticsearch" />
 			<property name="local" value="true" />
 			<property name="enableHttp" value="true" />

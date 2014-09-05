@@ -1,4 +1,4 @@
-package com.owlpad.service.elasticsearch.client;
+package com.owlpad.elasticsearch.client;
 
 import static org.elasticsearch.node.NodeBuilder.nodeBuilder;
 

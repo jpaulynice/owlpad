@@ -8,24 +8,27 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
+/**
+ * 
+ * @author Jay Paulynice
+ *
+ */
 @XmlRootElement
-@Entity(name="configuration")
+@Entity(name = "configuration")
 public class Configuration {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private Layout layout;
-	
+
 	/**
 	 * @return the id
 	 */
 	public int getId() {
 		return id;
 	}
-
 
 	/**
 	 * @return the layout
@@ -34,9 +37,9 @@ public class Configuration {
 		return layout;
 	}
 
-
 	/**
-	 * @param layout the layout to set
+	 * @param layout
+	 *            the layout to set
 	 */
 	public void setLayout(Layout layout) {
 		this.layout = layout;

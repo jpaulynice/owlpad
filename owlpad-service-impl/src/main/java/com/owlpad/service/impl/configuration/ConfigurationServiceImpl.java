@@ -11,22 +11,27 @@ import com.owlpad.domain.configuration.Configuration;
 import com.owlpad.domain.configuration.ConfigurationResponse;
 import com.owlpad.service.configuration.ConfigurationService;
 
+/**
+ * 
+ * @author Jay Paulynice
+ *
+ */
 @Service("configurationService")
-public class ConfigurationServiceImpl implements ConfigurationService{
+public class ConfigurationServiceImpl implements ConfigurationService {
 	private ConfigurationDao confDao;
-	
+
 	@Autowired
-	public ConfigurationServiceImpl(ConfigurationDao confDao){
+	public ConfigurationServiceImpl(ConfigurationDao confDao) {
 		this.confDao = confDao;
 	}
-	
+
 	@Override
 	public Response getUserConfiguration() {
 		ConfigurationResponse res = new ConfigurationResponse();
 		Configuration c = confDao.getUserConfiguration();
 		res.setConfiguration(c);
-		
-		GenericEntity<ConfigurationResponse> entity = new GenericEntity<ConfigurationResponse>(res){};
+
+		GenericEntity<ConfigurationResponse> entity = new GenericEntity<ConfigurationResponse>(res) {};
 		return Response.ok().entity(entity).build();
 	}
 }
