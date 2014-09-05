@@ -27,7 +27,7 @@ import com.owlpad.ui.repository.SearchRepository;
 @Controller
 @RequestMapping(value="search")
 public class SearchController {
-	private SearchRepository searchRepository;
+	private final SearchRepository searchRepository;
 	
 	@Autowired
 	public SearchController(SearchRepository searchRepository){

@@ -19,12 +19,12 @@ import com.owlpad.domain.configuration.Configuration;
  */
 @Repository
 public class ConfigurationDaoImpl implements ConfigurationDao {
-	private SessionFactory sessionFactory;
+	private final SessionFactory sessionFactory;
 	private static final Logger logger = LoggerFactory.getLogger(ConfigurationDaoImpl.class);
 
 	@Autowired
 	public ConfigurationDaoImpl(SessionFactory sessionFactory) {
-		this.setSessionFactory(sessionFactory);
+		this.sessionFactory = sessionFactory;
 	}
 
 	/*
@@ -55,13 +55,5 @@ public class ConfigurationDaoImpl implements ConfigurationDao {
 	 */
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
-	}
-
-	/**
-	 * @param sessionFactory
-	 *            the sessionFactory to set
-	 */
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
 	}
 }

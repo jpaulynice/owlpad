@@ -26,8 +26,9 @@ public class NodeClientFactoryBean implements FactoryBean<NodeClient>, Initializ
 	private boolean enableHttp;
 	private String clusterName;
 	private NodeClient nodeClient;
-
-	NodeClientFactoryBean() {
+	
+	public NodeClientFactoryBean(){
+		
 	}
 
 	public NodeClientFactoryBean(String clusterName, boolean local, boolean enableHttp) {

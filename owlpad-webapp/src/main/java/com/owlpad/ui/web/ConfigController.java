@@ -12,7 +12,7 @@ import com.owlpad.ui.repository.ConfigRepository;
 @Controller
 @RequestMapping(value = "/config")
 public class ConfigController {
-	private ConfigRepository configRepository;
+	private final ConfigRepository configRepository;
 	
 	@Autowired
 	public ConfigController(ConfigRepository configRepository){

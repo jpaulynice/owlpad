@@ -18,7 +18,7 @@ import com.owlpad.service.configuration.ConfigurationService;
  */
 @Service("configurationService")
 public class ConfigurationServiceImpl implements ConfigurationService {
-	private ConfigurationDao confDao;
+	private final ConfigurationDao confDao;
 
 	@Autowired
 	public ConfigurationServiceImpl(ConfigurationDao confDao) {

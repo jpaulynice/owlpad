@@ -48,8 +48,8 @@ import com.owlpad.service.search.SearchService;
 public class ESSearchServiceImpl implements SearchService{
 	private static final Logger logger = LoggerFactory.getLogger(ESSearchServiceImpl.class);
 
-	private NodeClientFactoryBean nodeClientFactoryBean;
-	private NodeClient client;
+	private final NodeClientFactoryBean nodeClientFactoryBean;
+	private final NodeClient client;
 	
 	@Autowired
 	public ESSearchServiceImpl(NodeClientFactoryBean nodeClientFactoryBean) throws Exception{

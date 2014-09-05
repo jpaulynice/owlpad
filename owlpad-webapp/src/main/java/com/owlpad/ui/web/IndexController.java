@@ -22,7 +22,7 @@ import com.owlpad.ui.repository.IndexRepository;
 @Controller
 @RequestMapping(value = "/index")
 public class IndexController {
-	private IndexRepository indexRepository;
+	private final IndexRepository indexRepository;
 
 	@Autowired
 	public IndexController(IndexRepository indexRepository){

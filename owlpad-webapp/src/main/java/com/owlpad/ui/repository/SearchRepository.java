@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("searchRepository")
 public class SearchRepository {
-	private SearchService searchService;
+	private final SearchService searchService;
 	private static final Logger logger = LoggerFactory.getLogger(SearchRepository.class);
 
 
