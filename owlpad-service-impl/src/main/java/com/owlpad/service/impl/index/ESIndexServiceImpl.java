@@ -166,7 +166,7 @@ public class ESIndexServiceImpl implements IndexService {
 			String author = Files.getOwner(path).getName();
 			BasicFileAttributes attr = Files.readAttributes(path, BasicFileAttributes.class);
 			
-			XContentBuilder source = this.getSource(content, filePath, f.getName(), author, attr, docType);
+			XContentBuilder source = getSource(content, filePath, f.getName(), author, attr, docType);
 			
 			return client.prepareIndex("owlpad-index", "docs").setSource(source);
 		}
@@ -185,7 +185,7 @@ public class ESIndexServiceImpl implements IndexService {
 	 * @return
 	 * @throws IOException
 	 */
-	public XContentBuilder getSource(String content, String filePath, String fileName, String author,BasicFileAttributes attr, String docType) throws IOException{
+	private XContentBuilder getSource(String content, String filePath, String fileName, String author,BasicFileAttributes attr, String docType) throws IOException{
 		XContentBuilder builder = jsonBuilder().startObject()
 			.field("contents", content)
 			.field("filepath",filePath)
