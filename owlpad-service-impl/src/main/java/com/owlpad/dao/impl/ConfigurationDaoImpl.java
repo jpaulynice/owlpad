@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.owlpad.dao.ConfigurationDao;
 import com.owlpad.domain.configuration.Configuration;
@@ -16,6 +17,7 @@ import com.owlpad.domain.configuration.Configuration;
  * @author Jay Paulynice
  *
  */
+@Repository
 public class ConfigurationDaoImpl implements ConfigurationDao {
 	private SessionFactory sessionFactory;
 	private static final Logger logger = LoggerFactory.getLogger(ConfigurationDaoImpl.class);

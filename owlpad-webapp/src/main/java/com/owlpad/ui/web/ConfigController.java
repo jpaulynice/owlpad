@@ -24,18 +24,4 @@ public class ConfigController {
 	public ConfigurationResponse getConfig(){
 		return configRepository.getConfig();
 	}
-	
-	/**
-	 * @return the configRepository
-	 */
-	public ConfigRepository getConfigRepository() {
-		return configRepository;
-	}
-
-	/**
-	 * @param configRepository the configRepository to set
-	 */
-	public void setConfigRepository(ConfigRepository configRepository) {
-		this.configRepository = configRepository;
-	}
 }
