@@ -14,4 +14,20 @@ subprojects {
     mavenLocal()
     maven { url "http://repo.maven.apache.org/maven2" }
   }
+  
+  test {
+    useTestNG()
+    
+    testLogging {
+        events 'passed'
+    }
+    
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: " + descriptor)
+    }
+
+    onOutput { descriptor, event ->
+        logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
+    }
+ }
 }
