@@ -39,10 +39,11 @@ public class SearchRepository {
 	public SearchResponse search(SearchRequest searchRequest) {
 		Response serverResponse = searchService.search(searchRequest);
 		SearchResponse res = new SearchResponse();
-		if (serverResponse!=null && serverResponse.getStatus() == 200) {
+		if (serverResponse.getStatus() == 200) {
 			res = serverResponse.readEntity(SearchResponse.class);
 			res.setStatus(StatusType.SUCCESS);
-		} else {
+		}
+		else {
 			res.setErrorMessage("Service error.");
 			res.setStatus(StatusType.FAIL);
 			logger.info("Exception while calling search method.");
@@ -59,13 +60,19 @@ public class SearchRepository {
 	public DocResponse getDocContentById(String docId){
 		Response serverResponse = searchService.getDocContentById(docId);
 		DocResponse res = new DocResponse();
-		if (serverResponse!=null && serverResponse.getStatus() == 200) {
+		if (serverResponse.getStatus() == 200) {
 			res = serverResponse.readEntity(DocResponse.class);
 			res.setStatus(StatusType.SUCCESS);
-		} else {
-			res.setErrorMessage("Service error.");
+		} 
+		else if (serverResponse.getStatus() == 404) {
+			res.setErrorMessage("No documents found with id :"+docId);
+			res.setStatus(StatusType.SUCCESS);
+		}else if(serverResponse.getStatus() == 500){
+			res.setErrorMessage("Internal server error.");
 			res.setStatus(StatusType.FAIL);
-			logger.info("Service exception while calling getDocContentById method.");
+		}else{
+			res.setErrorMessage("Unknown exception.");
+			res.setStatus(StatusType.FAIL);
 		}
 		return res;
 	}

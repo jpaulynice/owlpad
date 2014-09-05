@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 
@@ -190,24 +191,17 @@ public class ESSearchServiceImpl implements SearchService{
 	@Override
 	public Response getDocContentById(String docId) {
 		Preconditions.checkNotNull(docId,"Document id is required to get document.");
-		
+
 		DocResponse res = new DocResponse();
-		
-		try{
-			GetResponse response = client.prepareGet("owlpad-index","docs",docId)
-					.execute()
-					.actionGet();
-			Map<String, Object> sourceMap = response.getSourceAsMap();
-			if(sourceMap!= null){
-				String source = (String) sourceMap.get("contents");
-				res.setSource(source);
-			}
-		}catch(Exception e){
-			logger.error("Exception while executing getDocById",e);
-			return Response.serverError().build();
+		GetResponse response = client.prepareGet("owlpad-index", "docs", docId)
+				.execute().actionGet();
+		Map<String, Object> sourceMap = response.getSourceAsMap();
+		if (sourceMap == null) {
+			throw new NotFoundException();
 		}
-		
-		GenericEntity<DocResponse> entity = new GenericEntity<DocResponse>(res){};
-		return Response.ok().entity(entity).build();	
+		String source = (String) sourceMap.get("contents");
+		res.setSource(source);
+		GenericEntity<DocResponse> entity = new GenericEntity<DocResponse>(res) {};
+		return Response.ok().entity(entity).build();
 	}
 }
