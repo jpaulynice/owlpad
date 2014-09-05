@@ -9,7 +9,7 @@ define(['jquery',
         'apps/search/entities/configEntities'], 
         function($, _, Backbone, Marionette, ConfigEntities) {
 
-    var ConfigController = Backbone.Marionette.Controller.extend({
+    var ConfigMediator = Backbone.Marionette.Controller.extend({
         initialize : function(options) {
             this.configEntities = new ConfigEntities();
         },
@@ -28,5 +28,5 @@ define(['jquery',
         }
     });
 
-    return ConfigController;
+    return ConfigMediator;
 }); 

@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.ws.rs.core.GenericEntity;
@@ -153,15 +154,17 @@ public class ESIndexServiceImpl implements IndexService {
 	 * @throws Exception
 	 */
 	private IndexRequestBuilder createIndexRequestBuilderFromFile(File f) throws Exception{
-		boolean unReadable = f.isHidden() || f.isDirectory() || !f.canRead() || !f.exists();
-		if (!unReadable) {
+		String filePath = f.getCanonicalPath();
+		int indexOfDot = filePath.lastIndexOf(".");
+		String docType = filePath.substring(indexOfDot);
+		
+		List<String> excludes = Arrays.asList(".class",".jar",".war", ".classpath",".project", ".ear",".settings",".prefs");
+		boolean unreadable = f.isHidden() || f.isDirectory() || !f.canRead() || !f.exists();
+		if (!unreadable && !excludes.contains(docType)) {
 			String content = FileUtils.readFileToString(f);
-			String filePath = f.getCanonicalPath();
 			Path path = Paths.get(filePath);
 			String author = Files.getOwner(path).getName();
 			BasicFileAttributes attr = Files.readAttributes(path, BasicFileAttributes.class);
-			int indexOfDot = filePath.indexOf(".");
-			String docType = filePath.substring(indexOfDot);
 			
 			XContentBuilder source = this.getSource(content, filePath, f.getName(), author, attr, docType);
 			

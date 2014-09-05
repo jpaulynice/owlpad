@@ -13,9 +13,9 @@ The original idea was to build an internal tool to quickly search and analyze so
 Projects in this repository: 
 
 <ul>
-<li><b>owlpad-webapp</b>: the web application</li>
-<li><b>owlpad-service</b>: the api (set of interfaces)</li>
-<li><b>owlpad-domain</b>: domain objects shared by the api, service and the client (web-app)</li>
+<li><b>owlpad-webapp</b>: web application</li>
+<li><b>owlpad-service</b>: public api</li>
+<li><b>owlpad-domain</b>: domain objects shared by the api, service and the client</li>
 <li><b>owlpad-service-impl</b>: service implementation</li>
 </ul>
 
@@ -28,7 +28,7 @@ Technology stack
 
 Dependencies:
  
-1. Install Gradle or Maven
+1. Install Gradle
 2. Install Elasticsearch
 
 Steps to work:
@@ -66,11 +66,8 @@ or using maven
 <pre>
 curl -X POST -H 'Content-Type: application/json' -d 
 '{
-  "indexRequest":
-  {
     "directoryToIndex":"/Users/julespaulynice/Documents/ws",
     "suffix":".java"
-  }
 }' 
 'http://localhost:9000/api/v1/index'
 </pre>
@@ -78,11 +75,8 @@ curl -X POST -H 'Content-Type: application/json' -d
 <b>search api:</b>
 <pre>curl -X POST -H 'Content-Type: application/json' -d 
 '{
-  "searchRequest":
-  {
     "keyWord":"lucene",
     "hitsPerPage":"10"
-  }
 }' 
 'http://localhost:9000/api/v1/search'
 </pre>
