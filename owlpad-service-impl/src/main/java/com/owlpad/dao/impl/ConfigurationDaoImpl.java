@@ -25,6 +25,10 @@ public class ConfigurationDaoImpl implements ConfigurationDao {
 		this.setSessionFactory(sessionFactory);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.owlpad.dao.ConfigurationDao#getUserConfiguration()
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public Configuration getUserConfiguration() {

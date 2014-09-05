@@ -18,7 +18,6 @@ define([ 'jquery',
             return $.ajax({
                 method : "GET",
                 dataType : "json",
-                async: false,
                 contentType : "application/json",
                 url : "/owlpad/config"
             });

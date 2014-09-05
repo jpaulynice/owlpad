@@ -12,33 +12,36 @@ define(['jquery',
 
     var App = new Backbone.Marionette.Application();
 
-    App.addRegions({
-        header : ".navbar-default",
-        gridRegion : '.gridRegion',
-        preview : '.previewRegion'
-    });
+    App.addInitializer(function() {
+        var utils = new AppUtils();
+        utils.setup();
+        var configMediator = new ConfigMediator();
+        var call = configMediator.loadConfig();
 
-    var utils = new AppUtils();
-    utils.setup();
+        //after application configuration is loaded
+        //render regions with view and make search call
+        $.when(call).done(function(data) {
+            var regions = data.configuration.layout;
+            delete regions.id;
+            App.addRegions(regions);
 
-    var appRegions = {
-        'header' : App.header,
-        'gridRegion' : App.gridRegion,
-        'preview' : App.preview
-    };
+            var appRegions = {
+                'header' : App.headerRegion,
+                'gridRegion' : App.leftRegion,
+                'preview' : App.rightRegion
+            };
 
-    var configMediator = new ConfigMediator();
-    configMediator.loadConfig();
-    
-    var searchMediator = new SearchMediator(appRegions);
+            var searchMediator = new SearchMediator(appRegions);
 
-    //kick off a "*" search on app startup.
-    var searchCriteria = {
-        resultStart : 0,
-        keyWord : "*",
-        hitsPerPage : 20
-    };
-    searchMediator.search(searchCriteria);
+            //kick off a "*" search on app startup.
+            var searchCriteria = {
+                resultStart : 0,
+                keyWord : "*",
+                hitsPerPage : 20
+            };
+            searchMediator.search(searchCriteria);
+        });
+    }); 
 
     return App;
 }); 

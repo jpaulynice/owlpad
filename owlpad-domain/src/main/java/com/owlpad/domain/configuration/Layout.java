@@ -18,12 +18,18 @@ public class Layout {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@Column(name="header_region")
+	private String headerRegion;
 
 	@Column(name = "left_region")
 	private String leftRegion;
 
 	@Column(name = "right_region")
 	private String rightRegion;
+	
+	@Column(name="footer_region")
+	private String footerRegion;
 
 	/**
 	 * @return the id
@@ -68,5 +74,33 @@ public class Layout {
 	 */
 	public void setRightRegion(String rightRegion) {
 		this.rightRegion = rightRegion;
+	}
+
+	/**
+	 * @return the headerRegion
+	 */
+	public String getHeaderRegion() {
+		return headerRegion;
+	}
+
+	/**
+	 * @return the footerRegion
+	 */
+	public String getFooterRegion() {
+		return footerRegion;
+	}
+
+	/**
+	 * @param headerRegion the headerRegion to set
+	 */
+	public void setHeaderRegion(String headerRegion) {
+		this.headerRegion = headerRegion;
+	}
+
+	/**
+	 * @param footerRegion the footerRegion to set
+	 */
+	public void setFooterRegion(String footerRegion) {
+		this.footerRegion = footerRegion;
 	}
 }

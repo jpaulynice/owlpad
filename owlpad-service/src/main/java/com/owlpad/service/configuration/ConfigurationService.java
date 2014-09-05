@@ -7,12 +7,20 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-
+/**
+ * 
+ * @author Jay Paulynice
+ *
+ */
 @Path("config")
 @Consumes({ MediaType.APPLICATION_JSON })
 @Produces({ MediaType.APPLICATION_JSON })
 public interface ConfigurationService {
 
+	/**
+	 * 
+	 * @return
+	 */
 	@GET
 	public Response getUserConfiguration();
 }

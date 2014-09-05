@@ -21,7 +21,7 @@ public class ConfigController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public ConfigurationResponse index(){
+	public ConfigurationResponse getConfig(){
 		return configRepository.getConfig();
 	}
 	

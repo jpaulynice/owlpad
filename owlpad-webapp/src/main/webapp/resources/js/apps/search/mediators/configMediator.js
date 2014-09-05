@@ -1,34 +1,32 @@
 /**
- * AppMediator manages all controllers and main application responsibilities.
+ * Search controller to handle search
  *
  */
 define(['jquery', 
         'underscore', 
         'backbone', 
-        'marionette', 
-        'apps/search/controllers/configController'], 
-        function($, _, Backbone, Marionette,ConfigController){
+        'marionette',
+        'apps/search/entities/configEntities'], 
+        function($, _, Backbone, Marionette, ConfigEntities) {
 
-    var ConfigMediator = Backbone.Marionette.Controller.extend({
-
-        initialize : function() {
-            this.configController = new ConfigController();
+    var ConfigController = Backbone.Marionette.Controller.extend({
+        initialize : function(options) {
+            this.configEntities = new ConfigEntities();
         },
         
         loadConfig: function(){
-            var self = this;
-            this.config;
-            var call = self.configController.loadConfig();
-            $.when(call).done(function(results) {
-                self.getConfig(results);
-            }); 
-        },
-        
-        getConfig: function(data){
-            return data;
+            var defer = $.Deferred();
+            var call = this.configEntities.loadConfig();
+
+            $.when(call).done(function(jsonRes) {
+                defer.resolve(jsonRes);
+            }).fail(function() {
+                defer.reject();
+            });
+
+            return defer.promise();
         }
- 
     });
 
-    return ConfigMediator;
+    return ConfigController;
 }); 
