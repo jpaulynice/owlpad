@@ -33,7 +33,7 @@ public class ConfigurationDaoImpl implements ConfigurationDao {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public Configuration getUserConfiguration() {
+	public Configuration getConfiguration() {
 		Session session = sessionFactory.openSession();
 		List<Configuration> confs = null;
 		try {

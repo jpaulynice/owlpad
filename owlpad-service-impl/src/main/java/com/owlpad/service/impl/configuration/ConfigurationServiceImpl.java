@@ -1,5 +1,6 @@
 package com.owlpad.service.impl.configuration;
 
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 
@@ -28,10 +29,14 @@ public class ConfigurationServiceImpl implements ConfigurationService {
 	@Override
 	public Response getUserConfiguration() {
 		ConfigurationResponse res = new ConfigurationResponse();
-		Configuration c = confDao.getUserConfiguration();
+		Configuration c = confDao.getConfiguration();
+		
+		if(c == null){
+			throw new WebApplicationException("no configuration found.");
+		}
 		res.setConfiguration(c);
 
 		GenericEntity<ConfigurationResponse> entity = new GenericEntity<ConfigurationResponse>(res) {};
-		return Response.ok().entity(entity).build();
+		return Response.ok(entity).build();
 	}
 }

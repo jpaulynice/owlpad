@@ -1,6 +1,6 @@
-drop schema if exists owlpaddb;
-create schema owlpaddb;
-use owlpaddb;
+drop schema if exists owlpad_configdb;
+create schema owlpad_configdb;
+use owlpad_configdb;
 
 create table `layout` (
   id int(11) NOT NULL AUTO_INCREMENT,
@@ -16,7 +16,6 @@ create table `configuration` (
   name varchar(45) DEFAULT NULL,
   layout_id int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_conf` (`layout_id`),
   CONSTRAINT `fk_conf` FOREIGN KEY (`layout_id`) REFERENCES `layout` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 

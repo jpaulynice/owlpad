@@ -81,7 +81,7 @@ public class ESSearchServiceImpl implements SearchService{
 		}
 
 		GenericEntity<SearchResponse> entity = new GenericEntity<SearchResponse>(res){};
-		return Response.ok().entity(entity).build();
+		return Response.ok(entity).build();
 	}
 	
 	/**
@@ -202,6 +202,6 @@ public class ESSearchServiceImpl implements SearchService{
 		String source = (String) sourceMap.get("contents");
 		res.setSource(source);
 		GenericEntity<DocResponse> entity = new GenericEntity<DocResponse>(res) {};
-		return Response.ok().entity(entity).build();
+		return Response.ok(entity).build();
 	}
 }

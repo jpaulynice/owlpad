@@ -18,8 +18,8 @@ define(['jquery',
         var configMediator = new ConfigMediator();
         var call = configMediator.loadConfig();
 
-        //after application configuration is loaded
-        //render regions with view and make search call
+        //wait for app config to load then 
+        //show regions and execute search
         $.when(call).done(function(data) {
             var regions = data.configuration.layout;
             delete regions.id;

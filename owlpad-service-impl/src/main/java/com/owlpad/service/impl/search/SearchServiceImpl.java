@@ -65,7 +65,7 @@ public class SearchServiceImpl implements SearchService{
 			return Response.serverError().build();
 		}
 		GenericEntity<SearchResponse> entity = new GenericEntity<SearchResponse>(response){};
-		return Response.ok().entity(entity).build();
+		return Response.ok(entity).build();
 	}
 
 	/**

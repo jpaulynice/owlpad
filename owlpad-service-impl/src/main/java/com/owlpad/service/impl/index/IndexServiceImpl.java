@@ -60,7 +60,7 @@ public class IndexServiceImpl implements IndexService{
 		
 
 		GenericEntity<IndexResponse> entity = new GenericEntity<IndexResponse>(response){};
-		return Response.ok().entity(entity).build();		
+		return Response.ok(entity).build();		
 	}
 
 	/**

@@ -9,8 +9,9 @@ import com.owlpad.domain.configuration.Configuration;
  */
 public interface ConfigurationDao {
 	/**
+	 * Get application configuration from database
 	 * 
 	 * @return
 	 */
-	public Configuration getUserConfiguration();
+	public Configuration getConfiguration();
 }

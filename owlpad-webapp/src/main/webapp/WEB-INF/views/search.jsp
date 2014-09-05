@@ -15,7 +15,7 @@
 	<body>
 		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 		</nav>
-		<div class="bs-docs-section" style="float:left;width:55%;padding:10px;margin-top:60px;">
+		<div class="bs-docs-section" style="float:left;width:50%;padding:10px;margin-top:60px;">
 			<div class="bs-example">
 				<div class="panel panel-default">
 				  <div class="panel-heading">Documents</div>
@@ -24,7 +24,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="bs-docs-section" style="float:right;width:45%;padding:10px;margin-top:60px;">
+		<div class="bs-docs-section" style="float:right;width:50%;padding:10px;margin-top:60px;">
 			<div class="bs-example">
 				<div class="panel panel-default">
 				  <div class="panel-heading">Preview</div>
