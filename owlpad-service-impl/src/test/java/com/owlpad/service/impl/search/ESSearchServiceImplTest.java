@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 import com.owlpad.service.search.SearchService;
 
-@ContextConfiguration(locations={"classpath:applicationContext.xml"})
+@ContextConfiguration(locations={"classpath:applicationContextTest.xml"})
 public class ESSearchServiceImplTest extends AbstractTestNGSpringContextTests{
 	@Autowired
 	private SearchService searchService;

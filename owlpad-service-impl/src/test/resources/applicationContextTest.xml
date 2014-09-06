@@ -21,7 +21,7 @@
 		<import resource="classpath:META-INF/cxf/cxf.xml" />
 		<import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
 		<context:component-scan base-package="com.owlpad.service"/>
-	    <context:property-placeholder location="classpath:META-INF/db/db.properties" system-properties-mode="FALLBACK"/>
+	    <context:property-placeholder location="classpath:/db/db.properties" system-properties-mode="FALLBACK"/>
 	    <tx:annotation-driven />
 
 		<!--dataSource bean-->
