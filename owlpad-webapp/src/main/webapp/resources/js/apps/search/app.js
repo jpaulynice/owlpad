@@ -18,17 +18,18 @@ define(['jquery',
         var configMediator = new ConfigMediator();
         var call = configMediator.loadConfig();
 
-        //wait for app config to load then 
-        //show regions and execute search
         $.when(call).done(function(data) {
-            var regions = data.configuration.layout;
-            delete regions.id;
+            var reg = data.configuration.layout.regions;
+            var regions = _.object(_.map(reg, function(region) {
+               return [region.name, region.selector];
+            }));
+            
             App.addRegions(regions);
 
             var appRegions = {
-                'header' : App.headerRegion,
-                'gridRegion' : App.leftRegion,
-                'preview' : App.rightRegion
+                'header' : App.header,
+                'left' : App.left,
+                'right' : App.right
             };
 
             var searchMediator = new SearchMediator(appRegions);

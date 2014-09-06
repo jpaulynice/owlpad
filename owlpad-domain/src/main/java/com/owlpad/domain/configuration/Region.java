@@ -1,9 +1,37 @@
 package com.owlpad.domain.configuration;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
+@XmlRootElement
+@Entity(name="region")
 public class Region {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonIgnore
 	private int id;
+	
+	@Column(name="name")
+	@XmlElement(name = "name")
 	private String name;
-	private int viewId;
+
+	@Column(name="selector")
+	@XmlElement(name = "selector")
+	@JsonProperty
+	private String selector;
+	
+	@JsonIgnore 
+	@ManyToOne(optional = false)
+	private Layout layout;
 
 	/**
 	 * @return the id
@@ -34,17 +62,17 @@ public class Region {
 	}
 
 	/**
-	 * @return the viewId
+	 * @return the layout
 	 */
-	public int getViewId() {
-		return viewId;
+	public Layout getLayout() {
+		return layout;
 	}
 
 	/**
-	 * @param viewId the viewId to set
+	 * @param layout the layout to set
 	 */
-	public void setViewId(int viewId) {
-		this.viewId = viewId;
+	public void setLayout(Layout layout) {
+		this.layout = layout;
 	}
 
 }

@@ -46,7 +46,8 @@ public class ESIndexServiceImpl implements IndexService {
 	private final NodeClientFactoryBean nodeClientFactoryBean;
 	private final NodeClient client;
 	private static final Logger logger = LoggerFactory.getLogger(ESIndexServiceImpl.class);
-	
+	private static List<String> excludes = Arrays.asList(".class",".jar",".war", ".classpath",".project", ".ear",".settings",".prefs");
+
 	@Autowired
 	public ESIndexServiceImpl(NodeClientFactoryBean nodeClientFactoryBean) throws Exception{
 		this.nodeClientFactoryBean = nodeClientFactoryBean;
@@ -158,7 +159,6 @@ public class ESIndexServiceImpl implements IndexService {
 		int indexOfDot = filePath.lastIndexOf(".");
 		String docType = filePath.substring(indexOfDot);
 		
-		List<String> excludes = Arrays.asList(".class",".jar",".war", ".classpath",".project", ".ear",".settings",".prefs");
 		boolean unreadable = f.isHidden() || f.isDirectory() || !f.canRead() || !f.exists();
 		if (!unreadable && !excludes.contains(docType)) {
 			String content = FileUtils.readFileToString(f);

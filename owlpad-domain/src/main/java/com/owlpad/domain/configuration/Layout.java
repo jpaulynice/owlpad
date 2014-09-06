@@ -1,11 +1,20 @@
 package com.owlpad.domain.configuration;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  * 
@@ -16,40 +25,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity(name = "layout")
 public class Layout {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonIgnore 
 	private int id;
 	
-	@Column(name="header_region")
-	private String headerRegion;
-
-	@Column(name = "left_region")
-	private String leftRegion;
-
-	@Column(name = "right_region")
-	private String rightRegion;
+	@Enumerated(EnumType.STRING)
+	@Column(name="layout_type")
+	private LayoutType layout_type;
 	
-	@Column(name="footer_region")
-	private String footerRegion;
+	@OneToMany(fetch = FetchType.EAGER,mappedBy = "layout", cascade = CascadeType.ALL)
+	private List<Region> regions;
 
 	/**
 	 * @return the id
 	 */
 	public int getId() {
 		return id;
-	}
-
-	/**
-	 * @return the leftRegion
-	 */
-	public String getLeftRegion() {
-		return leftRegion;
-	}
-
-	/**
-	 * @return the rightRegion
-	 */
-	public String getRightRegion() {
-		return rightRegion;
 	}
 
 	/**
@@ -61,46 +52,30 @@ public class Layout {
 	}
 
 	/**
-	 * @param leftRegion
-	 *            the leftRegion to set
+	 * @return the layout_type
 	 */
-	public void setLeftRegion(String leftRegion) {
-		this.leftRegion = leftRegion;
+	public LayoutType getLayout_type() {
+		return layout_type;
 	}
 
 	/**
-	 * @param rightRegion
-	 *            the rightRegion to set
+	 * @param layout_type the layout_type to set
 	 */
-	public void setRightRegion(String rightRegion) {
-		this.rightRegion = rightRegion;
+	public void setLayout_type(LayoutType layout_type) {
+		this.layout_type = layout_type;
 	}
 
 	/**
-	 * @return the headerRegion
+	 * @return the regions
 	 */
-	public String getHeaderRegion() {
-		return headerRegion;
+	public List<Region> getRegions() {
+		return regions;
 	}
 
 	/**
-	 * @return the footerRegion
+	 * @param regions the regions to set
 	 */
-	public String getFooterRegion() {
-		return footerRegion;
-	}
-
-	/**
-	 * @param headerRegion the headerRegion to set
-	 */
-	public void setHeaderRegion(String headerRegion) {
-		this.headerRegion = headerRegion;
-	}
-
-	/**
-	 * @param footerRegion the footerRegion to set
-	 */
-	public void setFooterRegion(String footerRegion) {
-		this.footerRegion = footerRegion;
+	public void setRegions(List<Region> regions) {
+		this.regions = regions;
 	}
 }

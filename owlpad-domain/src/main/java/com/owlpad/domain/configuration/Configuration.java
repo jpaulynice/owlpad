@@ -1,12 +1,16 @@
 package com.owlpad.domain.configuration;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  * 
@@ -17,10 +21,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity(name = "configuration")
 public class Configuration {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonIgnore 
 	private int id;
+	
+	@Column(name="name")
+	private String name;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
 	private Layout layout;
 
 	/**

@@ -1,4 +1,4 @@
-drop schema if exists owlpad_configdb;
+/*drop schema if exists owlpad_configdb;
 create schema owlpad_configdb;
 use owlpad_configdb;
 
@@ -18,8 +18,4 @@ create table `configuration` (
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_conf` FOREIGN KEY (`layout_id`) REFERENCES `layout` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
-insert into layout (id,header_region,left_region,right_region,footer_region)
-values (1,'.navbar-default', '.gridRegion', '.previewRegion', '.footer');
-
-insert into configuration (id,name,layout_id) values (1,'default',1);
+*/
