@@ -36,11 +36,7 @@ Steps to work:
 1. clone repo: 
   <code>git clone https://github.com/julesbond007/owlpad.git</code>
 2. using gradle: import projects in eclipse:
-  <code>file-->import-->gradle project-->specify directory-->build model-->finish</code> 
-or using maven 
-<code>cd owlpad</code>
-<code>mvn eclipse:eclipse</code>
-<code>import as existing projects</code>
+  <code>file-->import-->gradle project-->specify directory-->build model-->finish</code>
 3. Using Jetty: debug as or run as:
 <pre>
   a. owlpad-app:
