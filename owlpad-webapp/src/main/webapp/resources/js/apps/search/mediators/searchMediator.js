@@ -16,9 +16,9 @@ define(['jquery',
     var AppMediator = Backbone.Marionette.Controller.extend({
 
         initialize : function(regions) {
-            this.preview = regions.left;
-            this.gridController = new GridController(regions.right);
             var headerController = new HeaderController(regions.header);
+            this.gridController = new GridController(regions.r1);
+            this.preview = regions.r2;
             this.searchController = new SearchController();
 
             this.listenTo(headerController, 'app:header:search', this.search);

@@ -28,8 +28,8 @@ define(['jquery',
 
             var appRegions = {
                 'header' : App.header,
-                'left' : App.left,
-                'right' : App.right
+                'r1' : App.r1,
+                'r2' : App.r2
             };
 
             var searchMediator = new SearchMediator(appRegions);
