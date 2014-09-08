@@ -26,13 +26,11 @@ define(['jquery',
             
             App.addRegions(regions);
 
-            var appRegions = {
+            var searchMediator = new SearchMediator({
                 'header' : App.header,
                 'r1' : App.r1,
                 'r2' : App.r2
-            };
-
-            var searchMediator = new SearchMediator(appRegions);
+            });
 
             //kick off a "*" search on app startup.
             var searchCriteria = {
