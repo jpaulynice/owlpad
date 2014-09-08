@@ -49,11 +49,4 @@ public class ConfigurationDaoImpl implements ConfigurationDao {
 		}
 		return null;
 	}
-
-	/**
-	 * @return the sessionFactory
-	 */
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
 }
