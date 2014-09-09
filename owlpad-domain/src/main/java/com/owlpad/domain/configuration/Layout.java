@@ -31,7 +31,7 @@ public class Layout {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="layout_type")
-	private LayoutType layout_type;
+	private LayoutType layoutType;
 	
 	@OneToMany(fetch = FetchType.EAGER,mappedBy = "layout", cascade = CascadeType.ALL)
 	private List<Region> regions;
@@ -52,20 +52,6 @@ public class Layout {
 	}
 
 	/**
-	 * @return the layout_type
-	 */
-	public LayoutType getLayout_type() {
-		return layout_type;
-	}
-
-	/**
-	 * @param layout_type the layout_type to set
-	 */
-	public void setLayout_type(LayoutType layout_type) {
-		this.layout_type = layout_type;
-	}
-
-	/**
 	 * @return the regions
 	 */
 	public List<Region> getRegions() {
@@ -77,5 +63,19 @@ public class Layout {
 	 */
 	public void setRegions(List<Region> regions) {
 		this.regions = regions;
+	}
+
+	/**
+	 * @return the layoutType
+	 */
+	public LayoutType getLayoutType() {
+		return layoutType;
+	}
+
+	/**
+	 * @param layoutType the layoutType to set
+	 */
+	public void setLayoutType(LayoutType layoutType) {
+		this.layoutType = layoutType;
 	}
 }
