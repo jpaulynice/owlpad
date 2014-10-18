@@ -11,24 +11,24 @@ import com.owlpad.service.index.IndexService;
 @ContextConfiguration(locations={"classpath:applicationContextTest.xml"})
 public class ESIndexServiceImplTest extends AbstractTestNGSpringContextTests{
 	@Autowired
-	private IndexService indexService;
+	private IndexService index;
 	
 	@Test
 	public void testNonnullService(){
-		Assert.assertNotNull(indexService);
+		Assert.assertNotNull(index);
 	}
 
 	/**
 	 * @return the indexService
 	 */
 	public IndexService getIndexService() {
-		return indexService;
+		return index;
 	}
 
 	/**
 	 * @param indexService the indexService to set
 	 */
 	public void setIndexService(IndexService indexService) {
-		this.indexService = indexService;
+		this.index = indexService;
 	}
 }

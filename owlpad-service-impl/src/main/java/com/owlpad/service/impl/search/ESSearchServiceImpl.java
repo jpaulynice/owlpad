@@ -45,48 +45,57 @@ import com.owlpad.service.search.SearchService;
  * @author Jay Paulynice
  *
  */
-@Service("searchService")
-public class ESSearchServiceImpl implements SearchService{
-	private static final Logger logger = LoggerFactory.getLogger(ESSearchServiceImpl.class);
+@Service
+public class ESSearchServiceImpl implements SearchService {
+	private static final Logger logger = LoggerFactory
+			.getLogger(ESSearchServiceImpl.class);
 
 	private final NodeClientFactoryBean nodeClientFactoryBean;
 	private final NodeClient client;
-	
+
 	@Autowired
-	public ESSearchServiceImpl(NodeClientFactoryBean nodeClientFactoryBean) throws Exception{
+	public ESSearchServiceImpl(NodeClientFactoryBean nodeClientFactoryBean)
+			throws Exception {
 		this.nodeClientFactoryBean = nodeClientFactoryBean;
 		this.client = this.nodeClientFactoryBean.getObject();
 	}
-	
+
 	/*
 	 * (non-Javadoc)
-	 * @see com.owlpad.service.search.SearchService#search(com.owlpad.domain.search.SearchRequest)
+	 * 
+	 * @see
+	 * com.owlpad.service.search.SearchService#search(com.owlpad.domain.search
+	 * .SearchRequest)
 	 */
 	@Override
 	public Response search(SearchRequest searchRequest) {
-		Preconditions.checkNotNull(searchRequest,"No search request specified.");
+		Preconditions.checkNotNull(searchRequest,
+				"No search request specified.");
 		SearchResponse res;
-		
+
 		int from = searchRequest.getResultStart();
 		int size = searchRequest.getHitsPerPage();
 		boolean paging = searchRequest.isPaging();
 		String keyWord = searchRequest.getKeyWord();
-		
-		try{
-			org.elasticsearch.action.search.SearchResponse response = search(paging,keyWord,from,size);
-			res = getInternalResponse(response,from);
-		}catch(Exception e){
-			logger.error("Exception while executing search",e);
+
+		try {
+			org.elasticsearch.action.search.SearchResponse response = search(
+					paging, keyWord, from, size);
+			res = getInternalResponse(response, from);
+		} catch (Exception e) {
+			logger.error("Exception while executing search", e);
 			return Response.serverError().build();
 		}
 
-		GenericEntity<SearchResponse> entity = new GenericEntity<SearchResponse>(res){};
+		GenericEntity<SearchResponse> entity = new GenericEntity<SearchResponse>(
+				res) {
+		};
 		return Response.ok(entity).build();
 	}
-	
+
 	/**
-	 * Execute search given parameters.  If we're paging, we don't need to add aggregations.  
-	 * Looking to use scrolling instead.
+	 * Execute search given parameters. If we're paging, we don't need to add
+	 * aggregations. Looking to use scrolling instead.
 	 * 
 	 * @param paging
 	 * @param keyWord
@@ -94,23 +103,26 @@ public class ESSearchServiceImpl implements SearchService{
 	 * @param size
 	 * @return
 	 */
-	private org.elasticsearch.action.search.SearchResponse search(boolean isPaging,String keyWord,int from, int size) throws Exception{
-		
+	private org.elasticsearch.action.search.SearchResponse search(
+			boolean isPaging, String keyWord, int from, int size)
+			throws Exception {
+
 		SearchRequestBuilder builder = client.prepareSearch("owlpad-index")
-				.setTypes("docs")
-				.setSearchType(SearchType.QUERY_THEN_FETCH)
-				.setQuery(QueryBuilders.queryString(keyWord))
-				.setFrom(from)
+				.setTypes("docs").setSearchType(SearchType.QUERY_THEN_FETCH)
+				.setQuery(QueryBuilders.queryString(keyWord)).setFrom(from)
 				.setSize(size);
-		
-		if(!isPaging){
-			builder.addAggregation(AggregationBuilders.terms("authors").field("author"))
-			.addAggregation(AggregationBuilders.terms("docTypes").field("docType"));
+
+		if (!isPaging) {
+			builder.addAggregation(
+					AggregationBuilders.terms("authors").field("author"))
+					.addAggregation(
+							AggregationBuilders.terms("docTypes").field(
+									"docType"));
 		}
-		
+
 		return builder.execute().actionGet();
 	}
-	
+
 	/**
 	 * Map from elastic search searchResponse to internal searchResponse
 	 * 
@@ -118,19 +130,21 @@ public class ESSearchServiceImpl implements SearchService{
 	 * @param from
 	 * @return
 	 */
-	private SearchResponse getInternalResponse(org.elasticsearch.action.search.SearchResponse response, int from){
+	private SearchResponse getInternalResponse(
+			org.elasticsearch.action.search.SearchResponse response, int from) {
 		SearchHits hits = response.getHits();
 		SearchResponse res = new SearchResponse();
-		
-		List<Document> docs = getDocumentsFromSearchHits(hits,from);
-		HashMap<String,Facets> facets = getFacetsFromAggregations(response.getAggregations());
+
+		List<Document> docs = getDocumentsFromSearchHits(hits, from);
+		HashMap<String, Facets> facets = getFacetsFromAggregations(response
+				.getAggregations());
 		res.setDocuments(docs);
 		res.setFacets(facets);
 		res.setTotalDocuments(hits.getTotalHits());
-		
+
 		return res;
 	}
-	
+
 	/**
 	 * Map from searchHits to Documents
 	 * 
@@ -138,44 +152,44 @@ public class ESSearchServiceImpl implements SearchService{
 	 * @param from
 	 * @return
 	 */
-	private List<Document> getDocumentsFromSearchHits(SearchHits hits, int from){
+	private List<Document> getDocumentsFromSearchHits(SearchHits hits, int from) {
 		List<Document> docs = new ArrayList<Document>();
 
 		int id = from + 1;
-		for(SearchHit hit: hits){
-			Document doc = new Document(hit,id);
+		for (SearchHit hit : hits) {
+			Document doc = new Document(hit, id);
 			docs.add(doc);
 			id++;
 		}
-		
+
 		return docs;
 	}
-	
+
 	/**
 	 * Create facets from aggregations
 	 * 
 	 * @param aggs
 	 * @return
 	 */
-	private HashMap<String,Facets> getFacetsFromAggregations(Aggregations aggs){
-		HashMap<String,Facets> facets = new HashMap<String,Facets>();
-		for(Aggregation ag: aggs){
+	private HashMap<String, Facets> getFacetsFromAggregations(Aggregations aggs) {
+		HashMap<String, Facets> facets = new HashMap<String, Facets>();
+		for (Aggregation ag : aggs) {
 			StringTerms st = (StringTerms) ag;
 			Facets f = getFacetResults(st.getBuckets());
 			facets.put(ag.getName(), f);
-		}		
+		}
 		return facets;
 	}
-	
+
 	/**
 	 * Create facets result from aggregation term buckets.
 	 * 
 	 * @param b
 	 * @return
 	 */
-	private Facets getFacetResults(Collection<Bucket> buckets){
+	private Facets getFacetResults(Collection<Bucket> buckets) {
 		Set<FacetResult> fres = new HashSet<>();
-		for(Bucket b: buckets){
+		for (Bucket b : buckets) {
 			FacetResult f = new FacetResult();
 			f.setCount(b.getDocCount());
 			f.setEntry(b.getKey());
@@ -183,14 +197,16 @@ public class ESSearchServiceImpl implements SearchService{
 		}
 		return new Facets(fres);
 	}
-	
+
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.owlpad.service.search.SearchService#getDocById(java.lang.String)
 	 */
 	@Override
 	public Response getDocContentById(String docId) {
-		Preconditions.checkNotNull(docId,"Document id is required to get document.");
+		Preconditions.checkNotNull(docId,
+				"Document id is required to get document.");
 
 		DocResponse res = new DocResponse();
 		GetResponse response = client.prepareGet("owlpad-index", "docs", docId)
@@ -201,7 +217,8 @@ public class ESSearchServiceImpl implements SearchService{
 		}
 		String source = (String) sourceMap.get("contents");
 		res.setSource(source);
-		GenericEntity<DocResponse> entity = new GenericEntity<DocResponse>(res) {};
+		GenericEntity<DocResponse> entity = new GenericEntity<DocResponse>(res) {
+		};
 		return Response.ok(entity).build();
 	}
 }

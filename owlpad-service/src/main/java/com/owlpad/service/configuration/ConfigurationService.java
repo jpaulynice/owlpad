@@ -22,5 +22,5 @@ public interface ConfigurationService {
 	 * @return
 	 */
 	@GET
-	public Response getUserConfiguration();
+	public Response getConfiguration();
 }

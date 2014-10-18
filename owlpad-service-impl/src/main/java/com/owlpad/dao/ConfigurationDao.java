@@ -1,6 +1,6 @@
 package com.owlpad.dao;
 
-import com.owlpad.domain.configuration.Configuration;
+import com.owlpad.service.model.Configuration;
 
 /**
  * 

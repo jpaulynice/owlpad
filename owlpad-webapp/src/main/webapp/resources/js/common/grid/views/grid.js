@@ -31,8 +31,8 @@ define(['jquery',
         },
 
         handlePaging : function(e) {
-            var pag = $(e.currentTarget).data("paging");
-            this.trigger("app:grid:paging", pag);
+            var action = $(e.currentTarget).data("paging");
+            this.trigger("app:grid:paging", action);
         },
 
         showPreview : function(data) {

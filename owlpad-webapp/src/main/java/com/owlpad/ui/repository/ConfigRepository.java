@@ -19,13 +19,13 @@ public class ConfigRepository {
 	}
 	
 	public ConfigurationResponse getConfig(){
-		Response res = configService.getUserConfiguration();
+		Response res = configService.getConfiguration();
 		
 		if(res!= null && res.getStatus() == 200){
 			return res.readEntity(ConfigurationResponse.class);					
 		}else{
 			logger.error("Exception while executing getConfig");
+			throw new RuntimeException("Unable to get configuration.");
 		}
-		return null;
 	}
 }

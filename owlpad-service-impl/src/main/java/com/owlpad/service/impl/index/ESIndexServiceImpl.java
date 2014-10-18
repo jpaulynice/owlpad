@@ -41,7 +41,7 @@ import com.owlpad.service.index.IndexService;
  * @author Jay Paulynice
  *
  */
-@Service("indexService")
+@Service
 public class ESIndexServiceImpl implements IndexService {
 	private final NodeClientFactoryBean nodeClientFactoryBean;
 	private final NodeClient client;

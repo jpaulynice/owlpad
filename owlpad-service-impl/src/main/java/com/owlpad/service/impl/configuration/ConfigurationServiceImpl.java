@@ -8,33 +8,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.owlpad.dao.ConfigurationDao;
-import com.owlpad.domain.configuration.Configuration;
 import com.owlpad.domain.configuration.ConfigurationResponse;
 import com.owlpad.service.configuration.ConfigurationService;
+import com.owlpad.service.mapper.ConfigMapper;
+import com.owlpad.service.model.Configuration;
 
 /**
  * 
  * @author Jay Paulynice
  *
  */
-@Service("configurationService")
+@Service
 public class ConfigurationServiceImpl implements ConfigurationService {
-	private final ConfigurationDao confDao;
-
 	@Autowired
-	public ConfigurationServiceImpl(ConfigurationDao confDao) {
-		this.confDao = confDao;
+	private ConfigurationDao configurationDao;
+
+	public ConfigurationServiceImpl() {
 	}
 
 	@Override
-	public Response getUserConfiguration() {
+	public Response getConfiguration() {
 		ConfigurationResponse res = new ConfigurationResponse();
-		Configuration c = confDao.getConfiguration();
+		Configuration c = configurationDao.getConfiguration();
 		
 		if(c == null){
 			throw new WebApplicationException("no configuration found.");
 		}
-		res.setConfiguration(c);
+		res.setConfiguration(ConfigMapper.mapConfig(c));
 
 		GenericEntity<ConfigurationResponse> entity = new GenericEntity<ConfigurationResponse>(res) {};
 		return Response.ok(entity).build();

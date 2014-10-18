@@ -2,15 +2,12 @@ package com.owlpad.dao.impl;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.owlpad.dao.ConfigurationDao;
-import com.owlpad.domain.configuration.Configuration;
+import com.owlpad.dao.repository.ConfigJPARepository;
+import com.owlpad.service.model.Configuration;
 
 /**
  * 
@@ -19,33 +16,23 @@ import com.owlpad.domain.configuration.Configuration;
  */
 @Repository
 public class ConfigurationDaoImpl implements ConfigurationDao {
-	private final SessionFactory sessionFactory;
-	private static final Logger logger = LoggerFactory.getLogger(ConfigurationDaoImpl.class);
-
 	@Autowired
-	public ConfigurationDaoImpl(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+	private ConfigJPARepository configJPARepository;
+
+	public ConfigurationDaoImpl() {
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.owlpad.dao.ConfigurationDao#getUserConfiguration()
+	 * 
+	 * @see com.owlpad.dao.ConfigurationDao#getConfiguration()
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public Configuration getConfiguration() {
-		Session session = sessionFactory.openSession();
-		List<Configuration> confs = null;
-		try {
-			confs = (List<Configuration>) session.createQuery("from configuration").list();
-		} catch (Exception e) {
-			logger.info("Exception while executing getUserConfiguration", e);
-		} finally {
-			session.close();
-		}
-
-		if (confs != null && confs.size() > 0) {
-			return confs.get(0);
+		List<Configuration> configs = configJPARepository.findAll();
+		
+		if(configs != null && configs.size()>0){
+			return configs.get(0);
 		}
 		return null;
 	}
