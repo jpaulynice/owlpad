@@ -60,7 +60,7 @@ Steps to work:
 
 <b>index api:</b>
 ```bash
-curl -X POST -H 'Content-Type: application/json' -d 
+$ curl -X POST -H 'Content-Type: application/json' -d 
 '{
     "directoryToIndex":"/Users/julespaulynice/Documents/ws",
     "suffix":".java"
@@ -70,7 +70,7 @@ curl -X POST -H 'Content-Type: application/json' -d
 
 <b>search api:</b>
 ```bash
-curl -X POST -H 'Content-Type: application/json' -d 
+$ curl -X POST -H 'Content-Type: application/json' -d 
 '{
     "keyWord":"lucene",
     "hitsPerPage":"10"
