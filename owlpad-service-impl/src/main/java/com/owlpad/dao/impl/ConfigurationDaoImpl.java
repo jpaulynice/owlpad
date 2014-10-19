@@ -2,6 +2,8 @@ package com.owlpad.dao.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -34,6 +36,6 @@ public class ConfigurationDaoImpl implements ConfigurationDao {
 		if(configs != null && configs.size()>0){
 			return configs.get(0);
 		}
-		return null;
+		throw new EntityNotFoundException("Unable to get configuration.");
 	}
 }
