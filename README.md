@@ -59,23 +59,24 @@ Steps to work:
 <p>To start index some documents by specifying a 'directoryToIndex'</p>
 
 <b>index api:</b>
-<pre>
+```bash
 curl -X POST -H 'Content-Type: application/json' -d 
 '{
     "directoryToIndex":"/Users/julespaulynice/Documents/ws",
     "suffix":".java"
 }' 
 'http://localhost:9000/api/v1/index'
-</pre>
+```
 
 <b>search api:</b>
-<pre>curl -X POST -H 'Content-Type: application/json' -d 
+```bash
+curl -X POST -H 'Content-Type: application/json' -d 
 '{
     "keyWord":"lucene",
     "hitsPerPage":"10"
 }' 
 'http://localhost:9000/api/v1/search'
-</pre>
+```
 
 Questions/Comments:
 
