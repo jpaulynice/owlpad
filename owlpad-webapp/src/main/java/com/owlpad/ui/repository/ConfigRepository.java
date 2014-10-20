@@ -5,10 +5,17 @@ import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.owlpad.domain.configuration.ConfigurationResponse;
 import com.owlpad.service.configuration.ConfigurationService;
 
+/**
+ * 
+ * @author Jay Paulynice
+ *
+ */
+@Repository
 public class ConfigRepository {
 	private static final Logger logger = LoggerFactory.getLogger(ConfigRepository.class);
 	private final ConfigurationService configService;

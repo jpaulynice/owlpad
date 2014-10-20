@@ -18,10 +18,11 @@ import com.owlpad.service.model.Configuration;
  */
 @Repository
 public class ConfigurationDaoImpl implements ConfigurationDao {
-	@Autowired
 	private ConfigJPARepository configJPARepository;
 
-	public ConfigurationDaoImpl() {
+	@Autowired
+	public ConfigurationDaoImpl(ConfigJPARepository configJPARepository) {
+		this.configJPARepository = configJPARepository;;
 	}
 
 	/*

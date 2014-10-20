@@ -1,6 +1,6 @@
 package com.owlpad.service.impl.configuration;
 
-import javax.ws.rs.WebApplicationException;
+import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 
@@ -20,10 +20,11 @@ import com.owlpad.service.model.Configuration;
  */
 @Service
 public class ConfigurationServiceImpl implements ConfigurationService {
-	@Autowired
 	private ConfigurationDao configurationDao;
-
-	public ConfigurationServiceImpl() {
+	
+	@Autowired
+	public ConfigurationServiceImpl(ConfigurationDao configurationDao) {
+		this.configurationDao = configurationDao;
 	}
 
 	@Override
@@ -32,7 +33,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
 		Configuration c = configurationDao.getConfiguration();
 		
 		if(c == null){
-			throw new WebApplicationException("no configuration found.");
+			throw new EntityNotFoundException("no configuration found.");
 		}
 		res.setConfiguration(ConfigMapper.mapConfig(c));
 

@@ -7,6 +7,11 @@ import com.owlpad.domain.configuration.Configuration;
 import com.owlpad.domain.configuration.Layout;
 import com.owlpad.domain.configuration.Region;
 
+/**
+ * 
+ * @author Jay Paulynice
+ *
+ */
 public class ConfigMapper {
 	public static Configuration mapConfig(com.owlpad.service.model.Configuration config){
 		Configuration c = new Configuration();

@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
  * @author Jay Paulynice
  * 
  */
-@Repository("searchRepository")
+@Repository
 public class SearchRepository {
 	private final SearchService searchService;
 	private static final Logger logger = LoggerFactory.getLogger(SearchRepository.class);

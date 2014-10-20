@@ -8,6 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlElement;
 
+/**
+ * 
+ * @author Jay Paulynice
+ *
+ */
 @Entity(name="region")
 public class Region {
 	@Id

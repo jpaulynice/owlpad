@@ -12,7 +12,12 @@ import com.owlpad.domain.index.IndexResponse;
 import com.owlpad.domain.search.StatusType;
 import com.owlpad.service.index.IndexService;
 
-@Repository("indexRepository")
+/**
+ * 
+ * @author Jay Paulynice
+ *
+ */
+@Repository
 public class IndexRepository {
 	private final IndexService indexService;
 	private static final Logger logger = LoggerFactory.getLogger(IndexRepository.class);
