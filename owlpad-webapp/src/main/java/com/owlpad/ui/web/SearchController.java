@@ -59,7 +59,7 @@ public class SearchController {
 	}
 	
 	/**
-	 * Get a document by id
+	 * Get a document content by id
 	 * 
 	 * @param docId
 	 * @return

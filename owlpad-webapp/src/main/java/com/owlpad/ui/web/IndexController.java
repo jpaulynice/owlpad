@@ -15,6 +15,8 @@ import com.owlpad.domain.index.IndexResponse;
 import com.owlpad.ui.repository.IndexRepository;
 
 /**
+ * {@link IndexController} is used to get the index page
+ * as well as REST end point for indexing a directory.
  * 
  * @author Jay Paulynice
  *
@@ -42,7 +44,8 @@ public class IndexController {
 	}
 	
 	/**
-	 * Index end point
+	 * Index end point.  Takes a {@code IndexRequest} object and return the
+	 * number of files indexed as part of the response 
 	 * 
 	 * @param indexRequest
 	 * @return

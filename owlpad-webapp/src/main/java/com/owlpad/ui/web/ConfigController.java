@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.owlpad.domain.configuration.ConfigurationResponse;
 import com.owlpad.ui.repository.ConfigRepository;
 
+/**
+ * REST end point for loading application UI configuration.
+ * 
+ * @author julespaulynice
+ *
+ */
 @Controller
 @RequestMapping(value = "/config")
 public class ConfigController {
@@ -19,6 +25,11 @@ public class ConfigController {
 		this.configRepository = configRepository;
 	}
 	
+	/**
+	 * Get application configuration from api
+	 * 
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public ConfigurationResponse getConfig(){

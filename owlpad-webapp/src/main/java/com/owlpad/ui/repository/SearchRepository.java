@@ -66,7 +66,7 @@ public class SearchRepository {
 		} 
 		else if (serverResponse.getStatus() == 404) {
 			res.setErrorMessage("No documents found with id :"+docId);
-			res.setStatus(StatusType.SUCCESS);
+			res.setStatus(StatusType.FAIL);
 		}else if(serverResponse.getStatus() == 500){
 			res.setErrorMessage("Internal server error.");
 			res.setStatus(StatusType.FAIL);
