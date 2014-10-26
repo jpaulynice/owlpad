@@ -1,14 +1,7 @@
 package com.owlpad.service.impl.search;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 
@@ -17,208 +10,114 @@ import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.node.NodeClient;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.SearchHits;
-import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
-import org.elasticsearch.search.aggregations.Aggregations;
-import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
-import org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.slf4j.Logger;
 
 import com.google.common.base.Preconditions;
+import com.owlpad.domain.exception.NoDocFoundException;
 import com.owlpad.domain.search.DocResponse;
-import com.owlpad.domain.search.Document;
-import com.owlpad.domain.search.FacetResult;
-import com.owlpad.domain.search.Facets;
 import com.owlpad.domain.search.SearchRequest;
 import com.owlpad.domain.search.SearchResponse;
 import com.owlpad.elasticsearch.client.NodeClientFactoryBean;
+import com.owlpad.service.mapper.SearchResponseMapper;
 import com.owlpad.service.search.SearchService;
 
 /**
- * Elasticsearch searchService implementation
- * 
+ * Elasticsearch implementation of {@link SearchService}
+ *
  * @author Jay Paulynice
  *
  */
 @Service
 public class ESSearchServiceImpl implements SearchService {
-	private static final Logger logger = LoggerFactory
-			.getLogger(ESSearchServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(ESSearchServiceImpl.class);
 
-	private final NodeClientFactoryBean nodeClientFactoryBean;
-	private final NodeClient client;
+    private final NodeClientFactoryBean nodeClientFactoryBean;
+    private final NodeClient client;
 
-	@Autowired
-	public ESSearchServiceImpl(NodeClientFactoryBean nodeClientFactoryBean)
-			throws Exception {
-		this.nodeClientFactoryBean = nodeClientFactoryBean;
-		this.client = this.nodeClientFactoryBean.getObject();
-	}
+    @Autowired
+    public ESSearchServiceImpl(final NodeClientFactoryBean nodeClientFactoryBean) throws Exception {
+        this.nodeClientFactoryBean = nodeClientFactoryBean;
+        this.client = this.nodeClientFactoryBean.getObject();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.owlpad.service.search.SearchService#search(com.owlpad.domain.search
-	 * .SearchRequest)
-	 */
-	@Override
-	public Response search(SearchRequest searchRequest) {
-		Preconditions.checkNotNull(searchRequest,
-				"No search request specified.");
-		SearchResponse res;
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.owlpad.service.search.SearchService#search(com.owlpad.domain.search
+     * .SearchRequest)
+     */
+    @Override
+    public Response search(final SearchRequest searchRequest) {
+        Preconditions.checkNotNull(searchRequest, "No search request specified.");
+        SearchResponse res;
 
-		int from = searchRequest.getResultStart();
-		int size = searchRequest.getHitsPerPage();
-		boolean paging = searchRequest.isPaging();
-		String keyWord = searchRequest.getKeyWord();
+        final int from = searchRequest.getResultStart();
+        final int size = searchRequest.getHitsPerPage();
+        final boolean paging = searchRequest.isPaging();
+        final String keyWord = searchRequest.getKeyWord();
 
-		try {
-			org.elasticsearch.action.search.SearchResponse response = search(
-					paging, keyWord, from, size);
-			res = getInternalResponse(response, from);
-		} catch (Exception e) {
-			logger.error("Exception while executing search", e);
-			return Response.serverError().build();
-		}
+        try {
+            final org.elasticsearch.action.search.SearchResponse response = search(paging, keyWord, from, size);
+            res = SearchResponseMapper.getInternalResponse(response, from);
+        } catch (final Exception e) {
+            logger.error("Exception while executing search", e);
+            return Response.serverError().entity(e.getMessage()).build();
+        }
 
-		GenericEntity<SearchResponse> entity = new GenericEntity<SearchResponse>(
-				res) {
-		};
-		return Response.ok(entity).build();
-	}
+        final GenericEntity<SearchResponse> entity = new GenericEntity<SearchResponse>(res) {
+        };
+        return Response.ok(entity).build();
+    }
 
-	/**
-	 * Execute search given parameters. If we're paging, we don't need to add
-	 * aggregations. Looking to use scrolling instead.
-	 * 
-	 * @param paging
-	 * @param keyWord
-	 * @param from
-	 * @param size
-	 * @return
-	 */
-	private org.elasticsearch.action.search.SearchResponse search(
-			boolean isPaging, String keyWord, int from, int size)
-			throws Exception {
+    /**
+     * Execute search given parameters. If we're paging, we don't need to add
+     * aggregations. Looking to use scrolling instead.
+     *
+     * @param paging
+     * @param keyWord
+     * @param from
+     * @param size
+     * @return
+     */
+    private org.elasticsearch.action.search.SearchResponse search(final boolean isPaging, final String keyWord,
+            final int from, final int size) throws Exception {
 
-		SearchRequestBuilder builder = client.prepareSearch("owlpad-index")
-				.setTypes("docs").setSearchType(SearchType.QUERY_THEN_FETCH)
-				.setQuery(QueryBuilders.queryString(keyWord)).setFrom(from)
-				.setSize(size);
+        final SearchRequestBuilder builder = client.prepareSearch("owlpad-index").setTypes("docs")
+                .setSearchType(SearchType.QUERY_THEN_FETCH).setQuery(QueryBuilders.queryString(keyWord)).setFrom(from)
+                .setSize(size);
 
-		if (!isPaging) {
-			builder.addAggregation(
-					AggregationBuilders.terms("authors").field("author"))
-					.addAggregation(
-							AggregationBuilders.terms("docTypes").field(
-									"docType"));
-		}
+        if (!isPaging) {
+            builder.addAggregation(AggregationBuilders.terms("authors").field("author")).addAggregation(
+                    AggregationBuilders.terms("docTypes").field("docType"));
+        }
 
-		return builder.execute().actionGet();
-	}
+        return builder.execute().actionGet();
+    }
 
-	/**
-	 * Map from elastic search searchResponse to internal searchResponse
-	 * 
-	 * @param response
-	 * @param from
-	 * @return
-	 */
-	private SearchResponse getInternalResponse(
-			org.elasticsearch.action.search.SearchResponse response, int from) {
-		SearchHits hits = response.getHits();
-		SearchResponse res = new SearchResponse();
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.owlpad.service.search.SearchService#getDocById(java.lang.String)
+     */
+    @Override
+    public Response getDocContentById(final String docId) {
+        Preconditions.checkNotNull(docId, "Document id is required to get document.");
 
-		List<Document> docs = getDocumentsFromSearchHits(hits, from);
-		HashMap<String, Facets> facets = getFacetsFromAggregations(response
-				.getAggregations());
-		res.setDocuments(docs);
-		res.setFacets(facets);
-		res.setTotalDocuments(hits.getTotalHits());
-
-		return res;
-	}
-
-	/**
-	 * Map from searchHits to Documents
-	 * 
-	 * @param hits
-	 * @param from
-	 * @return
-	 */
-	private List<Document> getDocumentsFromSearchHits(SearchHits hits, int from) {
-		List<Document> docs = new ArrayList<Document>();
-
-		int id = from + 1;
-		for (SearchHit hit : hits) {
-			Document doc = new Document(hit, id);
-			docs.add(doc);
-			id++;
-		}
-
-		return docs;
-	}
-
-	/**
-	 * Create facets from aggregations
-	 * 
-	 * @param aggs
-	 * @return
-	 */
-	private HashMap<String, Facets> getFacetsFromAggregations(Aggregations aggs) {
-		HashMap<String, Facets> facets = new HashMap<String, Facets>();
-		for (Aggregation ag : aggs) {
-			StringTerms st = (StringTerms) ag;
-			Facets f = getFacetResults(st.getBuckets());
-			facets.put(ag.getName(), f);
-		}
-		return facets;
-	}
-
-	/**
-	 * Create facets result from aggregation term buckets.
-	 * 
-	 * @param b
-	 * @return
-	 */
-	private Facets getFacetResults(Collection<Bucket> buckets) {
-		Set<FacetResult> fres = new HashSet<>();
-		for (Bucket b : buckets) {
-			FacetResult f = new FacetResult();
-			f.setCount(b.getDocCount());
-			f.setEntry(b.getKey());
-			fres.add(f);
-		}
-		return new Facets(fres);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.owlpad.service.search.SearchService#getDocById(java.lang.String)
-	 */
-	@Override
-	public Response getDocContentById(String docId) {
-		Preconditions.checkNotNull(docId,
-				"Document id is required to get document.");
-
-		DocResponse res = new DocResponse();
-		GetResponse response = client.prepareGet("owlpad-index", "docs", docId)
-				.execute().actionGet();
-		Map<String, Object> sourceMap = response.getSourceAsMap();
-		if (sourceMap == null) {
-			throw new NotFoundException();
-		}
-		String source = (String) sourceMap.get("contents");
-		res.setSource(source);
-		GenericEntity<DocResponse> entity = new GenericEntity<DocResponse>(res) {
-		};
-		return Response.ok(entity).build();
-	}
+        final DocResponse res = new DocResponse();
+        final GetResponse response = client.prepareGet("owlpad-index", "docs", docId).execute().actionGet();
+        final Map<String, Object> sourceMap = response.getSourceAsMap();
+        if (sourceMap == null) {
+            throw new NoDocFoundException("No documents found with id: " + docId);
+        }
+        final String source = (String) sourceMap.get("contents");
+        res.setSource(source);
+        final GenericEntity<DocResponse> entity = new GenericEntity<DocResponse>(res) {
+        };
+        return Response.ok(entity).build();
+    }
 }

@@ -5,59 +5,62 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.owlpad.domain.search.StatusType;
 
 /**
- * 
+ *
  * @author Jay Paulynice
  *
  */
 @XmlRootElement(name = "indexResponse")
 public class IndexResponse {
-	private int documentsIndexed;
-	private StatusType status;
-	private String errorMessage;
-	
-	public IndexResponse(){
-		
-	}
+    private int documentsIndexed;
+    private StatusType status;
+    private String errorMessage;
 
-	/**
-	 * @return the documentsIndexed
-	 */
-	public int getDocumentsIndexed() {
-		return documentsIndexed;
-	}
+    public IndexResponse() {
 
-	/**
-	 * @param documentsIndexed the documentsIndexed to set
-	 */
-	public void setDocumentsIndexed(int documentsIndexed) {
-		this.documentsIndexed = documentsIndexed;
-	}
+    }
 
-	/**
-	 * @return the status
-	 */
-	public StatusType getStatus() {
-		return status;
-	}
+    /**
+     * @return the documentsIndexed
+     */
+    public int getDocumentsIndexed() {
+        return documentsIndexed;
+    }
 
-	/**
-	 * @param status the status to set
-	 */
-	public void setStatus(StatusType status) {
-		this.status = status;
-	}
+    /**
+     * @param documentsIndexed
+     *            the documentsIndexed to set
+     */
+    public void setDocumentsIndexed(final int documentsIndexed) {
+        this.documentsIndexed = documentsIndexed;
+    }
 
-	/**
-	 * @return the errorMessage
-	 */
-	public String getErrorMessage() {
-		return errorMessage;
-	}
+    /**
+     * @return the status
+     */
+    public StatusType getStatus() {
+        return status;
+    }
 
-	/**
-	 * @param errorMessage the errorMessage to set
-	 */
-	public void setErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
-	}
+    /**
+     * @param status
+     *            the status to set
+     */
+    public void setStatus(final StatusType status) {
+        this.status = status;
+    }
+
+    /**
+     * @return the errorMessage
+     */
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    /**
+     * @param errorMessage
+     *            the errorMessage to set
+     */
+    public void setErrorMessage(final String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
 }

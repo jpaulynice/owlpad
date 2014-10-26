@@ -1,4 +1,4 @@
-( {
+({
     "baseUrl" : "./",
     "mainConfigFile" : "main.js",
     "dir" : "dist",

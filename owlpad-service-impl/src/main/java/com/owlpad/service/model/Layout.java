@@ -16,63 +16,65 @@ import javax.persistence.OneToMany;
 import com.owlpad.domain.configuration.LayoutType;
 
 /**
- * 
+ *
  * @author Jay Paulynice
  *
  */
 @Entity(name = "layout")
 public class Layout {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	
-	@Enumerated(EnumType.STRING)
-	@Column(name="layout_type")
-	private LayoutType layoutType;
-	
-	@OneToMany(fetch = FetchType.EAGER,mappedBy = "layout", cascade = CascadeType.ALL)
-	private List<Region> regions;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
+    @Enumerated(EnumType.STRING)
+    @Column(name = "layout_type")
+    private LayoutType layoutType;
 
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "layout", cascade = CascadeType.ALL)
+    private List<Region> regions;
 
-	/**
-	 * @return the regions
-	 */
-	public List<Region> getRegions() {
-		return regions;
-	}
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
 
-	/**
-	 * @param regions the regions to set
-	 */
-	public void setRegions(List<Region> regions) {
-		this.regions = regions;
-	}
+    /**
+     * @param id
+     *            the id to set
+     */
+    public void setId(final int id) {
+        this.id = id;
+    }
 
-	/**
-	 * @return the layoutType
-	 */
-	public LayoutType getLayoutType() {
-		return layoutType;
-	}
+    /**
+     * @return the regions
+     */
+    public List<Region> getRegions() {
+        return regions;
+    }
 
-	/**
-	 * @param layoutType the layoutType to set
-	 */
-	public void setLayoutType(LayoutType layoutType) {
-		this.layoutType = layoutType;
-	}
+    /**
+     * @param regions
+     *            the regions to set
+     */
+    public void setRegions(final List<Region> regions) {
+        this.regions = regions;
+    }
+
+    /**
+     * @return the layoutType
+     */
+    public LayoutType getLayoutType() {
+        return layoutType;
+    }
+
+    /**
+     * @param layoutType
+     *            the layoutType to set
+     */
+    public void setLayoutType(final LayoutType layoutType) {
+        this.layoutType = layoutType;
+    }
 }

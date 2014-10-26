@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:cxf="http://cxf.apache.org/core"
-    xmlns:jaxrs="http://cxf.apache.org/jaxrs"
-    xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
-  	xmlns:context="http://www.springframework.org/schema/context"  
-    xmlns:oxm="http://www.springframework.org/schema/oxm"
-    xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://cxf.apache.org/core"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:oxm="http://www.springframework.org/schema/oxm" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
     	http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
         http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
         http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
@@ -18,83 +14,91 @@
     	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
-		
-		<import resource="classpath:META-INF/cxf/cxf.xml" />
-		<import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
-		<context:component-scan base-package="com.owlpad"/>
-	    <context:property-placeholder location="classpath:META-INF/db/db.properties" system-properties-mode="FALLBACK"/>
-	    <tx:annotation-driven />
 
-		<!--dataSource bean-->
-	    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-			<property name="driverClassName" value="${driverClassName}" />
-			<property name="url" value="${url}"/>
-			<property name="username" value="${username}" />
-			<property name="password" value="${password}" />
-		</bean>
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+	<context:component-scan base-package="com.owlpad" />
+	<context:property-placeholder location="classpath:META-INF/db/db.properties"
+		system-properties-mode="FALLBACK" />
+	<tx:annotation-driven />
 
-		<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-			<property name="dataSource" ref="dataSource" />
-			<property name="entityManagerFactory" ref="entityManagerFactory" />
-		</bean>
-		
-		<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" primary="true">
-			<property name="dataSource" ref="dataSource" />
-			<property name="packagesToScan" value="com.owlpad.service.model">
-			</property>
-			<property name="jpaVendorAdapter">
-				<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-					<property name="database" value="MYSQL" />
-					<property name="generateDdl" value="false" />
-					<property name="showSql" value="true" />
-					<property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
-				</bean>
-			</property>
-		</bean>
-		
-		<jpa:repositories base-package="com.owlpad.dao.repository" entity-manager-factory-ref="entityManagerFactory"/>
+	<!--dataSource bean -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${driverClassName}" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+	</bean>
 
-		<cxf:bus>
-			<cxf:features>
-				<cxf:logging/>
-			</cxf:features>
-		</cxf:bus>
-				
-		<!--jax-rs server-->
-		<jaxrs:server id="restContainer" address="/">
-			<jaxrs:serviceBeans>
-				<ref bean="index"/>
-				<ref bean="search"/>
-				<ref bean="config"/>
-			</jaxrs:serviceBeans>
-			<jaxrs:extensionMappings>
-			    <entry key="json" value="application/json"/>
-			    <entry key="xml" value="application/xml"/>
-			  </jaxrs:extensionMappings>
-			  <jaxrs:providers>
-				<bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>			  
-			  </jaxrs:providers>
-		</jaxrs:server>
-		
-		<!--Elastic search client factory-->
-		<bean id="nodeClientFactoryBean" class="com.owlpad.elasticsearch.client.NodeClientFactoryBean">
-			<property name="clusterName" value="elasticsearch" />
-			<property name="local" value="true" />
-			<property name="enableHttp" value="true" />
-		</bean>
-		
-		<!--search api-->
-		<bean id="search" class="com.owlpad.service.impl.search.ESSearchServiceImpl">
-			<constructor-arg>
-				<ref bean="nodeClientFactoryBean"/>
-			</constructor-arg>
-		</bean>
-		
-		<!--index api-->
-		<bean id="index" class="com.owlpad.service.impl.index.ESIndexServiceImpl">
-			<constructor-arg>
-				<ref bean="nodeClientFactoryBean"/>
-			</constructor-arg>
-		</bean>
-		<bean id="config" class="com.owlpad.service.impl.configuration.ConfigurationServiceImpl"/>
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		primary="true">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="com.owlpad.service.model">
+		</property>
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="database" value="MYSQL" />
+				<property name="generateDdl" value="false" />
+				<property name="showSql" value="true" />
+				<property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			</bean>
+		</property>
+	</bean>
+
+	<jpa:repositories base-package="com.owlpad.dao.repository"
+		entity-manager-factory-ref="entityManagerFactory" />
+
+	<cxf:bus>
+		<cxf:features>
+			<cxf:logging />
+		</cxf:features>
+	</cxf:bus>
+
+	<!--jax-rs server -->
+	<jaxrs:server id="restContainer" address="/">
+		<jaxrs:serviceBeans>
+			<ref bean="index" />
+			<ref bean="search" />
+			<ref bean="config" />
+		</jaxrs:serviceBeans>
+		<jaxrs:extensionMappings>
+			<entry key="json" value="application/json" />
+			<entry key="xml" value="application/xml" />
+		</jaxrs:extensionMappings>
+		<jaxrs:providers>
+			<bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+			<bean class="com.owlpad.domain.exception.mapper.NoResultFoundMapper" />
+			<bean class="com.owlpad.domain.exception.mapper.NoConfigFoundMapper" />
+		</jaxrs:providers>
+	</jaxrs:server>
+
+	<!--Elastic search client factory -->
+	<bean id="nodeClientFactoryBean" class="com.owlpad.elasticsearch.client.NodeClientFactoryBean">
+		<property name="clusterName" value="elasticsearch" />
+		<property name="local" value="true" />
+		<property name="enableHttp" value="true" />
+	</bean>
+
+	<!--search api -->
+	<bean id="search" class="com.owlpad.service.impl.search.ESSearchServiceImpl">
+		<constructor-arg>
+			<ref bean="nodeClientFactoryBean" />
+		</constructor-arg>
+	</bean>
+
+	<!--index api -->
+	<bean id="index" class="com.owlpad.service.impl.index.ESIndexServiceImpl">
+		<constructor-arg>
+			<ref bean="nodeClientFactoryBean" />
+		</constructor-arg>
+	</bean>
+	<bean id="config"
+		class="com.owlpad.service.impl.configuration.ConfigurationServiceImpl" />
 </beans>

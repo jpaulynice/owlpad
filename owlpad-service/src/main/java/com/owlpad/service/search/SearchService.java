@@ -13,32 +13,32 @@ import com.owlpad.domain.search.SearchRequest;
 
 /**
  * Simple interface for search
- * 
+ *
  * @author Jay Paulynice
- * 
+ *
  */
 @Path("search")
 @Consumes({ MediaType.APPLICATION_JSON })
 @Produces({ MediaType.APPLICATION_JSON })
 public interface SearchService {
 
-	/**
-	 * Method to search for documents.
-	 * 
-	 * @param searchRequest
-	 * @return
-	 * @throws Exception 
-	 */
-	@POST
-	public Response search(final SearchRequest searchRequest);
-	
-	/**
-	 * Method to get a document content by id
-	 * 
-	 * @param docId
-	 * @return
-	 */
-	@GET
-	@Path("{docId}")
-	public Response getDocContentById(final @PathParam("docId") String docId);
+    /**
+     * Method to search for documents.
+     *
+     * @param searchRequest
+     * @return
+     * @throws Exception
+     */
+    @POST
+    public Response search(final SearchRequest searchRequest);
+
+    /**
+     * Method to get a document content by id
+     *
+     * @param docId
+     * @return
+     */
+    @GET
+    @Path("{docId}")
+    public Response getDocContentById(final @PathParam("docId") String docId);
 }

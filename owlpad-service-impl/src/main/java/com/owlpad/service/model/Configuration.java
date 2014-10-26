@@ -10,62 +10,64 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 /**
- * 
+ *
  * @author Jay Paulynice
  *
  */
 @Entity(name = "configuration")
 public class Configuration {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	
-	@Column(name="name")
-	private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-	@OneToOne(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
-	private Layout layout;
+    @Column(name = "name")
+    private String name;
 
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Layout layout;
 
-	/**
-	 * @return the layout
-	 */
-	public Layout getLayout() {
-		return layout;
-	}
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
 
-	/**
-	 * @param layout
-	 *            the layout to set
-	 */
-	public void setLayout(Layout layout) {
-		this.layout = layout;
-	}
+    /**
+     * @return the layout
+     */
+    public Layout getLayout() {
+        return layout;
+    }
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * @param layout
+     *            the layout to set
+     */
+    public void setLayout(final Layout layout) {
+        this.layout = layout;
+    }
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * @param id
+     *            the id to set
+     */
+    public void setId(final int id) {
+        this.id = id;
+    }
+
+    /**
+     * @param name
+     *            the name to set
+     */
+    public void setName(final String name) {
+        this.name = name;
+    }
 }

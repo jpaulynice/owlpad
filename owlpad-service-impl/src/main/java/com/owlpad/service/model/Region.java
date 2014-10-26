@@ -9,80 +9,84 @@ import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
- * 
+ *
  * @author Jay Paulynice
  *
  */
-@Entity(name="region")
+@Entity(name = "region")
 public class Region {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	
-	@Column(name="name")
-	private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-	@Column(name="selector")
-	@XmlElement(name = "selector")
-	private String selector;
-	
-	/**
-	 * @return the selector
-	 */
-	public String getSelector() {
-		return selector;
-	}
+    @Column(name = "name")
+    private String name;
 
-	/**
-	 * @param selector the selector to set
-	 */
-	public void setSelector(String selector) {
-		this.selector = selector;
-	}
+    @Column(name = "selector")
+    @XmlElement(name = "selector")
+    private String selector;
 
-	@ManyToOne(optional = false)
-	private Layout layout;
+    /**
+     * @return the selector
+     */
+    public String getSelector() {
+        return selector;
+    }
 
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
+    /**
+     * @param selector
+     *            the selector to set
+     */
+    public void setSelector(final String selector) {
+        this.selector = selector;
+    }
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
+    @ManyToOne(optional = false)
+    private Layout layout;
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
 
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * @param id
+     *            the id to set
+     */
+    public void setId(final int id) {
+        this.id = id;
+    }
 
-	/**
-	 * @return the layout
-	 */
-	public Layout getLayout() {
-		return layout;
-	}
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * @param layout the layout to set
-	 */
-	public void setLayout(Layout layout) {
-		this.layout = layout;
-	}
+    /**
+     * @param name
+     *            the name to set
+     */
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the layout
+     */
+    public Layout getLayout() {
+        return layout;
+    }
+
+    /**
+     * @param layout
+     *            the layout to set
+     */
+    public void setLayout(final Layout layout) {
+        this.layout = layout;
+    }
 
 }

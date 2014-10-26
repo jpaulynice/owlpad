@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 public interface ConfigurationService {
 
 	/**
+	 * Get configuration
 	 * 
 	 * @return
 	 */

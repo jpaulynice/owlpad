@@ -11,28 +11,28 @@ import com.owlpad.ui.repository.ConfigRepository;
 
 /**
  * REST end point for loading application UI configuration.
- * 
+ *
  * @author julespaulynice
  *
  */
 @Controller
 @RequestMapping(value = "/config")
 public class ConfigController {
-	private final ConfigRepository configRepository;
-	
-	@Autowired
-	public ConfigController(ConfigRepository configRepository){
-		this.configRepository = configRepository;
-	}
-	
-	/**
-	 * Get application configuration from api
-	 * 
-	 * @return
-	 */
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
-	public ConfigurationResponse getConfig(){
-		return configRepository.getConfig();
-	}
+    private final ConfigRepository configRepository;
+
+    @Autowired
+    public ConfigController(final ConfigRepository configRepository) {
+        this.configRepository = configRepository;
+    }
+
+    /**
+     * Get application configuration from api
+     *
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseBody
+    public ConfigurationResponse getConfig() {
+        return configRepository.getConfig();
+    }
 }
