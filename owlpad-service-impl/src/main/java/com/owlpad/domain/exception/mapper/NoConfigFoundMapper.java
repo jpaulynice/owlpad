@@ -13,5 +13,4 @@ public class NoConfigFoundMapper implements ExceptionMapper<NoConfigFoundExcepti
     public Response toResponse(final NoConfigFoundException e) {
         return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
     }
-
 }

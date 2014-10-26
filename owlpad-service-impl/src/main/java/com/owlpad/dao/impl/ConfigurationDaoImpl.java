@@ -10,6 +10,8 @@ import com.owlpad.dao.repository.ConfigJPARepository;
 import com.owlpad.service.model.Configuration;
 
 /**
+ * Default implementation for {@link ConfigurationDao} using Spring/JPA data
+ * repository.
  *
  * @author Jay Paulynice
  *

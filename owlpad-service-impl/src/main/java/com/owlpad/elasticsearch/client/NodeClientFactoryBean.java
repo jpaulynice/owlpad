@@ -76,7 +76,7 @@ public class NodeClientFactoryBean implements FactoryBean<NodeClient>, Initializ
     @Override
     public void destroy() throws Exception {
         try {
-            logger.info("Closing elasticSearch  client");
+            logger.info("Closing elasticSearch client");
             if (nodeClient != null) {
                 nodeClient.close();
             }

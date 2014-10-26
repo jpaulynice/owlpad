@@ -46,7 +46,7 @@ public class ESSearchServiceImpl implements SearchService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * com.owlpad.service.search.SearchService#search(com.owlpad.domain.search
      * .SearchRequest)
@@ -76,7 +76,7 @@ public class ESSearchServiceImpl implements SearchService {
 
     /**
      * Execute search given parameters. If we're paging, we don't need to add
-     * aggregations. Looking to use scrolling instead.
+     * aggregations.
      *
      * @param paging
      * @param keyWord
@@ -101,7 +101,7 @@ public class ESSearchServiceImpl implements SearchService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.owlpad.service.search.SearchService#getDocById(java.lang.String)
      */
     @Override

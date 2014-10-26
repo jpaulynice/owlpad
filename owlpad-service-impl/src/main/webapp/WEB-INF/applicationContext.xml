@@ -40,8 +40,7 @@
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
 		primary="true">
 		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan" value="com.owlpad.service.model">
-		</property>
+		<property name="packagesToScan" value="com.owlpad.service.model" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="database" value="MYSQL" />
@@ -99,6 +98,8 @@
 			<ref bean="nodeClientFactoryBean" />
 		</constructor-arg>
 	</bean>
+
+	<!--index api -->
 	<bean id="config"
 		class="com.owlpad.service.impl.configuration.ConfigurationServiceImpl" />
 </beans>
