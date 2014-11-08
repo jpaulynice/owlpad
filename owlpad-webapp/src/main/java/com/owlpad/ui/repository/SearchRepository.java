@@ -31,7 +31,7 @@ public class SearchRepository {
 
     /**
      * call to the service to search
-     * 
+     *
      * @param searchRequest
      * @return
      */
@@ -51,12 +51,12 @@ public class SearchRepository {
 
     /**
      * Get a document content by docId
-     * 
+     *
      * @param docId
      * @return
      */
     public DocResponse getDocContentById(final String docId) {
-        final Response serverResponse = searchService.getDocContentById(docId);
+        final Response serverResponse = searchService.search(docId);
         DocResponse res = new DocResponse();
         if (serverResponse.getStatus() == 200) {
             res = serverResponse.readEntity(DocResponse.class);

@@ -26,7 +26,7 @@ import com.owlpad.service.mapper.SearchResponseMapper;
 import com.owlpad.service.search.SearchService;
 
 /**
- * Elasticsearch implementation of {@link SearchService}
+ * Elastic Search implementation of {@link SearchService}
  *
  * @author Jay Paulynice
  *
@@ -105,7 +105,7 @@ public class ESSearchServiceImpl implements SearchService {
      * @see com.owlpad.service.search.SearchService#getDocById(java.lang.String)
      */
     @Override
-    public Response getDocContentById(final String docId) {
+    public Response search(final String docId) {
         Preconditions.checkNotNull(docId, "Document id is required to get document.");
 
         final DocResponse res = new DocResponse();

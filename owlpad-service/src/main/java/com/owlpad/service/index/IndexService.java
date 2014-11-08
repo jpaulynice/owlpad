@@ -10,7 +10,8 @@ import javax.ws.rs.core.Response;
 import com.owlpad.domain.index.IndexRequest;
 
 /**
- * 
+ * {@link IndexService} is a simple interface for indexing a directory.
+ *
  * @author Jay Paulynice
  *
  */
@@ -19,14 +20,14 @@ import com.owlpad.domain.index.IndexRequest;
 @Produces({ MediaType.APPLICATION_JSON })
 public interface IndexService {
 
-	/**
-	 * Method to index a directory by passing the directory name and file suffix
-	 * if file suffix is null then all files are indexed otherwise index those
-	 * files that end with the suffix.
-	 * 
-	 * @param indexRequest
-	 * @return
-	 */
-	@POST
-	public Response index(final IndexRequest indexRequest);
+    /**
+     * Method to index a directory by passing the directory name and file suffix
+     * if file suffix is null then all files are indexed otherwise index those
+     * files that end with the suffix.
+     * 
+     * @param indexRequest
+     * @return
+     */
+    @POST
+    public Response index(final IndexRequest indexRequest);
 }

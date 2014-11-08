@@ -8,7 +8,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- * 
+ * {@link ConfigurationService} is a simple interface to load application
+ * configuration and layout. Currently, there is one method to get default
+ * configuration.
+ *
  * @author Jay Paulynice
  *
  */
@@ -17,11 +20,11 @@ import javax.ws.rs.core.Response;
 @Produces({ MediaType.APPLICATION_JSON })
 public interface ConfigurationService {
 
-	/**
-	 * Get configuration
-	 * 
-	 * @return
-	 */
-	@GET
-	public Response getConfiguration();
+    /**
+     * Get default configuration
+     *
+     * @return
+     */
+    @GET
+    public Response getConfiguration();
 }

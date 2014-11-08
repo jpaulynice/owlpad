@@ -38,7 +38,7 @@ public class SearchServiceImpl implements SearchService {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see
      * com.owlpad.search.service.SearchService#search(com.owlpad.search.domain
      * .SearchRequest)
@@ -106,7 +106,7 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public Response getDocContentById(final String docId) {
+    public Response search(final String docId) {
         // TODO: add implementation
         return null;
     }

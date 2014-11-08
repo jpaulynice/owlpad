@@ -12,7 +12,9 @@ import javax.ws.rs.core.Response;
 import com.owlpad.domain.search.SearchRequest;
 
 /**
- * Simple interface for search
+ * {@link SearchService} is a simple interface for search. This consists of 2
+ * methods to search: 1. Find all documents matching a criteria 2. Find a
+ * document by id
  *
  * @author Jay Paulynice
  *
@@ -40,5 +42,5 @@ public interface SearchService {
      */
     @GET
     @Path("{docId}")
-    public Response getDocContentById(final @PathParam("docId") String docId);
+    public Response search(final @PathParam("docId") String docId);
 }
