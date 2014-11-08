@@ -35,7 +35,7 @@ public interface SearchService {
     public Response search(final SearchRequest searchRequest);
 
     /**
-     * Method to get a document content by id
+     * Method to get a document by id
      *
      * @param docId
      * @return

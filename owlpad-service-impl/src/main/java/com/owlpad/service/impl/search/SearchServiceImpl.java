@@ -27,7 +27,7 @@ import com.owlpad.domain.search.SearchResponse;
 import com.owlpad.service.search.SearchService;
 
 /**
- * Apache Lucene searchService implementation.
+ * Apache Lucene {@link SearchService} implementation.
  *
  * @author Jay Paulynice
  *
@@ -38,7 +38,7 @@ public class SearchServiceImpl implements SearchService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * com.owlpad.search.service.SearchService#search(com.owlpad.search.domain
      * .SearchRequest)

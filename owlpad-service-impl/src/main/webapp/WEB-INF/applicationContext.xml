@@ -99,7 +99,7 @@
 		</constructor-arg>
 	</bean>
 
-	<!--index api -->
+	<!--configuration api -->
 	<bean id="config"
 		class="com.owlpad.service.impl.configuration.ConfigurationServiceImpl" />
 </beans>
