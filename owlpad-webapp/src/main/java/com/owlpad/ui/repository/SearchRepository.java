@@ -55,7 +55,7 @@ public class SearchRepository {
      * @param docId
      * @return
      */
-    public DocResponse getDocContentById(final String docId) {
+    public DocResponse search(final String docId) {
         final Response serverResponse = searchService.search(docId);
         DocResponse res = new DocResponse();
         if (serverResponse.getStatus() == 200) {

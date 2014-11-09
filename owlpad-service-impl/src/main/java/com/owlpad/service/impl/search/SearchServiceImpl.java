@@ -24,6 +24,7 @@ import com.google.common.base.Preconditions;
 import com.owlpad.domain.search.Document;
 import com.owlpad.domain.search.SearchRequest;
 import com.owlpad.domain.search.SearchResponse;
+import com.owlpad.domain.search.mapper.DocumentMapper;
 import com.owlpad.service.search.SearchService;
 
 /**
@@ -97,7 +98,7 @@ public class SearchServiceImpl implements SearchService {
             final int docId = hits[i].doc;
             final int docPosition = i + 1;
             final org.apache.lucene.document.Document doc = searcher.doc(docId);
-            final Document docResult = new Document(doc, docPosition);
+            final Document docResult = DocumentMapper.map(doc, docPosition);
 
             results.add(docResult);
         }

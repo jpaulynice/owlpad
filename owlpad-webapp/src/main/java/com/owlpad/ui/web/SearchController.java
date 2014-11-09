@@ -66,7 +66,7 @@ public class SearchController {
      */
     @RequestMapping(value = "docs/{docId}", method = RequestMethod.GET)
     @ResponseBody
-    public DocResponse getDocById(@Nonnull @PathVariable("docId") final String docId) {
-        return searchRepository.getDocContentById(docId);
+    public DocResponse search(@Nonnull @PathVariable("docId") final String docId) {
+        return searchRepository.search(docId);
     }
 }

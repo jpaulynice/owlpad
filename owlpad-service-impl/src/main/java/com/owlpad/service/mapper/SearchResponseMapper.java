@@ -18,6 +18,7 @@ import com.owlpad.domain.search.Document;
 import com.owlpad.domain.search.FacetResult;
 import com.owlpad.domain.search.Facets;
 import com.owlpad.domain.search.SearchResponse;
+import com.owlpad.domain.search.mapper.DocumentMapper;
 
 public class SearchResponseMapper {
     /**
@@ -53,7 +54,7 @@ public class SearchResponseMapper {
 
         int id = from + 1;
         for (final SearchHit hit : hits) {
-            final Document doc = new Document(hit, id);
+            final Document doc = DocumentMapper.map(hit, id);
             docs.add(doc);
             id++;
         }

@@ -13,31 +13,38 @@ import com.owlpad.domain.search.StatusType;
 import com.owlpad.service.index.IndexService;
 
 /**
- * 
+ * {@link IndexRepository} is simple intermediate class to call the API
+ *
  * @author Jay Paulynice
  *
  */
 @Repository
 public class IndexRepository {
-	private final IndexService indexService;
-	private static final Logger logger = LoggerFactory.getLogger(IndexRepository.class);
-	
-	@Autowired
-	public IndexRepository(IndexService indexService){
-		this.indexService=indexService;
-	}
-	
-	public IndexResponse index(IndexRequest indexRequest) {
-		Response serverResponse =  indexService.index(indexRequest);
-		IndexResponse res = new IndexResponse();
-		if (serverResponse!=null && serverResponse.getStatus() == 200) {
-			res = serverResponse.readEntity(IndexResponse.class);
-			res.setStatus(StatusType.SUCCESS);
-		} else {
-			res.setErrorMessage("Service error.");
-			res.setStatus(StatusType.FAIL);
-			logger.info("Exception while calling index method.");
-		}
-		return res;
-	}
+    private final IndexService indexService;
+    private static final Logger logger = LoggerFactory.getLogger(IndexRepository.class);
+
+    @Autowired
+    public IndexRepository(final IndexService indexService) {
+        this.indexService = indexService;
+    }
+
+    /**
+     * Call the API to index and process the response
+     *
+     * @param indexRequest
+     * @return
+     */
+    public IndexResponse index(final IndexRequest indexRequest) {
+        final Response serverResponse = indexService.index(indexRequest);
+        IndexResponse res = new IndexResponse();
+        if (serverResponse != null && serverResponse.getStatus() == 200) {
+            res = serverResponse.readEntity(IndexResponse.class);
+            res.setStatus(StatusType.SUCCESS);
+        } else {
+            res.setErrorMessage("Service error.");
+            res.setStatus(StatusType.FAIL);
+            logger.info("Exception while calling index method.");
+        }
+        return res;
+    }
 }
