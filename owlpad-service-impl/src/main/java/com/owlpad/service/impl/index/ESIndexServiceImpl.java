@@ -37,22 +37,37 @@ import com.owlpad.elasticsearch.client.NodeClientFactoryBean;
 import com.owlpad.service.index.IndexService;
 
 /**
- * Elasticsearch indexService implementation.
+ * Elasticsearch {@link IndexService} implementation.
  *
  * @author Jay Paulynice
  *
  */
 @Service
 public class ESIndexServiceImpl implements IndexService {
+    private final Logger LOG = LoggerFactory.getLogger(getClass());
+
+    /** Elastic search node client factory bean */
     private final NodeClientFactoryBean nodeClientFactoryBean;
+
+    /** Elastic search node client */
     private final NodeClient client;
-    private static final Logger logger = LoggerFactory
-            .getLogger(ESIndexServiceImpl.class);
+
+    /** date formatter */
     private static Format DATE_FORMATTER = new SimpleDateFormat(
             "MM/dd/yyyy HH:mm:ss");
-    private static List<String> excludes = Arrays.asList(".class", ".jar",
+
+    /** file types to exclude */
+    private static List<String> excludeTypes = Arrays.asList(".class", ".jar",
             ".war", ".classpath", ".project", ".ear", ".settings", ".prefs");
 
+    /**
+     * Default constructor
+     *
+     * @param nodeClientFactoryBean
+     *            factory for ES node client
+     * @throws Exception
+     *             if unable to create object
+     */
     @Autowired
     public ESIndexServiceImpl(final NodeClientFactoryBean nodeClientFactoryBean)
             throws Exception {
@@ -62,7 +77,7 @@ public class ESIndexServiceImpl implements IndexService {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see com.owlpad.service.index.IndexService#index(com.owlpad.domain.index.
      * IndexRequest)
      */
@@ -79,7 +94,7 @@ public class ESIndexServiceImpl implements IndexService {
         try {
             response.setDocumentsIndexed(indexDir(dataDir, suffix));
         } catch (final Exception e) {
-            logger.info("Exception while calling index.  Exception", e);
+            LOG.info("Exception while calling index.  Exception", e);
             return Response.serverError().build();
         }
 
@@ -104,7 +119,7 @@ public class ESIndexServiceImpl implements IndexService {
                     .prepareCreate("owlpad-index");
             cirb.execute().actionGet();
         } catch (final IndexAlreadyExistsException e) {
-            logger.info("Could not create index because it exists already.", e);
+            LOG.info("Could not create index because it exists already.", e);
         }
 
         final BulkRequestBuilder br = client.prepareBulk();
@@ -132,7 +147,7 @@ public class ESIndexServiceImpl implements IndexService {
      */
     private void getFilesFromDirectory(final File dataDir,
             final List<File> filesToIndex, final String suffix)
-                    throws IOException {
+            throws IOException {
         final File[] files = dataDir.listFiles();
         for (final File f : files) {
             if (f.isDirectory()) {
@@ -148,13 +163,13 @@ public class ESIndexServiceImpl implements IndexService {
     /**
      * Build {@link BulkRequestBuilder} object
      *
-     * @param bulkRequest
-     * @param filesToIndex
-     * @throws Exception
+     * @param bulkRequest bulk request object
+     * @param filesToIndex list of files
+     * @throws IOException
      */
     private void addDocumentsToBulkRequest(
             final BulkRequestBuilder bulkRequest, final List<File> filesToIndex)
-                    throws Exception {
+            throws IOException {
         for (final File f : filesToIndex) {
             final IndexRequestBuilder rb = createIndexRequestBuilderFromFile(f);
             if (rb != null) {
@@ -167,27 +182,28 @@ public class ESIndexServiceImpl implements IndexService {
      * Create an indexRequestBuilder object give the client, file, id,and
      * content
      *
-     * @param f
-     * @return
-     * @throws Exception
+     * @param file
+     *            the file
+     * @return {@link IndexRequestBuilder} object
+     * @throws IOException
      */
-    private IndexRequestBuilder createIndexRequestBuilderFromFile(final File f)
-            throws Exception {
-        final String filePath = f.getCanonicalPath();
+    private IndexRequestBuilder createIndexRequestBuilderFromFile(
+            final File file) throws IOException {
+        final String filePath = file.getCanonicalPath();
         final int indexOfDot = filePath.lastIndexOf(".");
         final String docType = filePath.substring(indexOfDot);
 
-        final boolean unreadable = f.isHidden() || f.isDirectory()
-                || !f.canRead() || !f.exists();
-        if (!unreadable && !excludes.contains(docType)) {
-            final String content = FileUtils.readFileToString(f);
+        final boolean unreadable = file.isHidden() || file.isDirectory()
+                || !file.canRead() || !file.exists();
+        if (!unreadable && !excludeTypes.contains(docType)) {
+            final String content = FileUtils.readFileToString(file);
             final Path path = Paths.get(filePath);
             final String author = Files.getOwner(path).getName();
             final BasicFileAttributes attr = Files.readAttributes(path,
                     BasicFileAttributes.class);
 
             final XContentBuilder source = getSource(content, filePath,
-                    f.getName(), author, attr, docType);
+                    file.getName(), author, attr, docType);
 
             return client.prepareIndex("owlpad-index", "docs")
                     .setSource(source);
@@ -199,18 +215,24 @@ public class ESIndexServiceImpl implements IndexService {
      * Get json source from file attributes to index
      *
      * @param content
+     *            the file content
      * @param filePath
+     *            the file path
      * @param fileName
+     *            file name
      * @param author
+     *            the ownser
      * @param attr
+     *            basic file attributes
      * @param docType
-     * @return
+     *            file type
+     * @return {@link XContentBuilder} object
      * @throws IOException
      */
     private XContentBuilder getSource(final String content,
             final String filePath, final String fileName, final String author,
             final BasicFileAttributes attr, final String docType)
-            throws IOException {
+                    throws IOException {
         final String created = DATE_FORMATTER.format(attr.creationTime()
                 .toMillis());
         final String modified = DATE_FORMATTER.format(attr.lastModifiedTime()
