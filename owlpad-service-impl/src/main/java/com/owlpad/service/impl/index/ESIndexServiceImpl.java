@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,12 +46,16 @@ import com.owlpad.service.index.IndexService;
 public class ESIndexServiceImpl implements IndexService {
     private final NodeClientFactoryBean nodeClientFactoryBean;
     private final NodeClient client;
-    private static final Logger logger = LoggerFactory.getLogger(ESIndexServiceImpl.class);
-    private static List<String> excludes = Arrays.asList(".class", ".jar", ".war", ".classpath", ".project", ".ear",
-            ".settings", ".prefs");
+    private static final Logger logger = LoggerFactory
+            .getLogger(ESIndexServiceImpl.class);
+    private static Format DATE_FORMATTER = new SimpleDateFormat(
+            "MM/dd/yyyy HH:mm:ss");
+    private static List<String> excludes = Arrays.asList(".class", ".jar",
+            ".war", ".classpath", ".project", ".ear", ".settings", ".prefs");
 
     @Autowired
-    public ESIndexServiceImpl(final NodeClientFactoryBean nodeClientFactoryBean) throws Exception {
+    public ESIndexServiceImpl(final NodeClientFactoryBean nodeClientFactoryBean)
+            throws Exception {
         this.nodeClientFactoryBean = nodeClientFactoryBean;
         this.client = this.nodeClientFactoryBean.getObject();
     }
@@ -63,7 +68,8 @@ public class ESIndexServiceImpl implements IndexService {
      */
     @Override
     public Response index(final IndexRequest indexRequest) {
-        Preconditions.checkNotNull(indexRequest.getDirectoryToIndex(), "No directory specified for indexing...");
+        Preconditions.checkNotNull(indexRequest.getDirectoryToIndex(),
+                "No directory specified for indexing...");
 
         final IndexResponse response = new IndexResponse();
         final String suffix = indexRequest.getSuffix();
@@ -73,11 +79,12 @@ public class ESIndexServiceImpl implements IndexService {
         try {
             response.setDocumentsIndexed(indexDir(dataDir, suffix));
         } catch (final Exception e) {
-            logger.info("Exception while calling index.  Exception" + e);
+            logger.info("Exception while calling index.  Exception", e);
             return Response.serverError().build();
         }
 
-        final GenericEntity<IndexResponse> entity = new GenericEntity<IndexResponse>(response) {
+        final GenericEntity<IndexResponse> entity = new GenericEntity<IndexResponse>(
+                response) {
         };
         return Response.ok(entity).build();
     }
@@ -90,9 +97,11 @@ public class ESIndexServiceImpl implements IndexService {
      * @return
      * @throws Exception
      */
-    private int indexDir(final File dataDir, final String suffix) throws Exception {
+    private int indexDir(final File dataDir, final String suffix)
+            throws Exception {
         try {
-            final CreateIndexRequestBuilder cirb = client.admin().indices().prepareCreate("owlpad-index");
+            final CreateIndexRequestBuilder cirb = client.admin().indices()
+                    .prepareCreate("owlpad-index");
             cirb.execute().actionGet();
         } catch (final IndexAlreadyExistsException e) {
             logger.info("Could not create index because it exists already.", e);
@@ -121,8 +130,9 @@ public class ESIndexServiceImpl implements IndexService {
      * @param suffix
      * @throws IOException
      */
-    private void getFilesFromDirectory(final File dataDir, final List<File> filesToIndex, final String suffix)
-            throws IOException {
+    private void getFilesFromDirectory(final File dataDir,
+            final List<File> filesToIndex, final String suffix)
+                    throws IOException {
         final File[] files = dataDir.listFiles();
         for (final File f : files) {
             if (f.isDirectory()) {
@@ -142,8 +152,9 @@ public class ESIndexServiceImpl implements IndexService {
      * @param filesToIndex
      * @throws Exception
      */
-    private void addDocumentsToBulkRequest(final BulkRequestBuilder bulkRequest, final List<File> filesToIndex)
-            throws Exception {
+    private void addDocumentsToBulkRequest(
+            final BulkRequestBuilder bulkRequest, final List<File> filesToIndex)
+                    throws Exception {
         for (final File f : filesToIndex) {
             final IndexRequestBuilder rb = createIndexRequestBuilderFromFile(f);
             if (rb != null) {
@@ -160,21 +171,26 @@ public class ESIndexServiceImpl implements IndexService {
      * @return
      * @throws Exception
      */
-    private IndexRequestBuilder createIndexRequestBuilderFromFile(final File f) throws Exception {
+    private IndexRequestBuilder createIndexRequestBuilderFromFile(final File f)
+            throws Exception {
         final String filePath = f.getCanonicalPath();
         final int indexOfDot = filePath.lastIndexOf(".");
         final String docType = filePath.substring(indexOfDot);
 
-        final boolean unreadable = f.isHidden() || f.isDirectory() || !f.canRead() || !f.exists();
+        final boolean unreadable = f.isHidden() || f.isDirectory()
+                || !f.canRead() || !f.exists();
         if (!unreadable && !excludes.contains(docType)) {
             final String content = FileUtils.readFileToString(f);
             final Path path = Paths.get(filePath);
             final String author = Files.getOwner(path).getName();
-            final BasicFileAttributes attr = Files.readAttributes(path, BasicFileAttributes.class);
+            final BasicFileAttributes attr = Files.readAttributes(path,
+                    BasicFileAttributes.class);
 
-            final XContentBuilder source = getSource(content, filePath, f.getName(), author, attr, docType);
+            final XContentBuilder source = getSource(content, filePath,
+                    f.getName(), author, attr, docType);
 
-            return client.prepareIndex("owlpad-index", "docs").setSource(source);
+            return client.prepareIndex("owlpad-index", "docs")
+                    .setSource(source);
         }
         return null;
     }
@@ -191,18 +207,21 @@ public class ESIndexServiceImpl implements IndexService {
      * @return
      * @throws IOException
      */
-    private XContentBuilder getSource(final String content, final String filePath, final String fileName,
-            final String author, final BasicFileAttributes attr, final String docType) throws IOException {
-        final XContentBuilder builder = jsonBuilder()
-                .startObject()
-                .field("contents", content)
-                .field("filepath", filePath)
-                .field("filename", fileName)
-                .field("author", author)
-                .field("created", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format((attr.creationTime().toMillis())))
-                .field("lastModified",
-                        new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format((attr.lastModifiedTime().toMillis())))
-                        .field("size", String.valueOf(attr.size())).field("docType", docType).endObject();
+    private XContentBuilder getSource(final String content,
+            final String filePath, final String fileName, final String author,
+            final BasicFileAttributes attr, final String docType)
+            throws IOException {
+        final String created = DATE_FORMATTER.format(attr.creationTime()
+                .toMillis());
+        final String modified = DATE_FORMATTER.format(attr.lastModifiedTime()
+                .toMillis());
+
+        final XContentBuilder builder = jsonBuilder().startObject()
+                .field("contents", content).field("filepath", filePath)
+                .field("filename", fileName).field("author", author)
+                .field("size", String.valueOf(attr.size()))
+                .field("docType", docType).field("created", created)
+                .field("lastModified", modified).endObject();
 
         return builder;
     }

@@ -19,9 +19,11 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-public class NodeClientFactoryBean implements FactoryBean<NodeClient>, InitializingBean, DisposableBean {
+public class NodeClientFactoryBean implements FactoryBean<NodeClient>,
+InitializingBean, DisposableBean {
 
-    private static final Logger logger = LoggerFactory.getLogger(NodeClientFactoryBean.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(NodeClientFactoryBean.class);
     private boolean local;
     private boolean enableHttp;
     private String clusterName;
@@ -31,7 +33,8 @@ public class NodeClientFactoryBean implements FactoryBean<NodeClient>, Initializ
 
     }
 
-    public NodeClientFactoryBean(final String clusterName, final boolean local, final boolean enableHttp) {
+    public NodeClientFactoryBean(final String clusterName, final boolean local,
+            final boolean enableHttp) {
         this.clusterName = clusterName;
         this.local = local;
         this.enableHttp = enableHttp;
@@ -54,11 +57,13 @@ public class NodeClientFactoryBean implements FactoryBean<NodeClient>, Initializ
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        final ImmutableSettings.Builder settings = ImmutableSettings.settingsBuilder().put("http.enabled",
-                String.valueOf(this.enableHttp));
+        final ImmutableSettings.Builder settings = ImmutableSettings
+                .settingsBuilder().put("http.enabled",
+                        String.valueOf(this.enableHttp));
 
-        this.nodeClient = (NodeClient) nodeBuilder().settings(settings).clusterName(this.clusterName).local(this.local)
-                .node().client();
+        this.nodeClient = (NodeClient) nodeBuilder().settings(settings)
+                .clusterName(this.clusterName).local(this.local).node()
+                .client();
     }
 
     public void setLocal(final boolean local) {

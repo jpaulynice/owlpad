@@ -22,7 +22,8 @@ import com.owlpad.service.search.SearchService;
 @Repository
 public class SearchRepository {
     private final SearchService searchService;
-    private static final Logger logger = LoggerFactory.getLogger(SearchRepository.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(SearchRepository.class);
 
     @Autowired
     public SearchRepository(final SearchService searchService) {
@@ -35,8 +36,8 @@ public class SearchRepository {
      * @param searchRequest
      * @return
      */
-    public SearchResponse search(final SearchRequest searchRequest) {
-        final Response serverResponse = searchService.search(searchRequest);
+    public SearchResponse search(final SearchRequest req) {
+        final Response serverResponse = searchService.search(req);
         SearchResponse res = new SearchResponse();
         if (serverResponse.getStatus() == 200) {
             res = serverResponse.readEntity(SearchResponse.class);

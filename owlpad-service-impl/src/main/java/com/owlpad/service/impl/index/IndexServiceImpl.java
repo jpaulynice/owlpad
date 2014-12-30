@@ -33,11 +33,12 @@ import com.owlpad.service.index.IndexService;
  */
 @Service
 public class IndexServiceImpl implements IndexService {
-    private static final Logger logger = LoggerFactory.getLogger(IndexServiceImpl.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(IndexServiceImpl.class);
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.owlpad.service.index.IndexService#index(com.owlpad.domain.index.
      * IndexRequest)
      */
@@ -60,7 +61,8 @@ public class IndexServiceImpl implements IndexService {
             return Response.serverError().build();
         }
 
-        final GenericEntity<IndexResponse> entity = new GenericEntity<IndexResponse>(response) {
+        final GenericEntity<IndexResponse> entity = new GenericEntity<IndexResponse>(
+                response) {
         };
         return Response.ok(entity).build();
     }
@@ -76,10 +78,13 @@ public class IndexServiceImpl implements IndexService {
      * @throws IOException
      * @throws Exception
      */
-    private int indexDir(final Directory indexDir, final File dataDir, final String suffix) throws IOException {
+    private int indexDir(final Directory indexDir, final File dataDir,
+            final String suffix) throws IOException {
 
-        final StandardAnalyzer analyzer = new StandardAnalyzer(Version.LUCENE_48);
-        final IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_48, analyzer);
+        final StandardAnalyzer analyzer = new StandardAnalyzer(
+                Version.LUCENE_48);
+        final IndexWriterConfig config = new IndexWriterConfig(
+                Version.LUCENE_48, analyzer);
         final IndexWriter indexWriter = new IndexWriter(indexDir, config);
         indexDirectory(indexWriter, dataDir, suffix);
 
@@ -98,8 +103,8 @@ public class IndexServiceImpl implements IndexService {
      * @param suffix
      * @throws IOException
      */
-    private void indexDirectory(final IndexWriter indexWriter, final File dataDir, final String suffix)
-            throws IOException {
+    private void indexDirectory(final IndexWriter indexWriter,
+            final File dataDir, final String suffix) throws IOException {
 
         final File[] files = dataDir.listFiles();
         for (int i = 0; i < files.length; i++) {
@@ -121,17 +126,19 @@ public class IndexServiceImpl implements IndexService {
      * @param suffix
      * @throws IOException
      */
-    private void indexFileWithIndexWriter(final IndexWriter indexWriter, final File f, final String suffix)
-            throws IOException {
+    private void indexFileWithIndexWriter(final IndexWriter indexWriter,
+            final File f, final String suffix) throws IOException {
 
-        if (f.isHidden() || f.isDirectory() || !f.canRead() || !f.exists() || suffix != null
-                && !f.getName().endsWith(suffix)) {
+        if (f.isHidden() || f.isDirectory() || !f.canRead() || !f.exists()
+                || suffix != null && !f.getName().endsWith(suffix)) {
             return;
         }
 
         final Document doc = new Document();
-        doc.add(new Field("contents", new FileReader(f), TextField.TYPE_NOT_STORED));
-        doc.add(new StringField("filepath", f.getCanonicalPath(), Field.Store.YES));
+        doc.add(new Field("contents", new FileReader(f),
+                TextField.TYPE_NOT_STORED));
+        doc.add(new StringField("filepath", f.getCanonicalPath(),
+                Field.Store.YES));
         doc.add(new StringField("filename", f.getName(), Field.Store.YES));
 
         indexWriter.addDocument(doc);

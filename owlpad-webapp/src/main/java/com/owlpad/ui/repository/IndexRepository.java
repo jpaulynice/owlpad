@@ -21,7 +21,8 @@ import com.owlpad.service.index.IndexService;
 @Repository
 public class IndexRepository {
     private final IndexService indexService;
-    private static final Logger logger = LoggerFactory.getLogger(IndexRepository.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(IndexRepository.class);
 
     @Autowired
     public IndexRepository(final IndexService indexService) {
@@ -43,7 +44,7 @@ public class IndexRepository {
         } else {
             res.setErrorMessage("Service error.");
             res.setStatus(StatusType.FAIL);
-            logger.info("Exception while calling index method.");
+            LOG.info("Exception while calling index method.");
         }
         return res;
     }

@@ -23,12 +23,11 @@ public class ConfigurationDaoImpl implements ConfigurationDao {
     @Autowired
     public ConfigurationDaoImpl(final ConfigJPARepository configJPARepository) {
         this.configJPARepository = configJPARepository;
-        ;
     }
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see com.owlpad.dao.ConfigurationDao#getConfiguration()
      */
     @Override

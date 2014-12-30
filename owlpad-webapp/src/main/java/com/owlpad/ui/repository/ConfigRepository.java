@@ -19,7 +19,8 @@ import com.owlpad.service.configuration.ConfigurationService;
  */
 @Repository
 public class ConfigRepository {
-    private static final Logger logger = LoggerFactory.getLogger(ConfigRepository.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(ConfigRepository.class);
     private final ConfigurationService configService;
 
     @Autowired
@@ -38,7 +39,7 @@ public class ConfigRepository {
         if (res != null && res.getStatus() == 200) {
             return res.readEntity(ConfigurationResponse.class);
         } else {
-            logger.error("Exception while executing getConfig");
+            LOG.error("Exception while executing getConfig");
             throw new RuntimeException("Unable to get configuration.");
         }
     }

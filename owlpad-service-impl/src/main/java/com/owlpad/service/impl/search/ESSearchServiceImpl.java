@@ -33,13 +33,15 @@ import com.owlpad.service.search.SearchService;
  */
 @Service
 public class ESSearchServiceImpl implements SearchService {
-    private static final Logger logger = LoggerFactory.getLogger(ESSearchServiceImpl.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(ESSearchServiceImpl.class);
 
     private final NodeClientFactoryBean nodeClientFactoryBean;
     private final NodeClient client;
 
     @Autowired
-    public ESSearchServiceImpl(final NodeClientFactoryBean nodeClientFactoryBean) throws Exception {
+    public ESSearchServiceImpl(final NodeClientFactoryBean nodeClientFactoryBean)
+            throws Exception {
         this.nodeClientFactoryBean = nodeClientFactoryBean;
         this.client = this.nodeClientFactoryBean.getObject();
     }
@@ -53,7 +55,8 @@ public class ESSearchServiceImpl implements SearchService {
      */
     @Override
     public Response search(final SearchRequest searchRequest) {
-        Preconditions.checkNotNull(searchRequest, "No search request specified.");
+        Preconditions.checkNotNull(searchRequest,
+                "No search request specified.");
         SearchResponse res;
 
         final int from = searchRequest.getResultStart();
@@ -62,14 +65,16 @@ public class ESSearchServiceImpl implements SearchService {
         final String keyWord = searchRequest.getKeyWord();
 
         try {
-            final org.elasticsearch.action.search.SearchResponse response = search(paging, keyWord, from, size);
+            final org.elasticsearch.action.search.SearchResponse response = search(
+                    paging, keyWord, from, size);
             res = SearchResponseMapper.getInternalResponse(response, from);
         } catch (final Exception e) {
             logger.error("Exception while executing search", e);
             return Response.serverError().entity(e.getMessage()).build();
         }
 
-        final GenericEntity<SearchResponse> entity = new GenericEntity<SearchResponse>(res) {
+        final GenericEntity<SearchResponse> entity = new GenericEntity<SearchResponse>(
+                res) {
         };
         return Response.ok(entity).build();
     }
@@ -84,16 +89,22 @@ public class ESSearchServiceImpl implements SearchService {
      * @param size
      * @return
      */
-    private org.elasticsearch.action.search.SearchResponse search(final boolean isPaging, final String keyWord,
-            final int from, final int size) throws Exception {
+    private org.elasticsearch.action.search.SearchResponse search(
+            final boolean isPaging, final String keyWord, final int from,
+            final int size) throws Exception {
 
-        final SearchRequestBuilder builder = client.prepareSearch("owlpad-index").setTypes("docs")
-                .setSearchType(SearchType.QUERY_THEN_FETCH).setQuery(QueryBuilders.queryString(keyWord)).setFrom(from)
+        final SearchRequestBuilder builder = client
+                .prepareSearch("owlpad-index").setTypes("docs")
+                .setSearchType(SearchType.QUERY_THEN_FETCH)
+                .setQuery(QueryBuilders.queryString(keyWord)).setFrom(from)
                 .setSize(size);
 
         if (!isPaging) {
-            builder.addAggregation(AggregationBuilders.terms("authors").field("author")).addAggregation(
-                    AggregationBuilders.terms("docTypes").field("docType"));
+            builder.addAggregation(
+                    AggregationBuilders.terms("authors").field("author"))
+                    .addAggregation(
+                            AggregationBuilders.terms("docTypes").field(
+                                    "docType"));
         }
 
         return builder.execute().actionGet();
@@ -106,17 +117,22 @@ public class ESSearchServiceImpl implements SearchService {
      */
     @Override
     public Response search(final String docId) {
-        Preconditions.checkNotNull(docId, "Document id is required to get document.");
+        Preconditions.checkNotNull(docId,
+                "Document id is required to get document.");
 
         final DocResponse res = new DocResponse();
-        final GetResponse response = client.prepareGet("owlpad-index", "docs", docId).execute().actionGet();
+        final GetResponse response = client
+                .prepareGet("owlpad-index", "docs", docId).execute()
+                .actionGet();
         final Map<String, Object> sourceMap = response.getSourceAsMap();
         if (sourceMap == null) {
-            throw new NoDocFoundException("No documents found with id: " + docId);
+            throw new NoDocFoundException("No documents found with id: "
+                    + docId);
         }
         final String source = (String) sourceMap.get("contents");
         res.setSource(source);
-        final GenericEntity<DocResponse> entity = new GenericEntity<DocResponse>(res) {
+        final GenericEntity<DocResponse> entity = new GenericEntity<DocResponse>(
+                res) {
         };
         return Response.ok(entity).build();
     }

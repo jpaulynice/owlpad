@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.xml.bind.annotation.XmlElement;
 
 /**
  *
@@ -23,7 +22,6 @@ public class Region {
     private String name;
 
     @Column(name = "selector")
-    @XmlElement(name = "selector")
     private String selector;
 
     /**

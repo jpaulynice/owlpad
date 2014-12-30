@@ -9,8 +9,7 @@ import javax.ws.rs.core.Response;
 
 /**
  * {@link ConfigurationService} is a simple interface to load application
- * configuration and layout. Currently, there is one method to get default
- * configuration.
+ * configuration and layout.
  *
  * @author Jay Paulynice
  *
@@ -23,7 +22,7 @@ public interface ConfigurationService {
     /**
      * Get default configuration
      *
-     * @return
+     * @return {@link Response} object
      */
     @GET
     public Response getConfiguration();

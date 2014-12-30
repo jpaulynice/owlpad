@@ -43,7 +43,8 @@ public class ConfigurationServiceImpl implements ConfigurationService {
         }
         res.setConfiguration(ConfigMapper.mapConfig(c));
 
-        final GenericEntity<ConfigurationResponse> entity = new GenericEntity<ConfigurationResponse>(res) {
+        final GenericEntity<ConfigurationResponse> entity = new GenericEntity<ConfigurationResponse>(
+                res) {
         };
         return Response.ok(entity).build();
     }

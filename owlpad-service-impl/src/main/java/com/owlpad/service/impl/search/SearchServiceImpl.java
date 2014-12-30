@@ -35,7 +35,8 @@ import com.owlpad.service.search.SearchService;
  */
 @Service
 public class SearchServiceImpl implements SearchService {
-    private static final Logger logger = LoggerFactory.getLogger(SearchServiceImpl.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(SearchServiceImpl.class);
 
     /*
      * (non-Javadoc)
@@ -46,14 +47,16 @@ public class SearchServiceImpl implements SearchService {
      */
     @Override
     public Response search(final SearchRequest searchRequest) {
-        Preconditions.checkNotNull(searchRequest, "No search request specified.");
+        Preconditions.checkNotNull(searchRequest,
+                "No search request specified.");
 
         final SearchResponse response = new SearchResponse();
         List<Document> docs;
         final String query = searchRequest.getKeyWord();
         final int hits = searchRequest.getHitsPerPage();
 
-        final File indexDir = new File("/Users/julespaulynice/Documents/luna/index");
+        final File indexDir = new File(
+                "/Users/julespaulynice/Documents/luna/index");
         Directory directory = null;
         try {
             directory = FSDirectory.open(indexDir);
@@ -64,7 +67,8 @@ public class SearchServiceImpl implements SearchService {
             logger.info("Exception while calling search.  Exception: " + e);
             return Response.serverError().build();
         }
-        final GenericEntity<SearchResponse> entity = new GenericEntity<SearchResponse>(response) {
+        final GenericEntity<SearchResponse> entity = new GenericEntity<SearchResponse>(
+                response) {
         };
         return Response.ok(entity).build();
     }
@@ -79,20 +83,21 @@ public class SearchServiceImpl implements SearchService {
      * @return
      * @throws Exception
      */
-    private List<Document> searchIndex(final Directory indexDir, final String queryStr, final int hitsPerPage)
-            throws Exception {
+    private List<Document> searchIndex(final Directory indexDir,
+            final String queryStr, final int hitsPerPage) throws Exception {
 
         final List<Document> results = new ArrayList<Document>();
 
         final DirectoryReader ireader = DirectoryReader.open(indexDir);
         final IndexSearcher searcher = new IndexSearcher(ireader);
-        final QueryParser parser = new QueryParser(Version.LUCENE_48, "contents", new StandardAnalyzer(
-                Version.LUCENE_48));
+        final QueryParser parser = new QueryParser(Version.LUCENE_48,
+                "contents", new StandardAnalyzer(Version.LUCENE_48));
 
         final Query query = parser.parse(queryStr);
         final ScoreDoc[] hits = searcher.search(query, null, Integer.MAX_VALUE).scoreDocs;
 
-        final int docsPerPage = hits.length < hitsPerPage ? hits.length : hitsPerPage;
+        final int docsPerPage = hits.length < hitsPerPage ? hits.length
+                : hitsPerPage;
 
         for (int i = 0; i < docsPerPage; i++) {
             final int docId = hits[i].doc;
