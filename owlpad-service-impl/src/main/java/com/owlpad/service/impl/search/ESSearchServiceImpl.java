@@ -1,5 +1,7 @@
 package com.owlpad.service.impl.search;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Map;
 
 import javax.ws.rs.core.GenericEntity;
@@ -16,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.common.base.Preconditions;
 import com.owlpad.domain.exception.NoDocFoundException;
 import com.owlpad.domain.search.DocResponse;
 import com.owlpad.domain.search.SearchRequest;
@@ -58,15 +59,14 @@ public class ESSearchServiceImpl implements SearchService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * com.owlpad.service.search.SearchService#search(com.owlpad.domain.search
      * .SearchRequest)
      */
     @Override
     public Response search(final SearchRequest searchRequest) {
-        Preconditions.checkNotNull(searchRequest,
-                "No search request specified.");
+        checkNotNull(searchRequest, "No search request specified.");
         SearchResponse res;
 
         final int from = searchRequest.getResultStart();
@@ -126,13 +126,12 @@ public class ESSearchServiceImpl implements SearchService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.owlpad.service.search.SearchService#getDocById(java.lang.String)
      */
     @Override
     public Response search(final String docId) {
-        Preconditions.checkNotNull(docId,
-                "Document id is required to get document.");
+        checkNotNull(docId, "Document id is required to get document.");
 
         final DocResponse res = new DocResponse();
         final GetResponse response = client
