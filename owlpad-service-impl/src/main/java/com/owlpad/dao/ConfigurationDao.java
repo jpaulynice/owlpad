@@ -13,7 +13,7 @@ public interface ConfigurationDao {
     /**
      * Get application configuration from database
      *
-     * @return
+     * @return {@link Configuration} object
      */
     public Configuration getConfiguration();
 }

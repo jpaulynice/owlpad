@@ -9,6 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+/**
+ * @author Jay Paulynice
+ *
+ */
 @Entity(name = "user")
 public class User {
     @Id
@@ -65,5 +69,4 @@ public class User {
     public void setUserConfig(final Configuration userConfig) {
         this.userConfig = userConfig;
     }
-
 }

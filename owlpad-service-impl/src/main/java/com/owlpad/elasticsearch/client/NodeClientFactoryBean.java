@@ -20,19 +20,28 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class NodeClientFactoryBean implements FactoryBean<NodeClient>,
-InitializingBean, DisposableBean {
+        InitializingBean, DisposableBean {
+    private final Logger LOG = LoggerFactory.getLogger(getClass());
 
-    private static final Logger logger = LoggerFactory
-            .getLogger(NodeClientFactoryBean.class);
     private boolean local;
     private boolean enableHttp;
     private String clusterName;
     private NodeClient nodeClient;
 
+    /** Default constructor */
     public NodeClientFactoryBean() {
-
     }
 
+    /**
+     * Constructor to create node client factory with elastic search parameters.
+     *
+     * @param clusterName
+     *            the elastic search cluster name
+     * @param local
+     *            whether the cluster is local or remote
+     * @param enableHttp
+     *            whether to enable http requests
+     */
     public NodeClientFactoryBean(final String clusterName, final boolean local,
             final boolean enableHttp) {
         this.clusterName = clusterName;
@@ -66,27 +75,15 @@ InitializingBean, DisposableBean {
                 .client();
     }
 
-    public void setLocal(final boolean local) {
-        this.local = local;
-    }
-
-    public void setEnableHttp(final boolean enableHttp) {
-        this.enableHttp = enableHttp;
-    }
-
-    public void setClusterName(final String clusterName) {
-        this.clusterName = clusterName;
-    }
-
     @Override
     public void destroy() throws Exception {
         try {
-            logger.info("Closing elasticSearch client");
+            LOG.info("Closing elasticSearch client");
             if (nodeClient != null) {
                 nodeClient.close();
             }
         } catch (final Exception e) {
-            logger.error("Error closing ElasticSearch client: ", e);
+            LOG.error("Error closing ElasticSearch client: ", e);
         }
     }
 }

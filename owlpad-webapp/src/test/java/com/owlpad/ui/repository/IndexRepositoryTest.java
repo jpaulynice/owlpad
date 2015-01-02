@@ -6,27 +6,20 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
-@ContextConfiguration(locations={"classpath:applicationContextTest.xml"})
-public class IndexRepositoryTest extends AbstractTestNGSpringContextTests{
-	@Autowired
-	private IndexRepository indexRepository;
-	
-	@Test
-	public void testNonnullIndexRepository(){
-		Assert.assertNotNull(indexRepository);
-	}
+/**
+ * @author Jay Paulynice
+ *
+ */
+@ContextConfiguration(locations = { "classpath:applicationContextTest.xml" })
+public class IndexRepositoryTest extends AbstractTestNGSpringContextTests {
+    @Autowired
+    private IndexRepository indexRepository;
 
-	/**
-	 * @return the indexRepository
-	 */
-	public IndexRepository getIndexRepository() {
-		return indexRepository;
-	}
-
-	/**
-	 * @param indexRepository the indexRepository to set
-	 */
-	public void setIndexRepository(IndexRepository indexRepository) {
-		this.indexRepository = indexRepository;
-	}
+    /**
+     * Test that the index repository is not null
+     */
+    @Test
+    public void testNonnullIndexRepository() {
+        Assert.assertNotNull(indexRepository);
+    }
 }

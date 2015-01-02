@@ -5,14 +5,23 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * 
+ *
  * @author Jay Paulynice
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "status")
 public enum StatusType {
-	SUCCESS,
-	FAIL,
-	NOT_FOUND
+    /**
+     * successful method execution
+     */
+    SUCCESS,
+    /**
+     * not successful
+     */
+    FAIL,
+    /**
+     * not found
+     */
+    NOT_FOUND
 }

@@ -15,6 +15,7 @@ public class IndexResponse {
     private StatusType status;
     private String errorMessage;
 
+    /** Default constructor */
     public IndexResponse() {
 
     }

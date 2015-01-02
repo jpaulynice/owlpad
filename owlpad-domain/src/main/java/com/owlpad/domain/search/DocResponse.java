@@ -2,6 +2,10 @@ package com.owlpad.domain.search;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * @author Jay Paulynice
+ *
+ */
 @XmlRootElement(name = "docResponse")
 public class DocResponse {
     private StatusType status;

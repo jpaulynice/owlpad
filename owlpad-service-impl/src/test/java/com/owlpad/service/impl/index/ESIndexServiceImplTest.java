@@ -8,27 +8,33 @@ import org.testng.annotations.Test;
 
 import com.owlpad.service.index.IndexService;
 
-@ContextConfiguration(locations={"classpath:applicationContextTest.xml"})
-public class ESIndexServiceImplTest extends AbstractTestNGSpringContextTests{
-	@Autowired
-	private IndexService index;
-	
-	@Test
-	public void testNonnullService(){
-		Assert.assertNotNull(index);
-	}
+/**
+ * @author Jay Paulynice
+ *
+ */
+@ContextConfiguration(locations = { "classpath:applicationContextTest.xml" })
+public class ESIndexServiceImplTest extends AbstractTestNGSpringContextTests {
+    @Autowired
+    private IndexService index;
 
-	/**
-	 * @return the indexService
-	 */
-	public IndexService getIndexService() {
-		return index;
-	}
+    /** test that the service is not null */
+    @Test
+    public void testNonnullService() {
+        Assert.assertNotNull(index);
+    }
 
-	/**
-	 * @param indexService the indexService to set
-	 */
-	public void setIndexService(IndexService indexService) {
-		this.index = indexService;
-	}
+    /**
+     * @return the indexService
+     */
+    public IndexService getIndexService() {
+        return index;
+    }
+
+    /**
+     * @param indexService
+     *            the indexService to set
+     */
+    public void setIndexService(final IndexService indexService) {
+        this.index = indexService;
+    }
 }

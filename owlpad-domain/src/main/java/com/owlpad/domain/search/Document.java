@@ -19,10 +19,17 @@ public class Document {
     @XmlElement(name = "fields")
     private List<Field> fields;
 
+    /** Default constructor */
     public Document() {
 
     }
 
+    /**
+     * Create document with fields
+     *
+     * @param fields
+     *            list of fields for the document
+     * */
     public Document(final List<Field> fields) {
         this.setFields(fields);
     }

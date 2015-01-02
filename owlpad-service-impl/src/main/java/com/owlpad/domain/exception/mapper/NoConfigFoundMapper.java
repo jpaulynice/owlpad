@@ -6,11 +6,18 @@ import javax.ws.rs.ext.Provider;
 
 import com.owlpad.domain.exception.NoConfigFoundException;
 
+/**
+ *
+ * @author Jay Paulynice
+ *
+ */
 @Provider
-public class NoConfigFoundMapper implements ExceptionMapper<NoConfigFoundException> {
+public class NoConfigFoundMapper implements
+        ExceptionMapper<NoConfigFoundException> {
 
     @Override
     public Response toResponse(final NoConfigFoundException e) {
-        return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+        return Response.status(Response.Status.NOT_FOUND)
+                .entity(e.getMessage()).build();
     }
 }

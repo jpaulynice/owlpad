@@ -13,7 +13,13 @@ import com.owlpad.domain.configuration.Region;
  *
  */
 public class ConfigMapper {
-    public static Configuration mapConfig(final com.owlpad.service.model.Configuration config) {
+    /**
+     * @param config
+     *            the dto object
+     * @return configuration domain object
+     */
+    public static Configuration map(
+            final com.owlpad.service.model.Configuration config) {
         final Configuration c = new Configuration();
         c.setLayout(getLayout(config.getLayout()));
         c.setName(config.getName());

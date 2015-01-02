@@ -6,27 +6,21 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
-@ContextConfiguration(locations={"classpath:applicationContextTest.xml"})
-public class SearchRepositoryTest extends AbstractTestNGSpringContextTests{
-	@Autowired
-	private SearchRepository searchRepository;
-	
-	@Test
-	public void testNonnullSearchService(){
-		Assert.assertNotNull(searchRepository);
-	}
+/**
+ *
+ * @author Jay Paulynice
+ *
+ */
+@ContextConfiguration(locations = { "classpath:applicationContextTest.xml" })
+public class SearchRepositoryTest extends AbstractTestNGSpringContextTests {
+    @Autowired
+    private SearchRepository repository;
 
-	/**
-	 * @return the searchRepository
-	 */
-	public SearchRepository getSearchRepository() {
-		return searchRepository;
-	}
-
-	/**
-	 * @param searchRepository the searchRepository to set
-	 */
-	public void setSearchRepository(SearchRepository searchRepository) {
-		this.searchRepository = searchRepository;
-	}
+    /**
+     * test that the search repository is not null
+     */
+    @Test
+    public void testNonnullSearchService() {
+        Assert.assertNotNull(repository);
+    }
 }

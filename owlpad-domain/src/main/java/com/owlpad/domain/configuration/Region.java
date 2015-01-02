@@ -1,5 +1,9 @@
 package com.owlpad.domain.configuration;
 
+/**
+ * @author Jay Paulynice
+ *
+ */
 public class Region {
     private String name;
     private String selector;

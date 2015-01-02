@@ -12,6 +12,7 @@ public class IndexRequest {
     private String directoryToIndex;
     private String suffix;
 
+    /** Default constructor */
     public IndexRequest() {
 
     }

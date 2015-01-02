@@ -20,23 +20,28 @@ import com.owlpad.service.index.IndexService;
  */
 @Repository
 public class IndexRepository {
-    private final IndexService indexService;
-    private static final Logger LOG = LoggerFactory
-            .getLogger(IndexRepository.class);
+    private final Logger LOG = LoggerFactory.getLogger(getClass());
 
+    private final IndexService service;
+
+    /**
+     * @param service
+     *            the index service handler
+     */
     @Autowired
-    public IndexRepository(final IndexService indexService) {
-        this.indexService = indexService;
+    public IndexRepository(final IndexService service) {
+        this.service = service;
     }
 
     /**
      * Call the API to index and process the response
      *
-     * @param indexRequest
-     * @return
+     * @param req
+     *            the index request object
+     * @return {@link IndexResponse} object
      */
-    public IndexResponse index(final IndexRequest indexRequest) {
-        final Response serverResponse = indexService.index(indexRequest);
+    public IndexResponse index(final IndexRequest req) {
+        final Response serverResponse = service.index(req);
         IndexResponse res = new IndexResponse();
         if (serverResponse != null && serverResponse.getStatus() == 200) {
             res = serverResponse.readEntity(IndexResponse.class);

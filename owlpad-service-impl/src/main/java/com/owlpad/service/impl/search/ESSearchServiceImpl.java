@@ -33,12 +33,22 @@ import com.owlpad.service.search.SearchService;
  */
 @Service
 public class ESSearchServiceImpl implements SearchService {
-    private static final Logger logger = LoggerFactory
-            .getLogger(ESSearchServiceImpl.class);
+    private final Logger LOG = LoggerFactory.getLogger(getClass());
 
+    /** Elastic search node client factory bean */
     private final NodeClientFactoryBean nodeClientFactoryBean;
+
+    /** Elastic search node client */
     private final NodeClient client;
 
+    /**
+     * Default constructor
+     *
+     * @param nodeClientFactoryBean
+     *            factory for ES node client
+     * @throws Exception
+     *             if unable to create object
+     */
     @Autowired
     public ESSearchServiceImpl(final NodeClientFactoryBean nodeClientFactoryBean)
             throws Exception {
@@ -48,7 +58,7 @@ public class ESSearchServiceImpl implements SearchService {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see
      * com.owlpad.service.search.SearchService#search(com.owlpad.domain.search
      * .SearchRequest)
@@ -67,9 +77,9 @@ public class ESSearchServiceImpl implements SearchService {
         try {
             final org.elasticsearch.action.search.SearchResponse response = search(
                     paging, keyWord, from, size);
-            res = SearchResponseMapper.getInternalResponse(response, from);
+            res = SearchResponseMapper.map(response, from);
         } catch (final Exception e) {
-            logger.error("Exception while executing search", e);
+            LOG.error("Exception while executing search", e);
             return Response.serverError().entity(e.getMessage()).build();
         }
 
@@ -84,10 +94,14 @@ public class ESSearchServiceImpl implements SearchService {
      * aggregations.
      *
      * @param paging
+     *            boolean to indicate whether we're paging through the results
      * @param keyWord
+     *            the key words to search for
      * @param from
+     *            where results start
      * @param size
-     * @return
+     *            the number of results to return
+     * @return response of search
      */
     private org.elasticsearch.action.search.SearchResponse search(
             final boolean isPaging, final String keyWord, final int from,
@@ -112,7 +126,7 @@ public class ESSearchServiceImpl implements SearchService {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see com.owlpad.service.search.SearchService#getDocById(java.lang.String)
      */
     @Override

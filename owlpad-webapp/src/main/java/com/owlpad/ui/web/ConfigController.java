@@ -18,21 +18,25 @@ import com.owlpad.ui.repository.ConfigRepository;
 @Controller
 @RequestMapping(value = "/config")
 public class ConfigController {
-    private final ConfigRepository configRepository;
+    private final ConfigRepository repository;
 
+    /**
+     * @param repository
+     *            configuration handler
+     */
     @Autowired
-    public ConfigController(final ConfigRepository configRepository) {
-        this.configRepository = configRepository;
+    public ConfigController(final ConfigRepository repository) {
+        this.repository = repository;
     }
 
     /**
      * Get application configuration from api
      *
-     * @return
+     * @return {@link ConfigurationResponse} object
      */
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public ConfigurationResponse getConfig() {
-        return configRepository.getConfig();
+        return repository.getConfig();
     }
 }

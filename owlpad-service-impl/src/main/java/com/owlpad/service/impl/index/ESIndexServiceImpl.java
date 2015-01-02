@@ -1,5 +1,6 @@
 package com.owlpad.service.impl.index;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
 import java.io.File;
@@ -30,7 +31,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.common.base.Preconditions;
 import com.owlpad.domain.index.IndexRequest;
 import com.owlpad.domain.index.IndexResponse;
 import com.owlpad.elasticsearch.client.NodeClientFactoryBean;
@@ -83,8 +83,9 @@ public class ESIndexServiceImpl implements IndexService {
      */
     @Override
     public Response index(final IndexRequest indexRequest) {
-        Preconditions.checkNotNull(indexRequest.getDirectoryToIndex(),
-                "No directory specified for indexing...");
+        checkNotNull(indexRequest, "no request specified");
+        checkNotNull(indexRequest.getDirectoryToIndex(),
+                "directory required for indexing.");
 
         final IndexResponse response = new IndexResponse();
         final String suffix = indexRequest.getSuffix();
@@ -163,8 +164,10 @@ public class ESIndexServiceImpl implements IndexService {
     /**
      * Build {@link BulkRequestBuilder} object
      *
-     * @param bulkRequest bulk request object
-     * @param filesToIndex list of files
+     * @param bulkRequest
+     *            bulk request object
+     * @param filesToIndex
+     *            list of files
      * @throws IOException
      */
     private void addDocumentsToBulkRequest(

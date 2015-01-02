@@ -18,21 +18,25 @@ import com.owlpad.service.model.Configuration;
  */
 @Repository
 public class ConfigurationDaoImpl implements ConfigurationDao {
-    private final ConfigJPARepository configJPARepository;
+    private final ConfigJPARepository repository;
 
+    /**
+     * @param repository
+     *            spring/jpa repository
+     */
     @Autowired
-    public ConfigurationDaoImpl(final ConfigJPARepository configJPARepository) {
-        this.configJPARepository = configJPARepository;
+    public ConfigurationDaoImpl(final ConfigJPARepository repository) {
+        this.repository = repository;
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.owlpad.dao.ConfigurationDao#getConfiguration()
      */
     @Override
     public Configuration getConfiguration() {
-        final List<Configuration> configs = configJPARepository.findAll();
+        final List<Configuration> configs = repository.findAll();
 
         if (configs != null && configs.size() > 0) {
             return configs.get(0);

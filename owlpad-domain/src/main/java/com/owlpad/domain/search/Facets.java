@@ -7,31 +7,41 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * @author Jay Paulynice
+ *
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "facets")
-public class Facets{
-	@XmlElement(name = "facetResults")
-	private Set<FacetResult> facetResults;
+public class Facets {
+    @XmlElement(name = "facetResults")
+    private Set<FacetResult> facetResults;
 
-	public Facets(){
-		
-	}
-	
-	public Facets(Set<FacetResult> facets){
-		this.facetResults = facets;
-	}
-	
-	/**
-	 * @return the facetResults
-	 */
-	public Set<FacetResult> getFacetResults() {
-		return facetResults;
-	}
+    /** Default constructor */
+    public Facets() {
 
-	/**
-	 * @param facetResults the facetResults to set
-	 */
-	public void setFacetResults(Set<FacetResult> facetResults) {
-		this.facetResults = facetResults;
-	}
+    }
+
+    /**
+     * @param facets
+     *            the set of facet results
+     */
+    public Facets(final Set<FacetResult> facets) {
+        this.facetResults = facets;
+    }
+
+    /**
+     * @return the facetResults
+     */
+    public Set<FacetResult> getFacetResults() {
+        return facetResults;
+    }
+
+    /**
+     * @param facetResults
+     *            the facetResults to set
+     */
+    public void setFacetResults(final Set<FacetResult> facetResults) {
+        this.facetResults = facetResults;
+    }
 }

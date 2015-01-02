@@ -24,19 +24,25 @@ import com.owlpad.ui.repository.IndexRepository;
 @Controller
 @RequestMapping(value = "/index")
 public class IndexController {
-    private final IndexRepository indexRepository;
+    private final IndexRepository repository;
 
+    /**
+     * @param repository
+     *            the index handler
+     */
     @Autowired
-    public IndexController(final IndexRepository indexRepository) {
-        this.indexRepository = indexRepository;
+    public IndexController(final IndexRepository repository) {
+        this.repository = repository;
     }
 
     /**
-     * Returns indexing page
+     * Returns index page
      *
      * @param locale
+     *            the user locale
      * @param model
-     * @return
+     *            the model as a map
+     * @return index page
      */
     @RequestMapping(method = RequestMethod.GET)
     public String index(final Locale locale, final Model model) {
@@ -48,11 +54,12 @@ public class IndexController {
      * number of files indexed as part of the response
      *
      * @param indexRequest
-     * @return
+     *            request object
+     * @return {@link IndexResponse} object
      */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public IndexResponse index(@RequestBody final IndexRequest indexRequest) {
-        return indexRepository.index(indexRequest);
+        return repository.index(indexRequest);
     }
 }

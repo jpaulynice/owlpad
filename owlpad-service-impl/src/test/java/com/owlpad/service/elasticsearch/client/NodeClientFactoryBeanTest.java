@@ -8,32 +8,43 @@ import org.testng.annotations.Test;
 
 import com.owlpad.elasticsearch.client.NodeClientFactoryBean;
 
-@ContextConfiguration(locations={"classpath:applicationContextTest.xml"})
-public class NodeClientFactoryBeanTest extends AbstractTestNGSpringContextTests{
-	@Autowired
-	private NodeClientFactoryBean nodeClientFactoryBean;
-	
-	@Test
-	public void testNonnullNodeClientFactoryBean(){
-		Assert.assertNotNull(nodeClientFactoryBean);
-	}
-	
-	@Test
-	public void testGetClient() throws Exception{
-		Assert.assertNotNull(nodeClientFactoryBean.getObject());
-	}
+/**
+ * @author Jay Paulynice
+ *
+ */
+@ContextConfiguration(locations = { "classpath:applicationContextTest.xml" })
+public class NodeClientFactoryBeanTest extends AbstractTestNGSpringContextTests {
+    @Autowired
+    private NodeClientFactoryBean nodeClientFactoryBean;
 
-	/**
-	 * @return the nodeClientFactoryBean
-	 */
-	public NodeClientFactoryBean getNodeClientFactoryBean() {
-		return nodeClientFactoryBean;
-	}
+    /** test that the service is not null */
+    @Test
+    public void testNonnullNodeClientFactoryBean() {
+        Assert.assertNotNull(nodeClientFactoryBean);
+    }
 
-	/**
-	 * @param nodeClientFactoryBean the nodeClientFactoryBean to set
-	 */
-	public void setNodeClientFactoryBean(NodeClientFactoryBean nodeClientFactoryBean) {
-		this.nodeClientFactoryBean = nodeClientFactoryBean;
-	}
+    /**
+     * @throws Exception
+     *             if creation errors
+     */
+    @Test
+    public void testGetClient() throws Exception {
+        Assert.assertNotNull(nodeClientFactoryBean.getObject());
+    }
+
+    /**
+     * @return the nodeClientFactoryBean
+     */
+    public NodeClientFactoryBean getNodeClientFactoryBean() {
+        return nodeClientFactoryBean;
+    }
+
+    /**
+     * @param nodeClientFactoryBean
+     *            the nodeClientFactoryBean to set
+     */
+    public void setNodeClientFactoryBean(
+            final NodeClientFactoryBean nodeClientFactoryBean) {
+        this.nodeClientFactoryBean = nodeClientFactoryBean;
+    }
 }

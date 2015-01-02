@@ -8,27 +8,33 @@ import org.testng.annotations.Test;
 
 import com.owlpad.service.search.SearchService;
 
-@ContextConfiguration(locations={"classpath:applicationContextTest.xml"})
-public class ESSearchServiceImplTest extends AbstractTestNGSpringContextTests{
-	@Autowired
-	private SearchService search;
-	
-	@Test
-	public void testNonnullService(){
-		Assert.assertNotNull(search);
-	}
+/**
+ * @author Jay Paulynice
+ *
+ */
+@ContextConfiguration(locations = { "classpath:applicationContextTest.xml" })
+public class ESSearchServiceImplTest extends AbstractTestNGSpringContextTests {
+    @Autowired
+    private SearchService search;
 
-	/**
-	 * @return the searchService
-	 */
-	public SearchService getSearchService() {
-		return search;
-	}
+    /** test that the service is not null */
+    @Test
+    public void testNonnullService() {
+        Assert.assertNotNull(search);
+    }
 
-	/**
-	 * @param searchService the searchService to set
-	 */
-	public void setSearchService(SearchService searchService) {
-		this.search = searchService;
-	}
+    /**
+     * @return the searchService
+     */
+    public SearchService getSearchService() {
+        return search;
+    }
+
+    /**
+     * @param searchService
+     *            the searchService to set
+     */
+    public void setSearchService(final SearchService searchService) {
+        this.search = searchService;
+    }
 }

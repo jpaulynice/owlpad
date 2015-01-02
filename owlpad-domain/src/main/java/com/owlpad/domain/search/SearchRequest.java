@@ -3,69 +3,80 @@ package com.owlpad.domain.search;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * 
+ *
  * @author Jay Paulynice
  *
  */
 @XmlRootElement(name = "searchRequest")
 public class SearchRequest {
-	private String keyWord;
-	private int hitsPerPage;
-	private int resultStart;
-	private boolean paging;
-	
-	public SearchRequest(){
-		
-	}
+    private String keyWord;
+    private int hitsPerPage;
+    private int resultStart;
+    private boolean paging;
 
-	public String getKeyWord() {
-		return keyWord;
-	}
+    /** Default constructor */
+    public SearchRequest() {
 
-	public void setKeyWord(String keyWord) {
-		this.keyWord = keyWord;
-	}
+    }
 
-	/**
-	 * @return the resultStart
-	 */
-	public int getResultStart() {
-		return resultStart;
-	}
+    /**
+     * @return the keyWord
+     */
+    public String getKeyWord() {
+        return keyWord;
+    }
 
-	/**
-	 * @param resultStart the resultStart to set
-	 */
-	public void setResultStart(int resultStart) {
-		this.resultStart = resultStart;
-	}
+    /**
+     * @param keyWord
+     *            the keyWord to set
+     */
+    public void setKeyWord(final String keyWord) {
+        this.keyWord = keyWord;
+    }
 
-	/**
-	 * @return the hitsPerPage
-	 */
-	public int getHitsPerPage() {
-		return hitsPerPage;
-	}
+    /**
+     * @return the resultStart
+     */
+    public int getResultStart() {
+        return resultStart;
+    }
 
-	/**
-	 * @param hitsPerPage the hitsPerPage to set
-	 */
-	public void setHitsPerPage(int hitsPerPage) {
-		this.hitsPerPage = hitsPerPage;
-	}
+    /**
+     * @param resultStart
+     *            the resultStart to set
+     */
+    public void setResultStart(final int resultStart) {
+        this.resultStart = resultStart;
+    }
 
-	/**
-	 * @return the paging
-	 */
-	public boolean isPaging() {
-		return paging;
-	}
+    /**
+     * @return the hitsPerPage
+     */
+    public int getHitsPerPage() {
+        return hitsPerPage;
+    }
 
-	/**
-	 * @param paging the paging to set
-	 */
-	public void setPaging(boolean paging) {
-		this.paging = paging;
-	}
+    /**
+     * @param hitsPerPage
+     *            the hitsPerPage to set
+     */
+    public void setHitsPerPage(final int hitsPerPage) {
+        this.hitsPerPage = hitsPerPage;
+    }
+
+    /**
+     * @return the paging
+     */
+    public boolean isPaging() {
+        return paging;
+    }
+
+    /**
+     * @param paging
+     *            the paging to set
+     */
+    public void setPaging(final boolean paging) {
+        this.paging = paging;
+    }
 
 }

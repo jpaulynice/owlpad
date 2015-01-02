@@ -19,13 +19,17 @@ import com.owlpad.service.configuration.ConfigurationService;
  */
 @Repository
 public class ConfigRepository {
-    private static final Logger LOG = LoggerFactory
-            .getLogger(ConfigRepository.class);
-    private final ConfigurationService configService;
+    private final Logger LOG = LoggerFactory.getLogger(getClass());
 
+    private final ConfigurationService service;
+
+    /**
+     * @param service
+     *            configuration service
+     */
     @Autowired
-    public ConfigRepository(final ConfigurationService configService) {
-        this.configService = configService;
+    public ConfigRepository(final ConfigurationService service) {
+        this.service = service;
     }
 
     /**
@@ -34,12 +38,14 @@ public class ConfigRepository {
      * @return {@lin ConfigurationResponse} object
      */
     public ConfigurationResponse getConfig() {
-        final Response res = configService.getConfiguration();
+        LOG.info("Executing call to get application configuration.");
+        final Response res = service.getConfiguration();
 
         if (res != null && res.getStatus() == 200) {
+            LOG.info("Successfully executed call to get application configuration.");
             return res.readEntity(ConfigurationResponse.class);
         } else {
-            LOG.error("Exception while executing getConfig");
+            LOG.error("Exception while executing call to get application configuration.");
             throw new RuntimeException("Unable to get configuration.");
         }
     }

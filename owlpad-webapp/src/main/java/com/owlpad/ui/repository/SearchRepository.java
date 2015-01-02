@@ -21,31 +21,38 @@ import com.owlpad.service.search.SearchService;
  */
 @Repository
 public class SearchRepository {
-    private final SearchService searchService;
-    private static final Logger logger = LoggerFactory
-            .getLogger(SearchRepository.class);
+    private final Logger LOG = LoggerFactory.getLogger(getClass());
 
+    private final SearchService service;
+
+    /**
+     * @param service
+     *            the search service
+     */
     @Autowired
-    public SearchRepository(final SearchService searchService) {
-        this.searchService = searchService;
+    public SearchRepository(final SearchService service) {
+        this.service = service;
     }
 
     /**
      * call to the service to search
      *
-     * @param searchRequest
-     * @return
+     * @param req
+     *            the search request object
+     * @return {@link SearchResponse} object
      */
     public SearchResponse search(final SearchRequest req) {
-        final Response serverResponse = searchService.search(req);
+        LOG.info("Executing method to search.");
+        final Response serverResponse = service.search(req);
         SearchResponse res = new SearchResponse();
         if (serverResponse.getStatus() == 200) {
+            LOG.info("Successfully executed call to search.");
             res = serverResponse.readEntity(SearchResponse.class);
             res.setStatus(StatusType.SUCCESS);
         } else {
             res.setErrorMessage("Service error.");
             res.setStatus(StatusType.FAIL);
-            logger.info("Exception while calling search method.");
+            LOG.info("Exception while calling search method.");
         }
         return res;
     }
@@ -54,10 +61,11 @@ public class SearchRepository {
      * Get a document content by docId
      *
      * @param docId
-     * @return
+     *            the document id
+     * @return {@link DocResponse} object
      */
     public DocResponse search(final String docId) {
-        final Response serverResponse = searchService.search(docId);
+        final Response serverResponse = service.search(docId);
         DocResponse res = new DocResponse();
         if (serverResponse.getStatus() == 200) {
             res = serverResponse.readEntity(DocResponse.class);

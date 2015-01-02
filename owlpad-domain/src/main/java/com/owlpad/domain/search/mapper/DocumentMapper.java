@@ -9,17 +9,41 @@ import org.elasticsearch.search.SearchHit;
 import com.owlpad.domain.search.Document;
 import com.owlpad.domain.search.Field;
 
+/**
+ * @author Jay Paulynice
+ *
+ */
 public class DocumentMapper {
-
+    /**
+     * @param hit
+     *            elastic search hit
+     * @param pos
+     *            according to relevance
+     * @return {@link Document} object
+     */
     public static Document map(final SearchHit hit, final int pos) {
         return new Document(getDocFieldsFromSearchHit(hit, pos));
     }
 
-    public static Document map(final org.apache.lucene.document.Document doc, final int id) {
+    /**
+     * @param doc
+     *            lucene document
+     * @param id
+     *            order of relevance
+     * @return {@link Document} object
+     */
+    public static Document map(final org.apache.lucene.document.Document doc,
+            final int id) {
         return new Document(getDocumentFromLuceneDoc(doc, id));
     }
 
-    public static List<Field> getDocumentFromLuceneDoc(final org.apache.lucene.document.Document doc, final int id) {
+    /**
+     * @param doc
+     * @param id
+     * @return
+     */
+    private static List<Field> getDocumentFromLuceneDoc(
+            final org.apache.lucene.document.Document doc, final int id) {
         final List<Field> fields = new ArrayList<Field>();
         final Field docIdField = new Field();
         docIdField.setFieldId("doc_id");
@@ -79,7 +103,8 @@ public class DocumentMapper {
         return fields;
     }
 
-    private static List<Field> getDocFieldsFromSearchHit(final SearchHit searchHit, final int id) {
+    private static List<Field> getDocFieldsFromSearchHit(
+            final SearchHit searchHit, final int id) {
         final Map<String, Object> fieldsMap = searchHit.getSource();
         final List<Field> fields = new ArrayList<Field>();
         final Field docIdField = new Field();

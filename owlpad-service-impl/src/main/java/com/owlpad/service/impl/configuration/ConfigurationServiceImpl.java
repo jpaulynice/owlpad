@@ -14,17 +14,22 @@ import com.owlpad.service.mapper.ConfigMapper;
 import com.owlpad.service.model.Configuration;
 
 /**
+ * Default implementation for {@link ConfigurationService}
  *
  * @author Jay Paulynice
  *
  */
 @Service
 public class ConfigurationServiceImpl implements ConfigurationService {
-    private final ConfigurationDao configurationDao;
+    private final ConfigurationDao dao;
 
+    /**
+     * @param dao
+     *            the data access object layer
+     */
     @Autowired
-    public ConfigurationServiceImpl(final ConfigurationDao configurationDao) {
-        this.configurationDao = configurationDao;
+    public ConfigurationServiceImpl(final ConfigurationDao dao) {
+        this.dao = dao;
     }
 
     /*
@@ -36,12 +41,11 @@ public class ConfigurationServiceImpl implements ConfigurationService {
     @Override
     public Response getConfiguration() {
         final ConfigurationResponse res = new ConfigurationResponse();
-        final Configuration c = configurationDao.getConfiguration();
-
+        final Configuration c = dao.getConfiguration();
         if (c == null) {
             throw new NoConfigFoundException("no configuration found.");
         }
-        res.setConfiguration(ConfigMapper.mapConfig(c));
+        res.setConfiguration(ConfigMapper.map(c));
 
         final GenericEntity<ConfigurationResponse> entity = new GenericEntity<ConfigurationResponse>(
                 res) {

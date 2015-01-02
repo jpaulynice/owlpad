@@ -2,6 +2,10 @@ package com.owlpad.domain.configuration;
 
 import java.util.List;
 
+/**
+ * @author Jay Paulynice
+ *
+ */
 public class Layout {
     private LayoutType layoutType;
     private List<Region> regions;

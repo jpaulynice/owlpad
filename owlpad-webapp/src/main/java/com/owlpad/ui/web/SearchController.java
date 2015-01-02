@@ -27,19 +27,25 @@ import com.owlpad.ui.repository.SearchRepository;
 @Controller
 @RequestMapping(value = "search")
 public class SearchController {
-    private final SearchRepository searchRepository;
+    private final SearchRepository repository;
 
+    /**
+     * @param repository
+     *            the search repository
+     */
     @Autowired
-    public SearchController(final SearchRepository searchRepository) {
-        this.searchRepository = searchRepository;
+    public SearchController(final SearchRepository repository) {
+        this.repository = repository;
     }
 
     /**
      * Returns search page
      *
      * @param locale
+     *            the user locale
      * @param model
-     * @return
+     *            the model as a map
+     * @return search page
      */
     @RequestMapping(method = RequestMethod.GET)
     public String search(final Locale locale, final Model model) {
@@ -50,23 +56,26 @@ public class SearchController {
      * Search end point
      *
      * @param searchRequest
-     * @return
+     *            the search request
+     * @return search results matching the criteria
      */
     @RequestMapping(value = "docs", method = RequestMethod.POST)
     @ResponseBody
-    public SearchResponse search(@Nonnull @RequestBody final SearchRequest searchRequest) {
-        return searchRepository.search(searchRequest);
+    public SearchResponse search(
+            @Nonnull @RequestBody final SearchRequest searchRequest) {
+        return repository.search(searchRequest);
     }
 
     /**
      * Get a document content by id
      *
      * @param docId
-     * @return
+     *            the document id
+     * @return document with the specified id
      */
     @RequestMapping(value = "docs/{docId}", method = RequestMethod.GET)
     @ResponseBody
     public DocResponse search(@Nonnull @PathVariable("docId") final String docId) {
-        return searchRepository.search(docId);
+        return repository.search(docId);
     }
 }

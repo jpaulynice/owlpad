@@ -20,21 +20,31 @@ import com.owlpad.domain.search.Facets;
 import com.owlpad.domain.search.SearchResponse;
 import com.owlpad.domain.search.mapper.DocumentMapper;
 
+/**
+ * Mapper for search response
+ * 
+ * @author Jay Paulynice
+ *
+ */
 public class SearchResponseMapper {
     /**
      * Map from elastic search searchResponse to internal searchResponse
      *
      * @param response
+     *            elastic search response
      * @param from
-     * @return
+     *            result start from
+     * @return internal search response
      */
-    public static SearchResponse getInternalResponse(final org.elasticsearch.action.search.SearchResponse response,
+    public static SearchResponse map(
+            final org.elasticsearch.action.search.SearchResponse response,
             final int from) {
         final SearchHits hits = response.getHits();
         final SearchResponse res = new SearchResponse();
 
         final List<Document> docs = getDocumentsFromSearchHits(hits, from);
-        final HashMap<String, Facets> facets = getFacetsFromAggregations(response.getAggregations());
+        final HashMap<String, Facets> facets = getFacetsFromAggregations(response
+                .getAggregations());
         res.setDocuments(docs);
         res.setFacets(facets);
         res.setTotalDocuments(hits.getTotalHits());
@@ -49,7 +59,8 @@ public class SearchResponseMapper {
      * @param from
      * @return
      */
-    private static List<Document> getDocumentsFromSearchHits(final SearchHits hits, final int from) {
+    private static List<Document> getDocumentsFromSearchHits(
+            final SearchHits hits, final int from) {
         final List<Document> docs = new ArrayList<Document>();
 
         int id = from + 1;
@@ -68,7 +79,8 @@ public class SearchResponseMapper {
      * @param aggs
      * @return
      */
-    private static HashMap<String, Facets> getFacetsFromAggregations(final Aggregations aggs) {
+    private static HashMap<String, Facets> getFacetsFromAggregations(
+            final Aggregations aggs) {
         final HashMap<String, Facets> facets = new HashMap<String, Facets>();
         for (final Aggregation ag : aggs) {
             final StringTerms st = (StringTerms) ag;

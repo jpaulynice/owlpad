@@ -24,9 +24,10 @@ public interface IndexService {
      * Method to index a directory by passing the directory name and file suffix
      * if file suffix is null then all files are indexed otherwise index those
      * files that end with the suffix.
-     * 
+     *
      * @param indexRequest
-     * @return
+     *            request object
+     * @return {@link Response} object
      */
     @POST
     public Response index(final IndexRequest indexRequest);

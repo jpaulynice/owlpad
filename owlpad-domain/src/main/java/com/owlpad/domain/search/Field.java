@@ -5,105 +5,112 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * 
+ *
  * @author Jay Paulynice
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "field")
 public class Field {
-	private String fieldId;
-	private String i18nKey;
-	private String name;
-	private String fieldType;
-	private String value;
-	private boolean visible;
-	
-	public Field(){
-		
-	}
+    private String fieldId;
+    private String i18nKey;
+    private String name;
+    private String fieldType;
+    private String value;
+    private boolean visible;
 
-	/**
-	 * @return the fieldId
-	 */
-	public String getFieldId() {
-		return fieldId;
-	}
+    /** Default constructor */
+    public Field() {
 
-	/**
-	 * @param fieldId the fieldId to set
-	 */
-	public void setFieldId(String fieldId) {
-		this.fieldId = fieldId;
-	}
+    }
 
-	/**
-	 * @return the i18nKey
-	 */
-	public String getI18nKey() {
-		return i18nKey;
-	}
+    /**
+     * @return the fieldId
+     */
+    public String getFieldId() {
+        return fieldId;
+    }
 
-	/**
-	 * @param i18nKey the i18nKey to set
-	 */
-	public void setI18nKey(String i18nKey) {
-		this.i18nKey = i18nKey;
-	}
+    /**
+     * @param fieldId
+     *            the fieldId to set
+     */
+    public void setFieldId(final String fieldId) {
+        this.fieldId = fieldId;
+    }
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * @return the i18nKey
+     */
+    public String getI18nKey() {
+        return i18nKey;
+    }
 
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * @param i18nKey
+     *            the i18nKey to set
+     */
+    public void setI18nKey(final String i18nKey) {
+        this.i18nKey = i18nKey;
+    }
 
-	/**
-	 * @return the fieldType
-	 */
-	public String getFieldType() {
-		return fieldType;
-	}
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * @param fieldType the fieldType to set
-	 */
-	public void setFieldType(String fieldType) {
-		this.fieldType = fieldType;
-	}
+    /**
+     * @param name
+     *            the name to set
+     */
+    public void setName(final String name) {
+        this.name = name;
+    }
 
-	/**
-	 * @return the value
-	 */
-	public String getValue() {
-		return value;
-	}
+    /**
+     * @return the fieldType
+     */
+    public String getFieldType() {
+        return fieldType;
+    }
 
-	/**
-	 * @param value the value to set
-	 */
-	public void setValue(String value) {
-		this.value = value;
-	}
+    /**
+     * @param fieldType
+     *            the fieldType to set
+     */
+    public void setFieldType(final String fieldType) {
+        this.fieldType = fieldType;
+    }
 
-	/**
-	 * @return the visible
-	 */
-	public boolean isVisible() {
-		return visible;
-	}
+    /**
+     * @return the value
+     */
+    public String getValue() {
+        return value;
+    }
 
-	/**
-	 * @param visible the visible to set
-	 */
-	public void setVisible(boolean visible) {
-		this.visible = visible;
-	}
+    /**
+     * @param value
+     *            the value to set
+     */
+    public void setValue(final String value) {
+        this.value = value;
+    }
+
+    /**
+     * @return the visible
+     */
+    public boolean isVisible() {
+        return visible;
+    }
+
+    /**
+     * @param visible
+     *            the visible to set
+     */
+    public void setVisible(final boolean visible) {
+        this.visible = visible;
+    }
 }

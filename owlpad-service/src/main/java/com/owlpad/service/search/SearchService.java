@@ -28,8 +28,8 @@ public interface SearchService {
      * Method to search for documents.
      *
      * @param searchRequest
-     * @return
-     * @throws Exception
+     *            search request object
+     * @return {@link Response} object
      */
     @POST
     public Response search(final SearchRequest searchRequest);
@@ -38,7 +38,8 @@ public interface SearchService {
      * Method to get a document by id
      *
      * @param docId
-     * @return
+     *            string document id
+     * @return {@link Response} object
      */
     @GET
     @Path("{docId}")

@@ -1,5 +1,9 @@
 package com.owlpad.domain.configuration;
 
+/**
+ * @author Jay Paulynice
+ *
+ */
 public class Configuration {
     private String name;
     private Layout layout;

@@ -6,11 +6,17 @@ import javax.ws.rs.ext.Provider;
 
 import com.owlpad.domain.exception.NoDocFoundException;
 
+/**
+ * @author Jay Paulynice
+ *
+ */
 @Provider
-public class NoResultFoundMapper implements ExceptionMapper<NoDocFoundException> {
+public class NoResultFoundMapper implements
+        ExceptionMapper<NoDocFoundException> {
 
     @Override
     public Response toResponse(final NoDocFoundException e) {
-        return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+        return Response.status(Response.Status.NOT_FOUND)
+                .entity(e.getMessage()).build();
     }
 }
