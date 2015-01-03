@@ -37,46 +37,47 @@ Steps to work:
   <code>git clone https://github.com/julesbond007/owlpad.git</code>
 2. using gradle: import projects in eclipse:
   <code>file-->import-->gradle project-->specify directory-->build model-->finish</code>
-3. Using Jetty: debug as or run as:
-<pre>
-  a. owlpad-app:
-     port: 8080
-     context: /owlpad
-     webappcontext: src/main/webapp
+3. Change service.properties to match url service deployment:
+ owlpad/owlpad-webapp/src/main/resources/META-INF/properties/service.properties
+ <code>serviceUrl=http://localhost:9000/api/v1<code>
 
- web-app is now running: 
- localhost:8080/owlpad/search
+<b>Index API:</b>
 
-  b. owlpad-service-impl:
-     port: 9000
-     context: /
-     webappcontext: src/main/webapp
+| Resource      | Method        | Content-Type      |
+| :-------------|:--------------|:------------------|
+| /api/v1/index | POST          | application/json  |
 
- service is now running: 
- localhost:9000/api/v1/search
-</pre>
+Request Body:
 
-<p>To start index some documents by specifying a 'directoryToIndex'</p>
+| Parameter          | Type       | Required |   Description                |
+| :------------------|:-----------|:---------|:-----------------------------|
+| *directoryToIndex* | String     | Yes      | top level directory to index |
+| *suffix*           | String     | No       |the file type                 |
 
-<b>index api:</b>
-```bash
-$ curl -X POST -H 'Content-Type: application/json' -d 
-'{
-    "directoryToIndex":"/Users/julespaulynice/Documents/ws",
-    "suffix":".java"
-}' 
-'http://localhost:9000/api/v1/index'
-```
+<b>Search API:</b>
 
-<b>search api:</b>
-```bash
-$ curl -X POST -H 'Content-Type: application/json' -d 
-'{
-    "keyWord":"lucene",
-    "hitsPerPage":"10"
-}' 
-'http://localhost:9000/api/v1/search'
-```
+| Resource       | Method        | Content-Type      |
+| :--------------|:--------------|:------------------|
+| /api/v1/search | POST          | application/json  |
+
+Request Body:
+
+| Parameter         | Type       | Required |   Description                  |
+| :-----------------|:-----------|:---------|:-------------------------------|
+| *keyWord*         | String     |Yes       | the key word to find           |
+| *hitsPerPage*     | String     |Yes       | number of results per page     |
+
+
+| Resource       | Method       | Content-Type     |
+| :------------- |:-------------|------------------|
+| /api/v1/search | GET          | application/json |
+
+Request Body:
+
+| Parameter         | Type       | Required |   Description         |
+| ------------------|:-----------|:---------|:----------------------|
+| *docId*           | String     | Yes      |the id of the document |
+
 
 Questions/Comments:
 
