@@ -16,7 +16,6 @@ public class FacetResult {
 
     /** Default constructor */
     public FacetResult() {
-
     }
 
     /**
@@ -34,16 +33,14 @@ public class FacetResult {
     }
 
     /**
-     * @param entry
-     *            the entry to set
+     * @param entry the entry to set
      */
     public void setEntry(final String entry) {
         this.entry = entry;
     }
 
     /**
-     * @param l
-     *            the count to set
+     * @param l the count to set
      */
     public void setCount(final long l) {
         this.count = l;

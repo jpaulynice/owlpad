@@ -25,19 +25,16 @@ public class Layout {
     }
 
     /**
-     * @param layoutType
-     *            the layoutType to set
+     * @param layoutType the layoutType to set
      */
     public void setLayoutType(final LayoutType layoutType) {
         this.layoutType = layoutType;
     }
 
     /**
-     * @param regions
-     *            the regions to set
+     * @param regions the regions to set
      */
     public void setRegions(final List<Region> regions) {
         this.regions = regions;
     }
-
 }

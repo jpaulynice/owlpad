@@ -27,8 +27,7 @@ public class IndexController {
     private final IndexRepository repository;
 
     /**
-     * @param repository
-     *            the index handler
+     * @param repository the index handler
      */
     @Autowired
     public IndexController(final IndexRepository repository) {
@@ -38,10 +37,8 @@ public class IndexController {
     /**
      * Returns index page
      *
-     * @param locale
-     *            the user locale
-     * @param model
-     *            the model as a map
+     * @param locale the user locale
+     * @param model the model as a map
      * @return index page
      */
     @RequestMapping(method = RequestMethod.GET)
@@ -53,8 +50,7 @@ public class IndexController {
      * Index end point. Takes a {@code IndexRequest} object and return the
      * number of files indexed as part of the response
      *
-     * @param indexRequest
-     *            request object
+     * @param indexRequest request object
      * @return {@link IndexResponse} object
      */
     @RequestMapping(method = RequestMethod.POST)

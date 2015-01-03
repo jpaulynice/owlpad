@@ -27,8 +27,7 @@ public interface SearchService {
     /**
      * Method to search for documents.
      *
-     * @param searchRequest
-     *            search request object
+     * @param searchRequest search request object
      * @return {@link Response} object
      */
     @POST
@@ -37,8 +36,7 @@ public interface SearchService {
     /**
      * Method to get a document by id
      *
-     * @param docId
-     *            string document id
+     * @param docId string document id
      * @return {@link Response} object
      */
     @GET

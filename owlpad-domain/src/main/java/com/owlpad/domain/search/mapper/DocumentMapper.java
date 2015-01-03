@@ -15,10 +15,8 @@ import com.owlpad.domain.search.Field;
  */
 public class DocumentMapper {
     /**
-     * @param hit
-     *            elastic search hit
-     * @param pos
-     *            according to relevance
+     * @param hit elastic search hit
+     * @param pos according to relevance
      * @return {@link Document} object
      */
     public static Document map(final SearchHit hit, final int pos) {
@@ -26,10 +24,8 @@ public class DocumentMapper {
     }
 
     /**
-     * @param doc
-     *            lucene document
-     * @param id
-     *            order of relevance
+     * @param doc lucene document
+     * @param id order of relevance
      * @return {@link Document} object
      */
     public static Document map(final org.apache.lucene.document.Document doc,

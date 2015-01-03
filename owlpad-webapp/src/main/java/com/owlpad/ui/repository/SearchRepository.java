@@ -26,8 +26,7 @@ public class SearchRepository {
     private final SearchService service;
 
     /**
-     * @param service
-     *            the search service
+     * @param service the search service
      */
     @Autowired
     public SearchRepository(final SearchService service) {
@@ -37,8 +36,7 @@ public class SearchRepository {
     /**
      * call to the service to search
      *
-     * @param req
-     *            the search request object
+     * @param req the search request object
      * @return {@link SearchResponse} object
      */
     public SearchResponse search(final SearchRequest req) {
@@ -60,8 +58,7 @@ public class SearchRepository {
     /**
      * Get a document content by docId
      *
-     * @param docId
-     *            the document id
+     * @param docId the document id
      * @return {@link DocResponse} object
      */
     public DocResponse search(final String docId) {

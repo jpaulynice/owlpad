@@ -19,8 +19,7 @@ public class ConfigurationRequest {
     }
 
     /**
-     * @param userName
-     *            the userName to set
+     * @param userName the userName to set
      */
     public void setUserName(final String userName) {
         this.userName = userName;

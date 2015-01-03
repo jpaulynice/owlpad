@@ -19,8 +19,7 @@ public class ConfigurationResponse {
     }
 
     /**
-     * @param configuration
-     *            the configuration to set
+     * @param configuration the configuration to set
      */
     public void setConfiguration(final Configuration configuration) {
         this.configuration = configuration;

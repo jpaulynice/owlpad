@@ -23,16 +23,14 @@ public class Region {
     }
 
     /**
-     * @param name
-     *            the name to set
+     * @param name the name to set
      */
     public void setName(final String name) {
         this.name = name;
     }
 
     /**
-     * @param selector
-     *            the selector to set
+     * @param selector the selector to set
      */
     public void setSelector(final String selector) {
         this.selector = selector;

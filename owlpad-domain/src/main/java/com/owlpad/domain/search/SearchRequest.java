@@ -27,8 +27,7 @@ public class SearchRequest {
     }
 
     /**
-     * @param keyWord
-     *            the keyWord to set
+     * @param keyWord the keyWord to set
      */
     public void setKeyWord(final String keyWord) {
         this.keyWord = keyWord;
@@ -42,8 +41,7 @@ public class SearchRequest {
     }
 
     /**
-     * @param resultStart
-     *            the resultStart to set
+     * @param resultStart the resultStart to set
      */
     public void setResultStart(final int resultStart) {
         this.resultStart = resultStart;
@@ -57,8 +55,7 @@ public class SearchRequest {
     }
 
     /**
-     * @param hitsPerPage
-     *            the hitsPerPage to set
+     * @param hitsPerPage the hitsPerPage to set
      */
     public void setHitsPerPage(final int hitsPerPage) {
         this.hitsPerPage = hitsPerPage;
@@ -72,8 +69,7 @@ public class SearchRequest {
     }
 
     /**
-     * @param paging
-     *            the paging to set
+     * @param paging the paging to set
      */
     public void setPaging(final boolean paging) {
         this.paging = paging;

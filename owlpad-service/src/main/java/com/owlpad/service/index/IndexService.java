@@ -25,8 +25,7 @@ public interface IndexService {
      * if file suffix is null then all files are indexed otherwise index those
      * files that end with the suffix.
      *
-     * @param indexRequest
-     *            request object
+     * @param indexRequest request object
      * @return {@link Response} object
      */
     @POST

@@ -22,7 +22,7 @@ import com.owlpad.domain.search.mapper.DocumentMapper;
 
 /**
  * Mapper for search response
- * 
+ *
  * @author Jay Paulynice
  *
  */
@@ -30,10 +30,8 @@ public class SearchResponseMapper {
     /**
      * Map from elastic search searchResponse to internal searchResponse
      *
-     * @param response
-     *            elastic search response
-     * @param from
-     *            result start from
+     * @param response elastic search response
+     * @param from result start from
      * @return internal search response
      */
     public static SearchResponse map(

@@ -14,8 +14,7 @@ import com.owlpad.domain.configuration.Region;
  */
 public class ConfigMapper {
     /**
-     * @param config
-     *            the dto object
+     * @param config the dto object
      * @return configuration domain object
      */
     public static Configuration map(

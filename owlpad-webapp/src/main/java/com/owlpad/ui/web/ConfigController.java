@@ -21,8 +21,7 @@ public class ConfigController {
     private final ConfigRepository repository;
 
     /**
-     * @param repository
-     *            configuration handler
+     * @param repository configuration handler
      */
     @Autowired
     public ConfigController(final ConfigRepository repository) {

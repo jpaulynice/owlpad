@@ -43,16 +43,11 @@ public class SearchResponse {
     /**
      * Default constructor with parameters
      *
-     * @param status
-     *            request status
-     * @param docs
-     *            document results
-     * @param total
-     *            number of documents
-     * @param facets
-     *            search result facets
-     * @param message
-     *            if any exception
+     * @param status request status
+     * @param docs document results
+     * @param total number of documents
+     * @param facets search result facets
+     * @param message if any exception
      */
     public SearchResponse(final StatusType status, final List<Document> docs,
             final long total, final HashMap<String, Facets> facets,
@@ -72,8 +67,7 @@ public class SearchResponse {
     }
 
     /**
-     * @param status
-     *            the status to set
+     * @param status the status to set
      */
     public void setStatus(final StatusType status) {
         this.status = status;
@@ -87,8 +81,7 @@ public class SearchResponse {
     }
 
     /**
-     * @param documents
-     *            the documents to set
+     * @param documents the documents to set
      */
     public void setDocuments(final List<Document> documents) {
         this.documents = documents;
@@ -102,8 +95,7 @@ public class SearchResponse {
     }
 
     /**
-     * @param totalDocuments
-     *            the totalDocuments to set
+     * @param totalDocuments the totalDocuments to set
      */
     public void setTotalDocuments(final long totalDocuments) {
         this.totalDocuments = totalDocuments;
@@ -117,8 +109,7 @@ public class SearchResponse {
     }
 
     /**
-     * @param errorMessage
-     *            the errorMessage to set
+     * @param errorMessage the errorMessage to set
      */
     public void setErrorMessage(final String errorMessage) {
         this.errorMessage = errorMessage;
@@ -132,8 +123,7 @@ public class SearchResponse {
     }
 
     /**
-     * @param facets
-     *            the facets to set
+     * @param facets the facets to set
      */
     public void setFacets(final HashMap<String, Facets> facets) {
         this.facets = facets;

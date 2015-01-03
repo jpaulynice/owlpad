@@ -25,8 +25,7 @@ public class IndexRepository {
     private final IndexService service;
 
     /**
-     * @param service
-     *            the index service handler
+     * @param service the index service handler
      */
     @Autowired
     public IndexRepository(final IndexService service) {
@@ -36,8 +35,7 @@ public class IndexRepository {
     /**
      * Call the API to index and process the response
      *
-     * @param req
-     *            the index request object
+     * @param req the index request object
      * @return {@link IndexResponse} object
      */
     public IndexResponse index(final IndexRequest req) {

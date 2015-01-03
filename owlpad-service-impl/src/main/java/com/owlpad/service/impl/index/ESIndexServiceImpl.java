@@ -63,10 +63,8 @@ public class ESIndexServiceImpl implements IndexService {
     /**
      * Default constructor
      *
-     * @param nodeClientFactoryBean
-     *            factory for ES node client
-     * @throws Exception
-     *             if unable to create object
+     * @param nodeClientFactoryBean factory for ES node client
+     * @throws Exception if unable to create object
      */
     @Autowired
     public ESIndexServiceImpl(final NodeClientFactoryBean nodeClientFactoryBean)
@@ -77,7 +75,7 @@ public class ESIndexServiceImpl implements IndexService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.owlpad.service.index.IndexService#index(com.owlpad.domain.index.
      * IndexRequest)
      */
@@ -148,7 +146,7 @@ public class ESIndexServiceImpl implements IndexService {
      */
     private void getFilesFromDirectory(final File dataDir,
             final List<File> filesToIndex, final String suffix)
-            throws IOException {
+                    throws IOException {
         final File[] files = dataDir.listFiles();
         for (final File f : files) {
             if (f.isDirectory()) {
@@ -164,15 +162,13 @@ public class ESIndexServiceImpl implements IndexService {
     /**
      * Build {@link BulkRequestBuilder} object
      *
-     * @param bulkRequest
-     *            bulk request object
-     * @param filesToIndex
-     *            list of files
+     * @param bulkRequest bulk request object
+     * @param filesToIndex list of files
      * @throws IOException
      */
     private void addDocumentsToBulkRequest(
             final BulkRequestBuilder bulkRequest, final List<File> filesToIndex)
-            throws IOException {
+                    throws IOException {
         for (final File f : filesToIndex) {
             final IndexRequestBuilder rb = createIndexRequestBuilderFromFile(f);
             if (rb != null) {
@@ -185,8 +181,7 @@ public class ESIndexServiceImpl implements IndexService {
      * Create an indexRequestBuilder object give the client, file, id,and
      * content
      *
-     * @param file
-     *            the file
+     * @param file the file
      * @return {@link IndexRequestBuilder} object
      * @throws IOException
      */
@@ -217,18 +212,12 @@ public class ESIndexServiceImpl implements IndexService {
     /**
      * Get json source from file attributes to index
      *
-     * @param content
-     *            the file content
-     * @param filePath
-     *            the file path
-     * @param fileName
-     *            file name
-     * @param author
-     *            the ownser
-     * @param attr
-     *            basic file attributes
-     * @param docType
-     *            file type
+     * @param content the file content
+     * @param filePath the file path
+     * @param fileName file name
+     * @param author the ownser
+     * @param attr basic file attributes
+     * @param docType file type
      * @return {@link XContentBuilder} object
      * @throws IOException
      */

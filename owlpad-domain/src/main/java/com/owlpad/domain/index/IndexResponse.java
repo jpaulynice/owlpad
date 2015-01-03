@@ -28,8 +28,7 @@ public class IndexResponse {
     }
 
     /**
-     * @param documentsIndexed
-     *            the documentsIndexed to set
+     * @param documentsIndexed the documentsIndexed to set
      */
     public void setDocumentsIndexed(final int documentsIndexed) {
         this.documentsIndexed = documentsIndexed;
@@ -43,8 +42,7 @@ public class IndexResponse {
     }
 
     /**
-     * @param status
-     *            the status to set
+     * @param status the status to set
      */
     public void setStatus(final StatusType status) {
         this.status = status;
@@ -58,8 +56,7 @@ public class IndexResponse {
     }
 
     /**
-     * @param errorMessage
-     *            the errorMessage to set
+     * @param errorMessage the errorMessage to set
      */
     public void setErrorMessage(final String errorMessage) {
         this.errorMessage = errorMessage;

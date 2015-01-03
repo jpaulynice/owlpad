@@ -23,19 +23,16 @@ public class Configuration {
     }
 
     /**
-     * @param name
-     *            the name to set
+     * @param name the name to set
      */
     public void setName(final String name) {
         this.name = name;
     }
 
     /**
-     * @param layout
-     *            the layout to set
+     * @param layout the layout to set
      */
     public void setLayout(final Layout layout) {
         this.layout = layout;
     }
-
 }

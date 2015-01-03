@@ -30,8 +30,7 @@ public class SearchController {
     private final SearchRepository repository;
 
     /**
-     * @param repository
-     *            the search repository
+     * @param repository the search repository
      */
     @Autowired
     public SearchController(final SearchRepository repository) {
@@ -41,10 +40,8 @@ public class SearchController {
     /**
      * Returns search page
      *
-     * @param locale
-     *            the user locale
-     * @param model
-     *            the model as a map
+     * @param locale the user locale
+     * @param model the model as a map
      * @return search page
      */
     @RequestMapping(method = RequestMethod.GET)
@@ -53,10 +50,9 @@ public class SearchController {
     }
 
     /**
-     * Search end point
+     * Search documents with the requested criteria
      *
-     * @param searchRequest
-     *            the search request
+     * @param searchRequest the search request
      * @return search results matching the criteria
      */
     @RequestMapping(value = "docs", method = RequestMethod.POST)
@@ -67,10 +63,9 @@ public class SearchController {
     }
 
     /**
-     * Get a document content by id
+     * Search for a specific document matching the id
      *
-     * @param docId
-     *            the document id
+     * @param docId the document id
      * @return document with the specified id
      */
     @RequestMapping(value = "docs/{docId}", method = RequestMethod.GET)

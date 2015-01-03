@@ -24,8 +24,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
     private final ConfigurationDao dao;
 
     /**
-     * @param dao
-     *            the data access object layer
+     * @param dao the data access object layer
      */
     @Autowired
     public ConfigurationServiceImpl(final ConfigurationDao dao) {

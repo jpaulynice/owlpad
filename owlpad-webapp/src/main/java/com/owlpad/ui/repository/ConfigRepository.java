@@ -24,8 +24,7 @@ public class ConfigRepository {
     private final ConfigurationService service;
 
     /**
-     * @param service
-     *            configuration service
+     * @param service configuration service
      */
     @Autowired
     public ConfigRepository(final ConfigurationService service) {
@@ -35,7 +34,7 @@ public class ConfigRepository {
     /**
      * Get application configuration from API
      *
-     * @return {@lin ConfigurationResponse} object
+     * @return {@link ConfigurationResponse} object
      */
     public ConfigurationResponse getConfig() {
         LOG.info("Executing call to get application configuration.");

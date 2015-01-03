@@ -21,8 +21,7 @@ public class ConfigurationDaoImpl implements ConfigurationDao {
     private final ConfigJPARepository repository;
 
     /**
-     * @param repository
-     *            spring/jpa repository
+     * @param repository spring/jpa repository
      */
     @Autowired
     public ConfigurationDaoImpl(final ConfigJPARepository repository) {

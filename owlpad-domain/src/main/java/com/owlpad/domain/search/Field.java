@@ -32,8 +32,7 @@ public class Field {
     }
 
     /**
-     * @param fieldId
-     *            the fieldId to set
+     * @param fieldId the fieldId to set
      */
     public void setFieldId(final String fieldId) {
         this.fieldId = fieldId;
@@ -47,8 +46,7 @@ public class Field {
     }
 
     /**
-     * @param i18nKey
-     *            the i18nKey to set
+     * @param i18nKey the i18nKey to set
      */
     public void setI18nKey(final String i18nKey) {
         this.i18nKey = i18nKey;
@@ -62,8 +60,7 @@ public class Field {
     }
 
     /**
-     * @param name
-     *            the name to set
+     * @param name the name to set
      */
     public void setName(final String name) {
         this.name = name;
@@ -77,8 +74,7 @@ public class Field {
     }
 
     /**
-     * @param fieldType
-     *            the fieldType to set
+     * @param fieldType the fieldType to set
      */
     public void setFieldType(final String fieldType) {
         this.fieldType = fieldType;
@@ -92,8 +88,7 @@ public class Field {
     }
 
     /**
-     * @param value
-     *            the value to set
+     * @param value the value to set
      */
     public void setValue(final String value) {
         this.value = value;
@@ -107,8 +102,7 @@ public class Field {
     }
 
     /**
-     * @param visible
-     *            the visible to set
+     * @param visible the visible to set
      */
     public void setVisible(final boolean visible) {
         this.visible = visible;

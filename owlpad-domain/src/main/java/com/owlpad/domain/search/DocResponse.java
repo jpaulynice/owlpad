@@ -34,24 +34,21 @@ public class DocResponse {
     }
 
     /**
-     * @param status
-     *            the status to set
+     * @param status the status to set
      */
     public void setStatus(final StatusType status) {
         this.status = status;
     }
 
     /**
-     * @param source
-     *            the source to set
+     * @param source the source to set
      */
     public void setSource(final String source) {
         this.source = source;
     }
 
     /**
-     * @param errorMessage
-     *            the errorMessage to set
+     * @param errorMessage the errorMessage to set
      */
     public void setErrorMessage(final String errorMessage) {
         this.errorMessage = errorMessage;

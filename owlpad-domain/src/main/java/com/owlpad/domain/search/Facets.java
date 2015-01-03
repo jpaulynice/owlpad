@@ -23,8 +23,7 @@ public class Facets {
     }
 
     /**
-     * @param facets
-     *            the set of facet results
+     * @param facets the set of facet results
      */
     public Facets(final Set<FacetResult> facets) {
         this.facetResults = facets;
@@ -38,8 +37,7 @@ public class Facets {
     }
 
     /**
-     * @param facetResults
-     *            the facetResults to set
+     * @param facetResults the facetResults to set
      */
     public void setFacetResults(final Set<FacetResult> facetResults) {
         this.facetResults = facetResults;

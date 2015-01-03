@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * A document is simply a file that can be in different formats.
+ * A document is a made up of a list of fields.
  *
  * @author Jay Paulynice
  *
@@ -21,14 +21,12 @@ public class Document {
 
     /** Default constructor */
     public Document() {
-
     }
 
     /**
      * Create document with fields
      *
-     * @param fields
-     *            list of fields for the document
+     * @param fields list of fields for the document
      * */
     public Document(final List<Field> fields) {
         this.setFields(fields);
@@ -42,8 +40,7 @@ public class Document {
     }
 
     /**
-     * @param fields
-     *            the fields to set
+     * @param fields the fields to set
      */
     public void setFields(final List<Field> fields) {
         this.fields = fields;

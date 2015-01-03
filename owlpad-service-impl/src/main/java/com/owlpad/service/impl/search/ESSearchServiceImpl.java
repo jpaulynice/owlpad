@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 
+import org.elasticsearch.action.get.GetRequestBuilder;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchType;
@@ -45,10 +46,8 @@ public class ESSearchServiceImpl implements SearchService {
     /**
      * Default constructor
      *
-     * @param nodeClientFactoryBean
-     *            factory for ES node client
-     * @throws Exception
-     *             if unable to create object
+     * @param nodeClientFactoryBean factory for ES node client
+     * @throws Exception if unable to create object
      */
     @Autowired
     public ESSearchServiceImpl(final NodeClientFactoryBean nodeClientFactoryBean)
@@ -59,7 +58,7 @@ public class ESSearchServiceImpl implements SearchService {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see
      * com.owlpad.service.search.SearchService#search(com.owlpad.domain.search
      * .SearchRequest)
@@ -93,14 +92,11 @@ public class ESSearchServiceImpl implements SearchService {
      * Execute search given parameters. If we're paging, we don't need to add
      * aggregations.
      *
-     * @param paging
-     *            boolean to indicate whether we're paging through the results
-     * @param keyWord
-     *            the key words to search for
-     * @param from
-     *            where results start
-     * @param size
-     *            the number of results to return
+     * @param paging boolean to indicate whether we're paging through the
+     *        results
+     * @param keyWord the key words to search for
+     * @param from where results start
+     * @param size the number of results to return
      * @return response of search
      */
     private org.elasticsearch.action.search.SearchResponse search(
@@ -126,22 +122,22 @@ public class ESSearchServiceImpl implements SearchService {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see com.owlpad.service.search.SearchService#getDocById(java.lang.String)
      */
     @Override
     public Response search(final String docId) {
         checkNotNull(docId, "Document id is required to get document.");
 
-        final DocResponse res = new DocResponse();
-        final GetResponse response = client
-                .prepareGet("owlpad-index", "docs", docId).execute()
-                .actionGet();
+        final GetRequestBuilder builder = client.prepareGet("owlpad-index",
+                "docs", docId);
+        final GetResponse response = builder.execute().actionGet();
         final Map<String, Object> sourceMap = response.getSourceAsMap();
         if (sourceMap == null) {
             throw new NoDocFoundException("No documents found with id: "
                     + docId);
         }
+        final DocResponse res = new DocResponse();
         final String source = (String) sourceMap.get("contents");
         res.setSource(source);
         final GenericEntity<DocResponse> entity = new GenericEntity<DocResponse>(

@@ -35,12 +35,9 @@ InitializingBean, DisposableBean {
     /**
      * Constructor to create node client factory with elastic search parameters.
      *
-     * @param clusterName
-     *            the elastic search cluster name
-     * @param local
-     *            whether the cluster is local or remote
-     * @param enableHttp
-     *            whether to enable http requests
+     * @param clusterName the elastic search cluster name
+     * @param local whether the cluster is local or remote
+     * @param enableHttp whether to enable http requests
      */
     public NodeClientFactoryBean(final String clusterName, final boolean local,
             final boolean enableHttp) {
@@ -116,32 +113,28 @@ InitializingBean, DisposableBean {
     }
 
     /**
-     * @param local
-     *            the local to set
+     * @param local the local to set
      */
     public void setLocal(final boolean local) {
         this.local = local;
     }
 
     /**
-     * @param enableHttp
-     *            the enableHttp to set
+     * @param enableHttp the enableHttp to set
      */
     public void setEnableHttp(final boolean enableHttp) {
         this.enableHttp = enableHttp;
     }
 
     /**
-     * @param clusterName
-     *            the clusterName to set
+     * @param clusterName the clusterName to set
      */
     public void setClusterName(final String clusterName) {
         this.clusterName = clusterName;
     }
 
     /**
-     * @param nodeClient
-     *            the nodeClient to set
+     * @param nodeClient the nodeClient to set
      */
     public void setNodeClient(final NodeClient nodeClient) {
         this.nodeClient = nodeClient;

@@ -25,8 +25,7 @@ public class IndexRequest {
     }
 
     /**
-     * @param suffix
-     *            the suffix to set
+     * @param suffix the suffix to set
      */
     public void setSuffix(final String suffix) {
         this.suffix = suffix;
@@ -40,8 +39,7 @@ public class IndexRequest {
     }
 
     /**
-     * @param directoryToIndex
-     *            the directoryToIndex to set
+     * @param directoryToIndex the directoryToIndex to set
      */
     public void setDirectoryToIndex(final String directoryToIndex) {
         this.directoryToIndex = directoryToIndex;
