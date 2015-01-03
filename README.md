@@ -58,26 +58,42 @@ Steps to work:
 
 <p>To start index some documents by specifying a 'directoryToIndex'</p>
 
-<b>index api:</b>
-```bash
-$ curl -X POST -H 'Content-Type: application/json' -d 
-'{
-    "directoryToIndex":"/Users/julespaulynice/Documents/ws",
-    "suffix":".java"
-}' 
-'http://localhost:9000/api/v1/index'
-```
+<b>Index API:</b>
 
-<b>search api:</b>
-```bash
-$ curl -X POST -H 'Content-Type: application/json' -d 
-'{
-    "keyWord":"lucene",
-    "hitsPerPage":"10"
-}' 
-'http://localhost:9000/api/v1/search'
-```
+| Resource      | Method        | Content-Type      |
+| :-------------|:--------------|:------------------|
+| /api/v1/index | POST          | application/json  |
 
+Request Body:
+
+| Parameter          | Type       | Required |   Description                |
+| :------------------|:-----------|:---------|:-----------------------------|
+| *directoryToIndex* | String     | Yes      | top level directory to index |
+| *suffix*           | String     | No       |the file type                 |
+
+<b>Search API:</b>
+
+| Resource       | Method        | Content-Type      |
+| :--------------|:--------------|:------------------|
+| /api/v1/search | POST          | application/json  |
+
+Request Body:
+
+| Parameter         | Type       | Required |   Description                  |
+| :-----------------|:-----------|:---------|:-------------------------------|
+| *keyWord*         | String     |Yes       | the key word to find           |
+| *hitsPerPage*     | String     |Yes       | number of results per page     |
+
+
+| Resource       | Method       | Content-Type     |
+| :------------- |:-------------|------------------|
+| /api/v1/search | GET          | application/json |
+
+Request Body:
+
+| Parameter         | Type       | Required |   Description         |
+| ------------------|:-----------|:---------|:----------------------|
+| *docId*           | String     | Yes      |the id of the document |
 Questions/Comments:
 
 jay.paulynice@gmail.com
