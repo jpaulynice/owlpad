@@ -38,7 +38,7 @@ Steps to work:
 2. using gradle: import projects in eclipse:
   <code>file-->import-->gradle project-->specify directory-->build model-->finish</code>
 3. Change service.properties to match url service deployment:
- owlpad/owlpad-webapp/src/main/resources/META-INF/properties/service.properties
+ <pre>owlpad/owlpad-webapp/src/main/resources/META-INF/properties/service.properties</pre>
  <code>serviceUrl=http://localhost:9000/api/v1<code>
 
 <b>Index API:</b>
