@@ -11,4 +11,5 @@ import com.owlpad.service.model.Configuration;
  *
  */
 public interface ConfigJPARepository extends JpaRepository<Configuration, Long> {
+    // no declarations
 }
