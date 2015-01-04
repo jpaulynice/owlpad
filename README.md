@@ -28,56 +28,9 @@ Technology stack
 
 Dependencies:
  
-1. Install Gradle
-2. Install Elasticsearch
-
-Steps to work:
-
-1. clone repo: 
-  <code>git clone https://github.com/julesbond007/owlpad.git</code>
-2. using gradle: import projects in eclipse:
-  <code>file-->import-->gradle project-->specify directory-->build model-->finish</code>
-3. Change service.properties to match url service deployment:
- <pre>owlpad/owlpad-webapp/src/main/resources/META-INF/properties/service.properties</pre>
- <code>serviceUrl=http://localhost:9000/api/v1<code>
-
-<b>Index API:</b>
-
-| Resource      | Method        | Content-Type      |
-| :-------------|:--------------|:------------------|
-| /api/v1/index | POST          | application/json  |
-
-Request Body:
-
-| Parameter          | Type       | Required |   Description                |
-| :------------------|:-----------|:---------|:-----------------------------|
-| *directoryToIndex* | String     | Yes      | top level directory to index |
-| *suffix*           | String     | No       |the file type                 |
-
-<b>Search API:</b>
-
-| Resource       | Method        | Content-Type      |
-| :--------------|:--------------|:------------------|
-| /api/v1/search | POST          | application/json  |
-
-Request Body:
-
-| Parameter         | Type       | Required |   Description                  |
-| :-----------------|:-----------|:---------|:-------------------------------|
-| *keyWord*         | String     |Yes       | the key word to find           |
-| *hitsPerPage*     | String     |Yes       | number of results per page     |
-
-
-| Resource       | Method       | Content-Type     |
-| :------------- |:-------------|------------------|
-| /api/v1/search | GET          | application/json |
-
-Request Body:
-
-| Parameter         | Type       | Required |   Description         |
-| ------------------|:-----------|:---------|:----------------------|
-| *docId*           | String     | Yes      |the id of the document |
-
+1. Gradle
+2. Elasticsearch
+3. MySQL database
 
 Questions/Comments:
 
