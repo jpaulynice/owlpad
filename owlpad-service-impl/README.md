@@ -31,11 +31,11 @@ Request Body:
 | *hitsPerPage*     | String     |Yes       | number of results per page     |
 
 
-| Resource       | Method       | Content-Type     |
-| :------------- |:-------------|------------------|
-| /api/v1/search | GET          | application/json |
+| Resource               | Method       | Content-Type     |
+| :----------------------|:-------------|------------------|
+| /api/v1/search/{docId} | GET          | application/json |
 
-Request Body:
+Query params:
 
 | Parameter         | Type       | Required |   Description         |
 | ------------------|:-----------|:---------|:----------------------|
