@@ -3,9 +3,9 @@ jdk:
   - openjdk7
   - oraclejdk7
   - oraclejdk8
-  
 before_install:
  - chmod +x gradlew
- 
 before_script:
   - mysql -e 'create database owlpad_configdb_test;' -u travis
+after_success:
+- coveralls
