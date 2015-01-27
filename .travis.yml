@@ -8,4 +8,4 @@ before_install:
 before_script:
   - mysql -e 'create database owlpad_configdb_test;' -u travis
 after_success:
-- coveralls
+  - ./gradlew cobertura coveralls
