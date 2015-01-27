@@ -1,5 +1,7 @@
 allprojects  {
   apply plugin: 'maven'
+  apply plugin: 'cobertura'
+  apply plugin: 'com.github.kt3k.coveralls'
 
   group = 'com.owlpad.search'
   version = '1.0'
@@ -13,6 +15,11 @@ subprojects {
   repositories {
     mavenLocal()
     maven { url "http://repo.maven.apache.org/maven2" }
+  }
+  
+  dependencies {
+        classpath 'net.saliman:gradle-cobertura-plugin:2.0.0' // cobertura plugin
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.1.0'
   }
   
   test {
