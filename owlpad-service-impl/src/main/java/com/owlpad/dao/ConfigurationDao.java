@@ -9,7 +9,6 @@ import com.owlpad.service.model.Configuration;
  *
  */
 public interface ConfigurationDao {
-
     /**
      * Get application configuration from database
      *
