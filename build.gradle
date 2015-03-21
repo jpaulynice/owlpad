@@ -27,8 +27,9 @@ subprojects {
     }
 
     dependencies {
-        classpath 'net.saliman:gradle-cobertura-plugin:2.0.0' // cobertura plugin
+        classpath 'net.saliman:gradle-cobertura-plugin:2.0.0'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.3.1'
+        coveralls: "org.kt3k.gradle.plugin:coveralls-gradle-plugin:${plugin_versions.coveralls}",
     }
 }
 cobertura.coverageFormats = ['html', 'xml']
