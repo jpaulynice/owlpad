@@ -1,6 +1,6 @@
 allprojects  {
   apply plugin: 'maven'
-  apply plugin: 'cobertura'
+  apply plugin: net.saliman.gradle.plugin.cobertura.CoberturaPlugin
   apply plugin: 'com.github.kt3k.coveralls'
 
   group = 'com.owlpad.search'
