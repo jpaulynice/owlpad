@@ -7,3 +7,8 @@ before_install:
  - chmod +x gradlew
 before_script:
   - mysql -e 'create database owlpad_configdb_test;' -u travis
+env:
+- TERM=dumb
+
+after_success:
+- ./gradlew cobertura coveralls
