@@ -1,7 +1,5 @@
 allprojects  {
   apply plugin: 'maven'
-  apply plugin: 'com.github.kt3k.coveralls'
-  apply plugin: 'jacoco'
   group = 'com.owlpad.search'
   version = '1.0'
 }
