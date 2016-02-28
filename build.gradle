@@ -6,8 +6,8 @@ allprojects  {
 
 subprojects {
   apply plugin: 'java'
-  sourceCompatibility = 1.7
-  targetCompatibility = 1.7
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
 
   repositories {
     mavenLocal()
@@ -18,11 +18,12 @@ subprojects {
     useTestNG()
     
     testLogging {
-        events 'passed'
+      events "passed", "skipped", "failed"    
     }
     
-    beforeTest { descriptor ->
-        logger.lifecycle("Running test: " + descriptor)
+    beforeTest { 
+      descriptor ->
+      logger.lifecycle("Running test: " + descriptor)
     }
- }
+  }
 }
