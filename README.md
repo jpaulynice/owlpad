@@ -1,7 +1,6 @@
 OwlPad
 ==========
 [![Build Status](https://travis-ci.org/julesbond007/owlpad.svg)](https://travis-ci.org/julesbond007/owlpad)
-[![Coverage Status](https://coveralls.io/repos/julesbond007/owlpad/badge.svg)](https://coveralls.io/r/julesbond007/owlpad)
 
 UI Screenshot
 ==========
@@ -32,7 +31,3 @@ Dependencies:
 1. Gradle
 2. Elasticsearch
 3. MySQL database
-
-Questions/Comments:
-
-jay.paulynice@gmail.com
