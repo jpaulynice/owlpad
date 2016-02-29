@@ -1,7 +1,7 @@
 OwlPad
 ==========
 [![Build Status](https://travis-ci.org/julesbond007/owlpad.svg)](https://travis-ci.org/julesbond007/owlpad)
-
+Try it: [Search App](http://julesjaypaulynice.com:8080/owlpad/search)
 UI Screenshot
 ==========
 ![Settings Window](https://raw.github.com/julesbond007/owlpad/master/owlpad-webapp/src/main/webapp/resources/img/screenshot.png)
