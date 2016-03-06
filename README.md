@@ -2,7 +2,7 @@ OwlPad
 ==========
 [![Build Status](https://travis-ci.org/julesbond007/owlpad.svg)](https://travis-ci.org/julesbond007/owlpad)
 
-The app is deployed on my blog here: [Owlpad Search](http://julesjaypaulynice.com:8080/rec/api/v1/users/1/recommendations?limit=2)
+The app is deployed on my blog here: [Owlpad Search](http://julesjaypaulynice.com:8080/owlpad/search)
 
 UI Screenshot
 ==========
